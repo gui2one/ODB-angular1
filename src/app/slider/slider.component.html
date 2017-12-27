@@ -1,0 +1,53 @@
+
+<div class="slider-wrapper container" 
+                (touchstart)="onTouchStart($event)"
+                (mousedown)="onMouseDown($event)" 
+                (click)="onClick($event)"
+                (touchend)="onMouseUp($event)"
+                (mouseup)="onMouseUp($event)" 
+                (mouseleave)="onMouseLeave($event)"
+
+                (touchmove)="onMouseMove($event)"
+                (mousemove)="onMouseMove($event)" 
+                (mouseenter)="onMouseEnter($event)" 
+                (window:resize)="onResize($event)"
+                >
+
+  <div class="slides-container" draggable>
+    <div *ngFor="let item of items; let i = index" [attr.data-index]="i" class="d-inline-block">
+      <div class="slider-image-container " [ngStyle]="{                                      
+                                      'background-image':'url('+item.url+')',
+                                      'width':containerWidth+'px',
+                                      'left': (i * containerWidth) +'px'
+                                      }">
+        &nbsp;
+
+      </div>
+    </div>
+
+  </div>
+
+  <img id="sliderArrowPrev" src="/assets/img/slider_next.png" class="arrow arrow-left align-self-center" 
+          (click)="prevSlide()"
+          (mousedown)="onArrowDown($event)"
+          (touchstart)="prevSlide()">
+
+  <div *ngIf="bDisplayNavigation" class="slider-navigation-container">
+    <div  *ngFor="let item of items; let i = index" [attr.data-index]="i">
+      <div class="slider-navigation-bullet slider-navigation-bullet-active" *ngIf="i==currentId" (click)="onBulletClick($event,i)" (touchstart)="onBulletClick($event,i)"></div>
+      <div class="slider-navigation-bullet" *ngIf="i!=currentId" (click)="onBulletClick($event,i)" (touchstart)="onBulletClick($event,i)"></div>
+    </div>
+  </div>
+
+  <img src="/assets/img/slider_next.png" class="arrow float-right align-self-center" 
+          (click)="nextSlide()" 
+          (mousedown)="onArrowDown($event)" 
+          (touchstart)="nextSlide()">
+     
+</div>
+
+
+<!--
+<p id="slider-current-field">{{currentId}}</p>
+<p id="slider-position-field">{{sliderPositionX}}</p>
+-->

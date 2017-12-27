@@ -1,0 +1,24 @@
+:host >>>.slider-wrapper{
+    margin-top:50px !important;
+    margin-bottom:50px !important;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.card-block{
+
+    padding:1.25rem;
+}
+
+img {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+agm-map{
+    height:300px;
+}
