@@ -1,7 +1,32 @@
-<div class="container header">
-  <div class="empty-header"></div>
-  <app-menu></app-menu>
-</div>
-<br>
-<br>
-<br>
+<app-menu></app-menu>
+<!-- <div class="jumbotron header" [defaultImage]="defaultImage" [lazyLoad]="backgroundImage" [offset]="offset"> -->
+<!-- <div class="header" [defaultImage]="defaultImage" [lazyLoad]="backgroundImage"> -->
+  <!-- <div class="empty-header"></div> -->
+  <div id="header_wrapper">
+      <video autoplay defaultMuted loop id="video"  src="assets/img/loeuf_dubreil_FINAL_03.mp4">
+       
+      </video>
+
+      <div *ngIf="!isPlaying">
+        <div class="video-controls" (click)="onClickPlay($event)">
+          <i id="playButton" class="fas fa-play-circle" ></i>
+        </div>
+
+      </div>
+      <div *ngIf="isPlaying">
+        <div class="video-pause" (click)="onClickPause($event)">
+          <i id="pauseButton" class="fas fa-pause-circle"></i>
+        </div>
+
+      </div>
+      
+  <div class="title-wrapper">
+    <span class="title">L'Oeuf du Breil</span>
+    <span class="sub-title">Oh les bons neuneufs !</span>
+  </div>
+
+  </div>
+  
+<!-- </div> -->
+
+

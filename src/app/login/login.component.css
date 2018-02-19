@@ -1,0 +1,28 @@
+.login-form{    
+    
+    width:300px;
+    margin:auto;
+    display:flex;
+    flex-direction: column;
+
+    margin-top: 150px;
+    margin-bottom: 50px;
+    padding: 10px;
+    padding-bottom: 20px;
+
+    border:1px solid rgba(184, 167, 97, 0.734);
+    border-radius: 15px;
+    box-shadow: 5px 5px 0px 3px #bfc3a47c;
+}
+
+
+
+
+
+
+.form-item{
+    width: 200px;
+    margin:auto;
+    display: inline-flex;
+    margin-top:10px;
+}

@@ -1,5 +1,5 @@
 
-<div class="slider-wrapper container" 
+<div class="slider-wrapper" 
                 (touchstart)="onTouchStart($event)"
                 (mousedown)="onMouseDown($event)" 
                 (click)="onClick($event)"
@@ -13,9 +13,9 @@
                 (window:resize)="onResize($event)"
                 >
 
-  <div class="slides-container" draggable>
+  <div #slidesContainer class="slides-container" draggable>
     <div *ngFor="let item of items; let i = index" [attr.data-index]="i" class="d-inline-block">
-      <div class="slider-image-container " [ngStyle]="{                                      
+      <div [ngClass]="bBackgroundContain ? 'contain' : '' " class="slide-image-container" [ngStyle]="{                                      
                                       'background-image':'url('+item.url+')',
                                       'width':containerWidth+'px',
                                       'left': (i * containerWidth) +'px'
@@ -26,24 +26,34 @@
     </div>
 
   </div>
+  <div id="arrow-prev-container" class="w-25 h-100 d-flex flex-col justify-items-center"
+   
+            (click)="prevSlide()"
+            (mousedown)="onArrowDown($event)"
+            (touchend)="prevSlide()">
+    <img id="sliderArrowPrev" src="assets/img/slider_next.png" class="arrow arrow-prev align-self-center">
 
-  <img id="sliderArrowPrev" src="/assets/img/slider_next.png" class="arrow arrow-left align-self-center" 
-          (click)="prevSlide()"
-          (mousedown)="onArrowDown($event)"
-          (touchstart)="prevSlide()">
+  </div>  
 
+  <div id="arrow-next-container" class="w-25 h-100 d-flex flex-col justify-items-center justify-content-end"
+                
+            (click)="nextSlide()"
+            (mousedown)="onArrowDown($event)"
+            (touchend)="nextSlide()">
+    <img id="sliderArrowNext" src="assets/img/slider_next.png" class="arrow float-right align-self-center">
+  </div>
+
+  <div id="scaleGalleryIcon" (click)="scaleGalleryIcon($event)" (touchend)="scaleGalleryIcon($event)">
+    <img *ngIf="bBackgroundContain" src="assets/img/scale_gallery_image_icon.png" alt="scale gallery image button">
+    <img *ngIf="!bBackgroundContain" src="assets/img/scale_gallery_image_icon_2.png" alt="scale gallery image button">
+  </div>
   <div *ngIf="bDisplayNavigation" class="slider-navigation-container">
-    <div  *ngFor="let item of items; let i = index" [attr.data-index]="i">
-      <div class="slider-navigation-bullet slider-navigation-bullet-active" *ngIf="i==currentId" (click)="onBulletClick($event,i)" (touchstart)="onBulletClick($event,i)"></div>
+    <div *ngFor="let item of items; let i = index" [attr.data-index]="i">
+      <div class="slider-navigation-bullet slider-navigation-bullet-active" *ngIf="i==currentId" (click)="onBulletClick($event,i)"
+        (touchstart)="onBulletClick($event,i)"></div>
       <div class="slider-navigation-bullet" *ngIf="i!=currentId" (click)="onBulletClick($event,i)" (touchstart)="onBulletClick($event,i)"></div>
     </div>
   </div>
-
-  <img src="/assets/img/slider_next.png" class="arrow float-right align-self-center" 
-          (click)="nextSlide()" 
-          (mousedown)="onArrowDown($event)" 
-          (touchstart)="nextSlide()">
-     
 </div>
 
 

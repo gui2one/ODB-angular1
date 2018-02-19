@@ -1,5 +1,5 @@
 open angular_test
 
-synchronize remote D:\CODE\web_playground\angular\myApp\dist\ /var/www/html/
+synchronize remote D:\CODE\web_playground\angular\myApp\dist\test\ /var/www/html/test/
 
 exit

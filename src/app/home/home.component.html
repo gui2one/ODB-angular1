@@ -1,55 +1,112 @@
-<div class="container">
+<!-- <div *ngIf="fireAuth.authState | async as user">
+  <p>Hello {{user.email}}</p>
+</div> -->
 
-<div class="row">
+<!-- <div><p>Hello</p></div> -->
+<div class="wrapper">
 
+<ng-container *ngIf="bSiteIsOnline || adminLoggedIn">
+<ng-container *ngIf="!bSiteIsOnline"><div id="site_offline">Site Offline</div></ng-container>
+  <app-header id="header_part"></app-header>
+  <div id="about_part" class="">
 
-  <div class="col-md-8">
-    <div class="card">
-      <div class="card-block">
-        
-        <p class="card-text">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, cupiditate sunt rem architecto rerum vel perspiciatis delectus quod nemo sed sapiente dicta expedita quidem, quae corrupti omnis, iure aspernatur recusandae!
-        </p>
-        
-      </div>
-      
-      <div class="card-block">
-        
-      </div>
-      <img src="/assets/img/oeufs_2.jpg" alt="oeufs et un panier" class="card-img-bottom">
-    </div>
-  </div>
-
-  <div class="col-md-4">
+    <app-header-title name="title_qui" text="Qui Sommes-nous ?"></app-header-title>
   
-    <div class="card">
-      <div class="card-block">
-        <!-- <div class="container"> -->
-        <h5 class=card-title>Qui Sommes-Nous ? éçà</h5>
-        <hr />
-        <!-- </div> -->
+    <div class="container cards-container">
+        <div class="row no-gutters">
+          <div class="card-wrapper  col-xl-3 col-md-6 p-lg-3">
+            <div class="card-dark " >
+                
+              <app-service-box iconStr="fa fa-cogs"></app-service-box>
+        
+            </div>
+          </div>  
+          <div class="card-wrapper col-xl-3 col-md-6 p-lg-3">
+            <div class="card-dark">  
+
+              <app-service-box iconStr="fa fa-hourglass-half"></app-service-box>
+
+            </div>
+          </div>
+
+          <div class="card-wrapper col-xl-3 col-md-6 p-lg-3">
+
+          
+            <div class="card-dark">
+            
+            <app-service-box iconStr="fa fa-compass"></app-service-box>
+
+            
+            </div>
+          </div>
+
+          <div class="card-wrapper col-xl-3 col-md-6 p-lg-3">
+            <div class="card-dark">
+            
+            <app-service-box iconStr='fa fa-file-alt'></app-service-box>
+            
+            </div>
+
+          </div>
+          
+        </div>
+
+    </div>
+  </div>
+  <div id="contact_part" class="">
+
+    <div class="row no-gutters ">
+      <div class="col-md-3 col-lg-6 no-gutters d-none d-md-block">
+        
       </div>
-      <div class="card-block">
-        <p class="card-text">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum numquam, at tenetur cum laudantium sunt quisquam! Quos nam
-          magni, qui quisquam distinctio maxime doloribus quae, nobis adipisci corrupti aut obcaecati.
-        </p>
+
+      <div class="col-md-9 col-lg-6 no-gutters dark-bg">
+      
+        <app-header-title name="title_ou" text="Où Sommes-nous ?"></app-header-title>
+        <div class="">
+          
+          <div class="row no-gutters">
+            <div class="address">
+              <div class="address-box">
+                <p>Addresse : L'oeuf du Breil <br>35780 Le Breil</p>
+              </div>
+              <div class="address-box">
+                <p> Et pis d'autres infos </p>
+              </div>
+            </div>
+          </div>
+          <div class="row no-gutters">
+            
+              <div class="map-div">
+              <agm-map [latitude]="48.225762" [longitude]="-1.707568" [zoom]=17>
+                <agm-marker [latitude]="48.225762" [longitude]="-1.707568" [label]="{text:'Oeuf du Breil'}" ></agm-marker>
+              </agm-map>
+              </div>
+            
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+<!-- <div class="map-div">
+  <agm-map [latitude]="48.225762" [longitude]="-1.707568" [zoom]=17>
+    <agm-marker [latitude]="48.225762" [longitude]="-1.707568" [label]="{text:'Oeuf du Breil'}"></agm-marker>
+  </agm-map>
+</div> -->
+  <!-- <app-image-loader [imgSrc]="'/assets/img/oeufs_2.jpg'"></app-image-loader> -->
+<div id="gallery_part">
+  <app-header-title name="title_gallery" text="Quelques Images :"></app-header-title>
+  <app-slider sliderHeight="65vh" [items]=sliderItems [bBackgroundContain]=true [bDisplayNavigation]=true autoPlay=true autoPlayDelay=6 [bIsDraggable]=false></app-slider>
+
 </div>
+  <app-header-title name="title_contact" text="Nous Contacter."></app-header-title>
+  <app-footer></app-footer>
+
+</ng-container> <!-- end if online -->
+
+<ng-container *ngIf="!bSiteIsOnline && !adminLoggedIn">
+  <div class="container">En cours de construction</div>
+</ng-container>
 </div>
-
-<div class="container">
-  <agm-map [latitude]="40.0" [longitude]="50.0">
-    </agm-map>
-</div>
-
-
-<app-slider [bDisplayNavigation]=true [sliderHeight]=100></app-slider>
-
-<app-footer></app-footer>
-
-
-
  

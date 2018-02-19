@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Directive, Input, Output, ElementRef, Renderer } from '@angular/core';
-import * as jQuery from 'jquery'; // into app.component.ts
+import * as $ from 'jquery'; // into app.component.ts
 import { inspectNativeElement } from '@angular/platform-browser/src/dom/debug/ng_probe';
 
 
@@ -11,7 +11,7 @@ import { NgModule } from '@angular/core/src/metadata/ng_module';
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.css'],
+  styleUrls: ['./slider.component.scss'],
   // animations:[{ transition :"none"}]
   
 })
@@ -19,14 +19,32 @@ import { NgModule } from '@angular/core/src/metadata/ng_module';
 
 export class SliderComponent implements OnInit{
 
+  @ViewChild('slidesContainer') slidesContainer: ElementRef;
+
   @Input()
   items : Array<object> = [];
+
+  @Input()
+  bBackgroundContain : boolean = false;
   
   @Input()
-  sliderHeight : number = 300;
+  sliderHeight : string = "60vh";
 
   @Input()
   bDisplayNavigation : boolean = true;
+  
+  @Input()
+  showNumImage : number = 1;
+
+  @Input()
+  autoPlay: boolean = true;
+
+  @Input()
+  autoPlayDelay : number = 15; //seconds
+  prevArrowEl: object;
+  nextArrowEl: object;
+
+  @Input() bIsDraggable : boolean = false;
 
   topComponent : object;
   currentId : number = 0;
@@ -45,19 +63,31 @@ export class SliderComponent implements OnInit{
   sliderPositionX : number;
 
   container : any;
+
   root : any;
   animationPlayer; 
 
-  autoPlay : boolean = true;
+  bDataFound : boolean = false;
+
   autoplayInterval : number;
   autoPlayReverse : boolean = false;
+
+
+  //trying to use dragging and arrows at the same time so creating some booleans to test for arrow press
+  bArrowPrevPressed : boolean = false;
+  bArrowNextPressed: boolean = false;
   constructor(private el: ElementRef) {
-    this.items = [
-      { url: "assets/img/oeufs_1.jpg" },
-      { url: "assets/img/oeufs_2.jpg" },
-      { url: "assets/img/oeufs_1.jpg" },
-      { url: "assets/img/oeufs_1.jpg" },
-    ]; 
+
+    // console.log(this.items);
+    if(this.items.length === 0){
+
+      this.items = [
+        { url: "assets/img/oeufs_1.jpg" },
+        { url: "assets/img/oeufs_2.jpg" },
+        // { url: "assets/img/oeufs_1.jpg" },
+        // { url: "assets/img/oeufs_1.jpg" },
+      ]; 
+    }
 
     
     this.deltaX = 0.0;
@@ -72,22 +102,41 @@ export class SliderComponent implements OnInit{
   
   ngOnInit()
   {
-    console.log(this.el.nativeElement);
+    
     this.container = this.el.nativeElement.children[0];
-    jQuery(this.container).css({ height:this.sliderHeight});
-    //console.log(this.el.nativeElement.children[4]);
+
+    
+    $(this.container).css({ height:this.sliderHeight});
+    console.log($(this.container));
+    console.log($(this.container).height());
     this.initSize();
-    // this.root = jQuery(this.container.firstChild);
-    this.root = jQuery(this.el.nativeElement.children[0].children[0]);   
+
+    this.root = $(this.el.nativeElement.children[0].children[0]);   
     
     if(this.autoPlay){
       this.autoPlaySlider();
     }
+
+    this.prevArrowEl = document.getElementById("sliderArrowPrev");
+    this.nextArrowEl = document.getElementById("sliderArrowNext");
+    
+    if(this.currentId === 0){
+      $(this.prevArrowEl).css({ visibility:'hidden'});
+    }
+    if(this.currentId === this.items.length - this.showNumImage){
+      $(this.nextArrowEl).css({ visibility: 'hidden' });
+    }
+  }
+
+  ngAfterViewInit(){
+    // $('#scaleGalleryIcon').css({
+    //   opacity : 0.2
+    // })
   }
 
   initSize()
   {
-    this.containerWidth = this.container.offsetWidth / 1.0;   
+    this.containerWidth = this.container.offsetWidth / this.showNumImage;   
   }
 
   nextSlide()
@@ -119,45 +168,64 @@ export class SliderComponent implements OnInit{
 
   onMouseDown(event)
   {
-  
+
     event.preventDefault();
     event.stopPropagation();
     this.root.addClass('no-transition');
     this.isMouseDown = true;
+    this.autoPlay = false;
+    
   }
 
   onTouchStart(event)
   {
-    console.log(event.type);
-    event.preventDefault();
-    event.stopPropagation();
-    // this.root.addClass('no-transition');
-    this.isMouseDown = true;
+    if(this.bIsDraggable){
+      
+      // console.log(event.type);
+      // event.preventDefault();
+      // event.stopPropagation();
+      
+      this.isMouseDown = true;
+      this.autoPlay = false;
+    }
+    // console.log(event.type);
     this.autoPlay = false;
-  
+    window.clearInterval(this.autoplayInterval);
   }
 
 
   onClick(event)
   {
-    console.log("click !!! ");
+    
     event.preventDefault();
     event.stopPropagation();
 
     this.root.removeClass("no-transition");
+    this.autoPlay = false;
+    window.clearInterval(this.autoplayInterval);
     
   }
   
+  onArrowPrevClick(event){
+    this.bArrowPrevPressed = true;
+    this.prevSlide();
+  }
+
+  onArrowNextClick(event) {
+    this.bArrowNextPressed = true;
+    // this.nextSlide();
+  }
+
   onArrowDown(event)
   {
-    event.preventDefault();
-    event.stopPropagation();
+    // event.preventDefault();
+    // event.stopPropagation();
     
     this.root.removeClass('auto-play-transition');
     this.root.removeClass('no-transition');    
     this.autoPlay = false;
     window.clearInterval(this.autoplayInterval);
-    console.log(event.type);
+    
   }
 
   onMouseUp(event) 
@@ -171,11 +239,12 @@ export class SliderComponent implements OnInit{
     if(this.isDragging){
       
       if ((this.accuX) > this.containerWidth / 4.0 ){
-      
-        if (this.currentId >  0)
+        
+        if (this.currentId > 0)
         {
           this.currentId--;
         }
+
         
       } else if (this.accuX < -this.containerWidth / 4.0){
       
@@ -189,19 +258,32 @@ export class SliderComponent implements OnInit{
     }
     this.accuX = 0.0;
   }  
+  scaleGalleryIcon(event){
+    this.bBackgroundContain = !this.bBackgroundContain;
 
+  }
 
   onMouseLeave(event) 
   {    
     this.animateSlider(this.currentId);
     this.isMouseDown = false;
     this.accuX = 0.0;
+    // $('#scaleGalleryIcon').css({
+    //   opacity: 0.2
+    // })
+    // console.log("mouse leave");
   } 
-
+  
+  onMouseEnter(event) {
+    // $('#scaleGalleryIcon').css({
+    //   opacity: 0.9
+    // })
+    //   console.log("mouse enter");
+  }  
   onMouseMove(event) 
   {    
 
-    if( this.isMouseDown)
+    if(this.isMouseDown && this.bIsDraggable)
     {
       this.root.removeClass('auto-play-transition');
       this.root.addClass('no-transition');
@@ -216,7 +298,6 @@ export class SliderComponent implements OnInit{
       }else{
         x = event.clientX;
         y = event.clientY;
-
       }
       this.isDragging = true;
       if(this.lastX !== null ){
@@ -233,16 +314,31 @@ export class SliderComponent implements OnInit{
       this.root.css({
         transform: "translate(" + this.sliderPositionX + "px,0)"
       });      
+    }else{
+      let x: number;
+      let y: number;
+
+      if (event.type === 'touchmove') {
+        x = event.touches[0].clientX;
+        y = event.touches[0].clientY;
+      } else {
+        x = event.clientX;
+        y = event.clientY;
+      }
+      if (this.lastX !== null) {
+        this.deltaX = x - this.lastX;
+        this.lastX = x;
+      } else {
+        this.lastX = x;
+      }
     }
 
   }
 
-  onMouseEnter(event) {
-      // console.log("mouse enter");
-  }  
 
   onResize(event){
     this.initSize();    
+    this.animateSlider(this.currentId);
   }
 
   animateSlider(id : number){
@@ -251,15 +347,25 @@ export class SliderComponent implements OnInit{
 
     this.root.css({ transform: 'translate(' + this.sliderPositionX +'px,0)'});
 
+    if (this.currentId === 0) {
+      $(this.prevArrowEl).css({ visibility: 'hidden' });
+    }else{
+      $(this.prevArrowEl).css({ visibility: 'visible' });
+    }
+    if (this.currentId === this.items.length - this.showNumImage) {
+      $(this.nextArrowEl).css({ visibility: 'hidden' });
+    }else{
+      $(this.nextArrowEl).css({ visibility: 'visible' });
+    }
   }
 
   onBulletClick(event, id){
 
     event.preventDefault();
     event.stopPropagation();
-    // console.log(event.type, id);
+    
     this.root.removeClass("no-transition");
-    this.root.addClass("auto-play-transition")
+    this.root.addClass("auto-play-transition");
     this.autoPlay = false;
     window.clearInterval(this.autoplayInterval);
     this.currentId = id;
@@ -269,7 +375,7 @@ export class SliderComponent implements OnInit{
   }
 
   autoPlaySlider(){
-    this.autoplayInterval = setInterval(this.autoPlayFunction.bind(this),3000)
+    this.autoplayInterval = setInterval(this.autoPlayFunction.bind(this),this.autoPlayDelay * 1000)
   }
 
   autoPlayFunction(){

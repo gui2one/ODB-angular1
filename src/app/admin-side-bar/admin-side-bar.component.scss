@@ -1,0 +1,66 @@
+#side-bar-wrapper{
+
+    width:250px;
+    height:100%;
+    position : fixed;
+    // top:0px;
+    // left: 0px;
+    background-color: orange;
+    color: white;
+    &.collapsed{
+        width:50px;
+        // background-color: red;
+    }      
+    @media screen and (max-width:800px) {
+        width:150px;
+    }
+}
+
+.toggler{
+    display: block;
+    font-size: 50px;
+    user-select: none;
+    cursor: pointer;
+    line-height: 1.0;
+    margin:0px;
+    padding-right:10px;
+    // border: 1px solid black;
+
+    &:hover{
+        background-color: rgba(255,255,255,0.2);
+    }
+}
+
+.side-bar-button{
+    padding:5px;
+    text-align: end;
+    width:100%;
+    font-size : 1.5rem;
+    color: white;
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+    @media screen and (max-width:800px) {
+        font-size : 1rem;
+    }    
+    // color: white;
+
+    &:hover{
+        background-color: rgba(255,255,255,0.2);
+    }
+    &:first-child{
+        border-top: 3px solid white;
+    }
+
+    a{
+        
+        // text-decoration: none;
+        &:hover{
+            color : rgba(255,255,255,0.5);
+        }
+    }
+    svg{
+        // color:white;
+        font-size : 2rem;
+        vertical-align: middle;
+    }
+}
+

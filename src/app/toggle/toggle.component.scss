@@ -1,0 +1,111 @@
+@import "./node_modules/compass-mixins/lib/compass/css3";
+
+$toggle-height: 30px;
+$toggle-width: 60px;
+$switch-size: 30px;
+
+$anim-slight-bounce: cubic-bezier(0.34,1.61,0.7,1);
+$anim-speed-normal: 250ms;
+
+$border-color: #dadde1;
+$blue: #439fd8; // Guidebook blue
+
+//   BASE
+// -------------------------------------
+
+
+.tgl {
+
+  position: relative;
+  display: inline-block;
+  height: $toggle-height;
+  vertical-align: middle;
+  cursor: pointer;
+
+  > input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1; /* Put the input behind the label so it doesn't overlay text */
+    visibility: hidden;
+  }
+
+  .tgl_body {
+    width: $toggle-width;
+    height: $toggle-height;
+    background: white;
+    border: 1px solid $border-color;
+    display: inline-block;
+    position: relative;
+    border-radius: 10px;
+  }
+
+  .tgl_switch {
+    width: $toggle-height;
+    height: $toggle-height;
+    display: inline-block;
+    background-color: white;
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    border-radius: 10px;
+    border: 1px solid darken($border-color, 5%);
+    @include box-shadow(0 2px 2px rgba(0,0,0,.13));
+    @include transition(left $anim-slight-bounce $anim-speed-normal, transform $anim-slight-bounce $anim-speed-normal);
+    z-index: 1;
+  }
+
+  .tgl_track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  .tgl_bgd {
+    position: absolute;
+    right: -10px; // 10 compensates for animation bounce
+    top: 0;
+    bottom: 0;
+    width: $toggle-width - ($switch-size / 2) + 10; // 10 compensates for animation bounce
+    @include transition(left $anim-slight-bounce $anim-speed-normal, right $anim-slight-bounce $anim-speed-normal);
+    background: $blue url('/assets/img/tgl_check.png') center center no-repeat;
+  }
+
+  .tgl_bgd-negative {
+    right: auto;
+    left: -($toggle-width - ($switch-size / 2));
+    background: white url('/assets/img/tgl_x.png') center center no-repeat;
+  }
+
+  &:hover {
+    .tgl_switch {
+      border-color: darken($border-color, 13%);
+      @include transform(scale(1.06));
+    }
+  }
+
+  &:active {
+    .tgl_switch {
+      @include transform(scale(.95));
+    }
+  }
+
+  > :not(:checked) ~ .tgl_body {
+
+    > .tgl_switch {
+      left: $toggle-width - $switch-size;
+    }
+
+    .tgl_bgd {
+      right: -($toggle-width - ($switch-size / 2));
+
+      &.tgl_bgd-negative {
+        right: auto;
+        left: -10px;
+      }
+    }
+  }
+}

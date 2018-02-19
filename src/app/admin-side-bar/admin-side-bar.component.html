@@ -1,0 +1,30 @@
+<div id="side-bar-wrapper" class="d-flex flex-column align-items-end">
+  <div id="toggler-button" (click)="onTogglerButtonClick($event)">
+   <span class="toggler" *ngIf="!bSideBarCollapsed">&laquo;</span>
+   <span class="toggler" *ngIf="bSideBarCollapsed">&raquo;</span>
+  </div>
+  <div class="w-100 d-flex flex-column">
+ 
+
+
+  <a routerLink="/admin" class="side-bar-button" href="#">
+    <div>
+      <ng-container *ngIf="!bSideBarCollapsed">Admin Panel </ng-container>
+      <i class="fas fa-home"></i>
+    </div>
+  </a>
+  <a routerLink="/admin/gallery_manager" class="side-bar-button" href="#">
+    <div >
+      <ng-container *ngIf="!bSideBarCollapsed">Gallery Manager </ng-container>
+      <i class="fas fa-images"></i>
+    </div>
+  </a>
+  <a routerLink="/admin/uploads" class="side-bar-button" href="#">
+    <div>
+      <ng-container *ngIf="!bSideBarCollapsed">Images Manager </ng-container>
+      <i class="fas fa-upload"></i>
+    </div>
+  </a>
+  </div>
+
+</div>

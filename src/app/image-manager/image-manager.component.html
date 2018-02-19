@@ -1,0 +1,43 @@
+
+<div id="errorLog"></div>
+<div class="wrapper"  *ngIf="bLoggedIn">
+
+  <div class="container">
+    
+    <form id="uploadForm" action="" method="POST" enctype="multipart/form-data">
+      <input id="fileInput" type="file" name="file">
+      <button type="submit" name="submit" (click)="uploadFile($event)">Upload</button>
+    </form>
+  <form id="uploadFormDrop" method="post" action="" enctype="multipart/form-data">
+    <input type="file" hidden>
+    <input id="fileDragName" hidden>
+    <input id="fileDragSize" hidden>
+    <input id="fileDragType" hidden>
+    <input id="fileDragData" hidden>
+    <div id="holder">
+      <p>Glissez vos fichiers ici</p>
+    </div>
+  </form>
+
+    <div class="images-wrapper">
+      <div *ngFor="let item of imageUrls; let i = index">
+        <div  class="item-container" [style.background-image]="'url(assets/img/uploads/' + item + ')'"  (click)="onItemClick($event, item)" id="{{i}}">
+          <!-- <img class="image-item" src="/assets/img/uploads/{{item}}" id="{{i}}"  (click)="onItemClick($event, item)"> -->
+          <button class="btn btn-danger btn-delete btn-sm" (click)="onDeleteClick($event,item)">X</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to confirm?</p>
+    <button type="button" class="btn btn-default" (click)="confirmDelete($event)">Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+  </div>
+</ng-template>
+

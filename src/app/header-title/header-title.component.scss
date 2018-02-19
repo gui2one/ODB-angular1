@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster|Roboto|Open+Sans');
+@import "./node_modules/compass-mixins/lib/compass/css3";
+
+$primaryColor : #333;
+$primaryFontColor : white;
+
+$secondaryColor :  orange;
+$secondaryFontColor: #111;
+
+$font1 : "Open Sans";
+$font2 : "Roboto";
+
+$small : 576px;
+$medium : 768px;
+$large : 992px;
+$extraLarge : 1200px;
+
+.title{
+    @include transition-property(all);
+    @include transition-duration(0.5s);
+    @include transition-delay(0.3s);
+    @include transition-timing-function(cubic-bezier(0.2,1.5,0.5,1.0));
+    margin-left : -200px;
+    opacity : 0;
+    border : 1px;
+
+
+}
+.title-container{
+
+    position:relative;
+    // background-color: #4b4b4b;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    
+    @media screen and (max-width : $small){
+         height: 100px;
+    }
+
+}
+h1{
+    // display:inline-block;
+    position:relative;    
+    // left : 0px;
+    // top: -50px;
+
+    font-family : $font1;
+    font-weight:lighter;
+
+    color : $secondaryColor;
+    @media screen and (max-width : $small){
+        font-size : 1.5em;
+    }
+    // border:1px solid black;
+}
+hr{
+    width:100%;
+    border : 1px solid $secondaryColor;
+}

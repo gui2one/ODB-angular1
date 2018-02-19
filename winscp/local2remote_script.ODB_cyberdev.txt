@@ -1,0 +1,9 @@
+open œuf@net4.cyberdev.fr
+
+synchronize remote D:\CODE\web_playground\angular\myApp\dist\test\ /httpdocs/test/
+
+
+chmod 777 /httpdocs/test/assets/data
+chmod 777 /httpdocs/test/assets/img/uploads
+
+exit

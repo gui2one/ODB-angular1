@@ -1,0 +1,34 @@
+
+  <nav class="navbar navbar-expand-sm navbar-light bg-light ">
+    <!-- <a routerLink="/admin" class="navbar-brand" href="#">Admin Panel</a> -->
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse" id="navbarsExample04">
+
+
+      <ul class="navbar-nav ml-auto" *ngIf="bLoggedIn">
+        <li class="nav-item dropdown">
+            <button class="dropdown-toggle connected" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Connected as {{userEmail}}</button>
+          
+                        <div class="dropdown-menu" aria-labelledby="dropdown04">
+                          <button class="btn btn-warning" (click)="logOut($event)">Log Out</button>
+                        </div>
+        
+        </li>    
+      </ul>
+      <ul class="navbar-nav ml-auto" *ngIf="!bLoggedIn">
+        <li class="nav-item">
+      
+          <span class="not-connected">Not Connected</span>
+      
+        </li>
+
+      </ul>
+
+    </div>
+  </nav>
+
+  <app-login *ngIf="!bLoggedIn" (messageEvent)="receiveMessage($event)"></app-login>

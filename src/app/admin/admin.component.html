@@ -1,0 +1,29 @@
+
+<ng-container *ngIf="bGotData">
+    <div id="wrapper" class="" (window:resize)="onResize($event)">
+
+      <app-admin-side-bar bSideBarCollaped="bSideBarCollaped"  (onCollapse)="onCollapse($event)"></app-admin-side-bar>
+
+    <div id="admin-content">
+        <app-admin-header [bLoggedIn]="bLoggedIn" [userEmail] = "userEmail" ></app-admin-header>      
+          
+          <div *ngIf="bLoggedIn" class="container">
+            <ng-container *ngIf="router.url === '/admin'">
+            <app-admin-panel></app-admin-panel>
+            </ng-container>
+
+            <ng-container *ngIf="router.url === '/admin/gallery_manager'">
+              <app-gallery-manager></app-gallery-manager> 
+            </ng-container>
+
+            <ng-container *ngIf="router.url === '/admin/uploads'">
+              <app-admin-uploads></app-admin-uploads>
+            </ng-container>
+          </div>
+
+
+
+        <div id="errorLog"></div>
+    </div>
+    </div>
+</ng-container>

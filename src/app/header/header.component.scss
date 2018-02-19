@@ -1,0 +1,175 @@
+
+@import url('https://fonts.googleapis.com/css?family=Lobster|Roboto|Raleway:400,800');
+
+#header_wrapper{
+
+    overflow : hidden;
+    // width:100vw;
+    // height:100vh;
+}
+
+video{
+    background-color : black;
+    filter:brightness(80%);
+    overflow-x: hidden;
+    height:100vh;
+    // display:block;
+    margin: 0;
+}
+
+.video-controls{
+    position: absolute;
+    
+    left:50%;
+    top: 70%;
+    margin-left:-35px;
+    font-size : 70px;
+    color : white;
+    text-align: center;
+}
+
+
+#playButton{
+
+    transition: all 0.5s;
+    // transition-timing-function: cubic-bezier();
+
+}
+
+#playButton:hover{
+  
+        transform:scale(1.5);
+        cursor: pointer;
+    
+}
+.video-pause{
+    position: absolute;
+    // width: 100%;
+    left:100%;
+    top: 100%;
+    
+    font-size : 40px;
+    margin-left : -50px;
+    margin-top : -60px;
+    color : white;
+    // text-align: center;
+}
+
+#pauseButton{
+    transition: all 0.5s;
+}
+#pauseButton:hover{
+  
+        transform:scale(1.5);
+        cursor: pointer;
+    
+}
+.jumbotron{
+    padding:150px 0px 0px 0px;
+    margin:0px;
+    height:100vh;
+}
+
+.container{
+    padding:0px;
+}
+
+.header{
+    padding:150px 0px 0px 0px;
+    margin:0px;
+    width:100%;
+    height:100vh;    
+    position: relative;
+    /* width:100%; */
+    // background-image: url("/assets/img/oeufs_1.jpg");
+    background-size: cover;
+    /* background-color: rgb(19, 174, 221); */
+    /* height: 300px; */
+
+    background-blend-mode: multiply;
+
+    background-color: #dadada;    
+}
+
+.empty-header{
+
+    /* height:150px; */
+}
+
+
+/* The animation code */
+@keyframes titleAnim {
+    0% {
+        left: -50px;
+        opacity:0;
+    }
+
+    50%{
+        left: -50px;
+        opacity:0;
+    }
+    100% {
+        left: 0px;
+        opacity:1;
+    }
+}
+
+.title-wrapper{
+    position:absolute;
+    top: 40%;
+    white-space: nowrap;
+    margin-left:5vw;
+    font-family: "Raleway", sans-serif;
+    font-weight: 400;
+}
+.title{
+    display:block;
+    position: relative;
+    // font-family: "Lobster", cursive;
+    font-family: "Raleway", sans-serif;
+    font-weight: 800;
+    // letter-spacing: -0.1em;
+    /* opacity:0; */
+    color:white;
+
+    font-size: 5.0em;
+  
+
+    animation: 1.5s ease-out 0s normal forwards 1 titleAnim;     
+ 
+    /* animation-name: "title-anim";
+    animation-duration: 1.0s;
+    animation-delay: 1s; */
+}
+
+.sub-title{
+    display:block;
+    position: relative;
+    color:white;
+ 
+    font-size: 2.0em;
+    // line-height: 0.8em;
+
+    /* opacity:0; */
+
+  
+    animation: 1.7s ease 0s normal forwards 1 titleAnim;    
+    /* animation-name: "title-anim";
+    animation-duration: 1.0s;
+    animation-delay: 1.5s; */
+}
+@media screen and (max-width: 640px) {
+    .empty-header {
+        height: 100px;
+        
+    }
+    .title{
+        font-size: 2.2em;
+
+    }  
+    .sub-title{
+        font-size: 0.8em;
+
+    }      
+}
+

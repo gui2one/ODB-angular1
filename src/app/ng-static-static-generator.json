@@ -1,0 +1,11 @@
+{
+    "distPath": "./dist/test",
+    "stylesPath": "./src/styles.scss",
+    "templatePath": "./src/index.html", 
+    "appModule": "./src/app/app.module#AppModule", 
+
+    "appComponent": "./src/app/app.component#AppComponent", 
+    
+    "mainPath": "./src/main.ts", 
+    "polyfillsPath": "./src/polyfills.ts" 
+}

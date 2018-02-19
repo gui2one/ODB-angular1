@@ -1,0 +1,171 @@
+.slider-wrapper{
+    width: 100%;
+    position : relative;
+     /* height:200px;    */
+    /* border:1px solid red; */
+    /* display:block; */
+    overflow: hidden;
+    display:flex;
+    justify-content: space-between;
+
+    /* align-items: center;
+    align-content: center; */
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    background-color: black;
+}
+
+.container{
+    padding: 0px;
+    position: relative;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.slides-container{
+
+    /* border:1px solid blue; */
+    height:100%;
+    width:100%;
+    position:relative;
+    top:0px;
+    left:0px;
+
+    transition: transform 0.5s ease-out;
+    -webkit-transition: -webkit-transform 0.5s ease-out;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+}
+
+.auto-play-transition{
+    transition: transform 1s ease-in-out;
+    -webkit-transition: -webkit-transform 1.0s ease-in-out;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;    
+}
+
+.no-transition{
+
+    transition : none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+.slide-image-container{
+
+    /* display: inline-block;
+    *display:inline;  */
+
+    
+    height:100%;
+    margin:0px;
+    padding: 0px;
+    position:absolute;
+    top:0px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    user-select: none;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* background-image: url('/assets/img/oeufs_1.jpg'); */
+
+
+}
+
+.contain{
+    background-size: contain;
+}
+
+#scaleGalleryIcon{
+    z-index : 3;
+    position: absolute;
+    top:100%;
+    margin-top: -64px;
+    left: 100%;
+    margin-left:-64px;
+    opacity: 0.2;
+    transition : all 0.5s;
+    transform :scale(0.8,0.8);
+    cursor: pointer;
+    
+    // display: block;
+}
+
+#scaleGalleryIcon:hover{
+    opacity: 1.0;
+    transform :scale(1.0,1.0);
+}
+
+#arrow-prev-container{
+    position : absolute;
+    top: 0px;
+    left : 0px;
+}
+#arrow-next-container{
+    position : absolute;
+    top: 0px;
+    left : 100%;
+    transform: translateX(-100%);
+}
+.arrow {    
+    
+    height: 80px;
+    z-index: 100;
+    cursor: pointer;
+    // backface-visibility: hidden;
+    // -webkit-backface-visibility: hidden;
+    /* visibility: hidden; */
+}
+
+.arrow-prev{
+
+    transform: scaleX(-1);
+
+    // backface-visibility: hidden;
+    // -webkit-backface-visibility: hidden;
+}
+
+
+.slider-navigation-container{
+    position:absolute;
+    height:30px;
+    left : 50%;
+    top:100%;
+    transform: translate(-50%,-100%);
+    margin:auto;
+
+    margin-bottom: 0px;
+    display : flex;
+    
+    vertical-align: bottom;
+    align-items: center;
+
+    // border : 1px solid white;
+    
+}
+
+.slider-navigation-bullet{
+    margin: 5px;
+    margin-bottom:20px;
+    background-color: rgba(50,50,50,1);
+    // border: 1px solid rgba(255,255,255,0.5);
+    width:10px;
+    height:10px;
+    cursor: pointer;
+    border-radius: 50%;
+    // box-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+}
+
+.slider-navigation-bullet-active{
+    background-color: white;
+}
+
+

@@ -1,0 +1,17 @@
+<ng-container *ngIf="router.url === '/admin'">
+  <div class="admin-box">
+      <label>
+        <app-toggle toggleName="toggle1" (click)="onClickToggle1($event)"></app-toggle>
+        <ng-container *ngIf="siteDbData">
+          <span *ngIf="bSiteOnline" class="online">online</span>
+          <span *ngIf="!bSiteOnline" class="offline">offline</span>
+        </ng-container>
+
+
+      </label>
+      <br>
+
+      <button class="btn btn-primary" (click)="saveToSite($event)">Save to Site</button>
+
+  </div>
+</ng-container>

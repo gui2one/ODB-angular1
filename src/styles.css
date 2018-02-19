@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+/*  kuler colors
+#DEDC05
+#A5A447
+#FFCB06
+#276FFF
+#04365C
+*/
+
+html, body{
+    /* height:100%; */
+    max-width: 100%;
+    overflow-x: hidden;
+
+}
+
+
+.rounded-shadow{
+
+    /* border:1px solid rgba(34, 122, 189, 0.734); */
+    border-radius: 5px;
+    box-shadow: 3px 3px 6px 1px #6d6d6d;
+    margin-top:10px;
+    margin-bottom:10px;
+}
