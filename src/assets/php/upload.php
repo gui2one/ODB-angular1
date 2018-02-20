@@ -3,27 +3,32 @@
 	require_once("variables.php");
     $rootDir = $_SERVER["DOCUMENT_ROOT"]."".$SUB_FOLDER;
    
+
+	// if(isset($_SESSION['upload_progress_123'])){
+  	// 	 print_r($_SESSION['upload_progress_123']);
+	// }else{
+	// 	print_r("not set \n");
+	// }
+	function validateName($str) {
+		$str = preg_replace('/[^A-Za-z0-9.#\\-$]/', '_', $str);
+		
+		return $str;
+	}
+
     $tmp = explode("\\",SCRIPT_ROOT);
     array_pop($tmp);
     $parentDirPath = implode("/",$tmp);
    
     $responseArray = array();
 
-    // array_push($responseArray,"hello response");
-    //print_r(json_encode( $responseArray ));
-    //if (isset($_POST["submit"])) {
-        # code...
-        // print_r("\nttttt ->  :");
+
         foreach ($_FILES as $key => $value) {
             // print_r($key."\n");
-            $file = $_FILES[$key];
-            // print_r("rrrrrrrrrrrrrrrrrrr   ".file_exists($file[0]) == true) ;
-        
-            
-			// $fileName = urlencode($file["name"]);      
-			$fileName = htmlspecialchars($file["name"]);  
-			$fileName = str_replace(str_split(' ()[]'), '_', $fileName);  
-			// print_r("file name -->".$fileName);
+			$file = $_FILES[$key];
+
+			// print_r("is valid name --> \n");
+			$fileName = validateName($file["name"]);
+
 
             $fileType = $file["type"];      
             $fileSize = $file["size"];      
@@ -70,24 +75,29 @@
                     ),
                 ));
 
-                array_push($responseArray,$jsonResponse);
+				array_push($responseArray,$jsonResponse);
+				
+
 
             }else{
                 //trigger_error("this file type is not allowed",E_USER_ERROR);
-                $jsonResponse = json_encode(array(
+                $jsonResponse = array(
                     'error' => array(
                         'msg' => 'this file type is not allowed ??!'
                         
                     ),
-                ));
-                array_push($responseArray,$jsonResponse);
+                );
+                array_push(json_encode($responseArray,$jsonResponse));
                 
             }            
         
 
         }
 		// print_r($responseArray);
-        print_r( json_encode( $responseArray ));
+		print_r( json_encode( $responseArray ));
+		
+		// $key = ini_get("session.upload_progress.prefix") . $_POST[ini_get("session.upload_progress.name")];
+		// print_r($_SESSION[$key]);
 
     //}
 

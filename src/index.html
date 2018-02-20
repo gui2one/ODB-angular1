@@ -19,14 +19,34 @@
   <link rel="stylesheet" href="assets/libs/lightbox/css/lightbox.css">
 
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Droid+Sans+Mono" />
+
+  <style>
+
+    .loading{
+    /* width: 240px; */
+    height : 100vh;
+    display: block;
+    /* margin : 0 auto; */
+   
+
+}
+
+.loading img{
+    width: 240px;
+    margin : auto auto;
+    display: inline-block;
+}
+  </style>
 </head>
 <body>
-  <app-root>this some static content...</app-root>
+  <app-root>
+    <div class="loading d-flex w-100 flex-column justify-content-middle align-items-middle" >  <img src="assets/img/loading.gif" alt=""></div>
+  </app-root>
 
 
   <!-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> -->
-  <!-- <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
+  <!-- <script src="//code.jquery.com/jquery-3.2.1.min.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
   <!-- <script src="assets/libs/lightbox/js/lightbox.js"></script> -->
 
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>

@@ -3,8 +3,10 @@
 
 
       <div id="main-wrapper">
+
+        <h2>Gallery Manager</h2>
         <!-- <app-admin-header [bLoggedIn]="bLoggedIn" (messageEvent)="receiveMessage($event)"></app-admin-header> -->
-        <div *ngIf="bLoggedIn" class="wrapper container">
+        <div *ngIf="bLoggedIn" class="wrapper">
             <div id="errorLog"></div>
 
         <button class="btn-primary" (click)="saveToSite($event)">Save To Site</button>

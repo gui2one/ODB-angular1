@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {Router, NavigationExtras} from '@angular/router'
+
+import {AuthService} from "../providers/auth.service.ts.service"
 import * as $ from "jquery"
 @Component({
   selector: 'app-admin-side-bar',
@@ -9,10 +11,13 @@ import * as $ from "jquery"
 export class AdminSideBarComponent implements OnInit{
 
   
+  @Input()
+  bLoggedIn: boolean = false;
+  @Input() userEmail : string = "";
   @Output() onCollapse = new EventEmitter<boolean>()
   bSideBarCollapsed : boolean = false;
 
-  constructor(private router: Router ) {}
+  constructor(private router: Router, private authService: AuthService ) {}
 
 
   ngOnInit(){
@@ -37,6 +42,10 @@ export class AdminSideBarComponent implements OnInit{
     // if(this.bSideBarCollapsed){
     //   $("#")
     // }
+  }
+
+  logOut(event){
+    this.authService.logOut();
   }
 
   navigate(route){

@@ -68,7 +68,8 @@ export class GalleryManagerComponent implements OnInit{
     private db: AngularFireDatabase, 
     private OdbAdminData : OdbAdminDataService,
     private modalService : BsModalService,
-    private vcRef: ViewContainerRef
+    private vcRef: ViewContainerRef,
+    // public sortable : sortable
   ) 
   { 
 
@@ -96,23 +97,23 @@ export class GalleryManagerComponent implements OnInit{
   
   ngAfterViewInit(){    
     
-    console.log($("#items-wrapper"))
+    let dummy_variable = sortable; /// VERY STRANGE !! dont remove this line or the sortable jquery-ui function won't work ....
+    // console.log($("#items-wrapper"))
     $("#items-wrapper").sortable({
       stop: function(event, ui){
         let keysArray = [];
-        console.log(event);
+        // console.log(event);
         $("#items-wrapper .gallery-item").each( function(i,el){
           keysArray.push(el.id);
           // console.log(el.id);
         })
 
         keysArray.forEach((element, index) => {
-          console.log(this.db);
+          // console.log(this.db);
           this.db.database.ref("/gallery").child(element).update({displayID:index})
         });
       }.bind(this)
     });
-    console.log(sortable)
   }
 
   receiveMessage(event) {
@@ -130,16 +131,16 @@ export class GalleryManagerComponent implements OnInit{
   }
 
   imageSelected(event){
-    console.log("selected Event !!!")
-    console.log(event)
+    // console.log("selected Event !!!")
+    // console.log(event)
     this.selectedImageUrl = event;
     this.editItemData['imageUrl'] = this.selectedImageUrl;
   }
 
   onDragStart(event, displayID){
-    // event.preventDefault();
-    console.log(event.target);
-    console.log(displayID);
+    event.preventDefault();
+    // console.log(event.target);
+    // console.log(displayID);
 
   }
   
@@ -154,7 +155,7 @@ export class GalleryManagerComponent implements OnInit{
     let prom = this.OdbAdminData.getGalleryItemData(key);
     
     prom.then( (snapshot) =>{
-      console.log(snapshot.toJSON());
+      // console.log(snapshot.toJSON());
       this.editItemData = snapshot.toJSON();
       this.bDisplayEditDialog = true;   
 
@@ -167,7 +168,7 @@ export class GalleryManagerComponent implements OnInit{
 
   ngAfterViewChecked(){
     if(this.bOldDisplayEditDialog !== this.bDisplayEditDialog){
-      console.log("DO CHECK");
+      // console.log("DO CHECK");
 
 
       $("#edit-dialog").css({ left : -50, opacity:1.0});
@@ -183,7 +184,7 @@ export class GalleryManagerComponent implements OnInit{
 
   ngAfterContentInit()
   {
-    console.log("After Content Init");
+    // console.log("After Content Init");
   }
 
   declineEdit(event){
@@ -201,8 +202,8 @@ export class GalleryManagerComponent implements OnInit{
 
     $('#main-wrapper').removeClass('blur');
     // this.modalRef.hide();
-    console.log("editing item -->"+ this.editCandidateKey);
-    console.log($('#edit-form')[0]['item-title'].value);
+    // console.log("editing item -->"+ this.editCandidateKey);
+    // console.log($('#edit-form')[0]['item-title'].value);
     this.editItemData['title'] = $('#edit-form')[0]['item-title'].value;
 
     if(this.selectedImageUrl !== ""){
@@ -220,7 +221,7 @@ export class GalleryManagerComponent implements OnInit{
   }
 
   onKeyPress(event) {
-    console.log(event.key);
+    // console.log(event.key);
     if (event.key === "Enter") {
       event.preventDefault();
       event.stopPropagation();
@@ -234,7 +235,7 @@ export class GalleryManagerComponent implements OnInit{
   onClick(event, key) {
     event.preventDefault();
     event.stopPropagation();
-    console.log(key);
+    // console.log(key);
     this.deleteCandidateKey = key;
     // console.log(this.deleteCandidate);
     
@@ -247,7 +248,7 @@ export class GalleryManagerComponent implements OnInit{
   }
 
   deleteGalleryItem(key){
-    console.log(key);
+    // console.log(key);
     event.preventDefault();
   }
 
@@ -270,7 +271,7 @@ export class GalleryManagerComponent implements OnInit{
   }
 
   confirmDelete(event): void {
-    console.log("confirm delete")
+    // console.log("confirm delete")
     event.preventDefault();
     event.stopPropagation();
     this.OdbAdminData.deleteGalleryItem(this.deleteCandidateKey);
@@ -278,7 +279,7 @@ export class GalleryManagerComponent implements OnInit{
   }
 
   declineDelete(event): void {
-    console.log("decline delete")
+    // console.log("decline delete")
     event.preventDefault();
     event.stopPropagation();
     this.modalRef.hide();

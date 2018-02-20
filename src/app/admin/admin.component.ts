@@ -1,4 +1,4 @@
-import { Component, OnInit , Input, OnChanges, SimpleChange} from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange, OnDestroy, HostListener} from '@angular/core';
 //import { Output, Input } from '@angular/core/src/metadata/directives';
 import { Router, Route, NavigationExtras } from '@angular/router';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -18,6 +18,8 @@ import { Promise } from 'q';
   styleUrls: ['./admin.component.scss']
 })
 
+
+// @HostListener('window:unload', ['$event'])
 // @NgModule({imports:[]})
 export class AdminComponent implements OnInit {
 
@@ -52,6 +54,12 @@ export class AdminComponent implements OnInit {
   ngOnChanges(change){
     console.log(change);
   }
+
+  // onUnload(event){
+  //   alert(event);
+  //   this.authService.logOut();
+  // }
+
   ngOnInit() {
 
     this.errorLogDiv = $(document.getElementById("errorLog"));

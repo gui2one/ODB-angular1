@@ -6,6 +6,8 @@
         <input class="form-item" type ="password" id="password" placeholder="password">
 
         <button class="form-item btn-primary" id="loginButton" (click)="login($event)">Log In</button>
-
+        <ng-container *ngIf="error"><div id="form-infos">{{error}}</div></ng-container>
     </form>
+
+    
 </div>

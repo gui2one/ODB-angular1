@@ -1,12 +1,12 @@
 
 <div id="errorLog"></div>
 <div class="wrapper"  *ngIf="bLoggedIn">
-
-  <div class="container">
+  <h2>Images Manager</h2>
+  <div class="">
     
     <form id="uploadForm" action="" method="POST" enctype="multipart/form-data">
       <input id="fileInput" type="file" name="file">
-      <button type="submit" name="submit" (click)="uploadFile($event)">Upload</button>
+      <button type="submit" name="submit" (click)="uploadFile($event, [])">Upload</button>
     </form>
   <form id="uploadFormDrop" method="post" action="" enctype="multipart/form-data">
     <input type="file" hidden>

@@ -1,13 +1,13 @@
 
-<ng-container *ngIf="bGotData">
-    <div id="wrapper" class="" (window:resize)="onResize($event)">
+<ng-container *ngIf="bGotData && bLoggedIn">
+    <div id="wrapper" class="" (window:resize)="onResize($event)" >
 
-      <app-admin-side-bar bSideBarCollaped="bSideBarCollaped"  (onCollapse)="onCollapse($event)"></app-admin-side-bar>
+      <app-admin-side-bar bSideBarCollaped="bSideBarCollaped" [bLoggedIn]="bLoggedIn" [userEmail] = "userEmail" (onCollapse)="onCollapse($event)"></app-admin-side-bar>
 
-    <div id="admin-content">
-        <app-admin-header [bLoggedIn]="bLoggedIn" [userEmail] = "userEmail" ></app-admin-header>      
-          
-          <div *ngIf="bLoggedIn" class="container">
+      <div id="admin-content">
+        
+        <!-- <app-admin-header [bLoggedIn]="bLoggedIn" [userEmail] = "userEmail" ></app-admin-header>      -->
+          <div *ngIf="bLoggedIn" class="">
             <ng-container *ngIf="router.url === '/admin'">
             <app-admin-panel></app-admin-panel>
             </ng-container>
@@ -27,3 +27,5 @@
     </div>
     </div>
 </ng-container>
+
+<app-login *ngIf="bGotData && !bLoggedIn" (messageEvent)="receiveMessage($event)"></app-login>

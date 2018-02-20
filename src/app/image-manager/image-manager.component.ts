@@ -12,6 +12,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { NgTemplateOutlet } from '@angular/common/src/directives/ng_template_outlet';
 import { format } from 'util';
+import { BROWSER_GLOBALS_PROVIDERS } from '@agm/core/utils/browser-globals';
 
 @Component({
   selector: 'app-image-manager',
@@ -115,18 +116,44 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
     this.modalRef.hide();
   }
   
+  checkFileName(_name : string){
+    let bad_letters : Array<string> = []
+    let badString = "éèçà";
+    for(let i=0; i<badString.length; i++){
+      bad_letters.push(badString[i])
+    }
+    let goodName : string = "";
+    for (let i = 0; i < bad_letters.length; i++){    
+ 
+        _name = _name.replace(bad_letters[i], "_");
 
+    }
+
+    
+    console.log(_name)
+    return _name;
+  }
 
   uploadFile(event = null, files = null) {
+    
     let formData: any;
-    // console.log(files);
+    console.log(files);
+
+    
+    
+    for(let i=0 ; i<files.length; i++){
+      console.log(files[i].name);
+      // files[i].name = this.checkFileName(files[i].name);
+    }
     if(event != null){
+      console.log(event);
       event.preventDefault();
+      event.stopPropagation();
       let form = jQuery(document.getElementById('uploadForm'))[0];
       formData = new FormData(form);
 
     }else{
-      // console.log("not an event !!! ");     
+      console.log("not an event !!! ");     
 
       // console.log(files);
       formData = new FormData();
@@ -140,27 +167,19 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
 
 
     jQuery.ajax({
-      type: "POST",
+      method: "POST",
       url: "assets/php/upload.php",
-      data: formData,      
+      data: formData,
+      dataType: 'json',
       contentType: false,
       processData: false,
       success: (data) => {
-        console.log(data);
         if (data) {
-          let jsonData;
-          console.log("data -->");
-          console.log(data);
-          try{
-
-            jsonData = JSON.parse(data);
-            // console.log("LENGTH  : \n"+jsonData.length);
-          }catch(e){
-            console.log(e);
-          }
-
-          for(let i=0; i< jsonData.length; i++){
-            let dat = JSON.parse(jsonData[i]);
+          
+          
+          for(let i=0; i< data.length; i++){
+            let dat = JSON.parse(data[i]);
+            console.log(dat);
             if (dat.success) {
               this.showLogInfos("success", dat.success.msg);
               let fileInput = jQuery(document.getElementById("fileInput"))[0];
@@ -184,7 +203,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
 
       },
       error: (err) => {
-        console.log("error !");
+        console.log(err);
         //console.log(this.errorLogDiv); 
         this.errorLogDiv[0].innerHTML = err.responseText;
 
@@ -265,7 +284,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
   }
 
   readDirContent(){
-    console.log("readContentDir function");
+    // console.log("readContentDir function");
     let formData = new FormData();
     
     jQuery.ajax({
@@ -275,7 +294,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
       success: (data) => {
         try{
 
-          console.log(data);
+          // console.log(data);
           this.dirData = JSON.parse(data);
           this.filterImages();
           
@@ -327,7 +346,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
   }
 
   addUploadToDB(data:any){
-    // console.log(data.fileName);
+    console.log(data.fileName);
     let emptyUploadsData: object = {
       fileName: data.fileName,
       fileSize: data.fileSize,

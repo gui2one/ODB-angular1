@@ -83,13 +83,18 @@ export class OdbAdminDataService {
 
     $.ajax({
       url:"assets/php/admin/saveGalleryDataToJSON.php",
-      method:"POST",
+      type:"POST",
       data: formData,
       contentType: false,
       processData:false,
       success:(data) =>{
-        console.log('data successfully saved');
+        console.log(data);
+        // console.log('data successfully saved');
       },
+      error: (data) => {
+        console.log(data);
+        // console.log('data successfully saved');
+      },      
 
     })
   }
