@@ -312,7 +312,7 @@ export class SliderComponent implements OnInit{
       this.accuX += this.deltaX;
 
       this.root.css({
-        transform: "translate(" + this.sliderPositionX + "px,0)"
+        transform: "translate3d(" + this.sliderPositionX + "px,0,0) rotate(0.001deg)"
       });      
     }else{
       let x: number;
@@ -345,7 +345,7 @@ export class SliderComponent implements OnInit{
 
     this.sliderPositionX = -this.containerWidth * id;
 
-    this.root.css({ transform: 'translate(' + this.sliderPositionX +'px,0)'});
+    this.root.css({ transform: 'translate3d(' + this.sliderPositionX +'px,0,0) rotate(0.001deg)'});
 
     if (this.currentId === 0) {
       $(this.prevArrowEl).css({ visibility: 'hidden' });

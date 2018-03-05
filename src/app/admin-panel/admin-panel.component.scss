@@ -1,2 +1,46 @@
+#wrapper{
+    padding : 15px;
+}
 
 
+.admin-box{
+
+    margin:5px;
+    color:white;
+}
+
+.box-data-container{
+    background-color: rgba(255,255,255,0.1);
+    margin:5px;
+    padding:10px;
+}
+.text-area{
+    width:100%;
+    max-width:800px;
+}
+
+.service-box-icons{
+    display: inline;
+    font-size:50px;
+}
+.dropdown{
+    display:inline;
+}
+
+.collapse-header{
+    cursor : pointer;
+}
+
+
+
+.text-edit{   
+   
+    font-size:0.9em;
+}
+
+// .text-edit::before{  
+//     content :"";  
+//     background-image:  url("/assets/img/oeufs_1.jpg");    
+
+//     // display:block;
+// }

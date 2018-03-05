@@ -14,10 +14,11 @@ import { NgTemplateOutlet } from '@angular/common/src/directives/ng_template_out
 import { format } from 'util';
 import { BROWSER_GLOBALS_PROVIDERS } from '@agm/core/utils/browser-globals';
 
+import {OdbAdminDataService} from "../providers/odb-admin-data.service"
 @Component({
   selector: 'app-image-manager',
   templateUrl: './image-manager.component.html',
-  styleUrls: ['./image-manager.component.css'],
+  styleUrls: ['./image-manager.component.scss'],
   // providers: [ BsModalService]
 })
 
@@ -37,6 +38,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
   bShowHeader : boolean = true;
   holder : any;
 
+  dbData : Observable<any>;
   modalRef: BsModalRef;
 
   @ViewChild('template')
@@ -62,14 +64,26 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
   imageUrls: Array<string> = []; 
 
   constructor(private db: AngularFireDatabase,
-              private modalService: BsModalService) { }
+              private modalService: BsModalService,
+              private dataService : OdbAdminDataService) { }
 
   ngOnInit() {
     // console.log(this.errorLogDiv[0]);
     this.bLoggedIn = localStorage.getItem('ODB_connected') == 'true' ? true : false;
+
+    this.dbData = this.dataService.loadUploadsDataFromDB();
+
+    this.dbData.subscribe( (item => {
+      //console.log(item);
+    }))
   }
 
   ngAfterViewInit(){
+
+    
+
+    //console.log(this.dbData);
+    
     this.errorLogDiv = jQuery(document.getElementById("errorLog"));
     this.holder = document.getElementById("holder");
     if (this.bLoggedIn) {
@@ -227,9 +241,15 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
     jQuery(event.target).addClass("selected");
 
     this.selectedItem = item;
-    this.selectedEvent.emit(item);
+    this.selectedEvent.emit(item.fileName);
     
+
+    this.updateImageDatails(this.selectedItem);
     //this.removeFile(event.target.src);
+  }
+
+  updateImageDatails(item){
+    console.log(item);
   }
   removeFile(fileName){
 
@@ -325,10 +345,11 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
   }
 
   deleteUploadFromDB(deleteCandidate){
+    console.log(deleteCandidate);
     deleteCandidate = deleteCandidate.replace("_thumbnail","");
-    // console.log(deleteCandidate);
+    console.log(deleteCandidate);
     deleteCandidate = deleteCandidate.split("/").pop()
-    // console.log(deleteCandidate);
+    console.log(deleteCandidate);
     const uploadsRef = this.db.database.ref().child("uploads");
     
     let ret = uploadsRef.orderByChild("fileName").equalTo(deleteCandidate).on("child_added", (snapshot)=>{
@@ -347,11 +368,16 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
 
   addUploadToDB(data:any){
     console.log(data.fileName);
+    let date = new Date();
+    let unix_time = date.getTime();
+
     let emptyUploadsData: object = {
       fileName: data.fileName,
       fileSize: data.fileSize,
       width: data.width,
-      height: data.height
+      height: data.height,
+      unix_time: unix_time,
+      date: date.toDateString()
     }    
     let key = this.db.database.ref("/uploads").push(emptyUploadsData).key;
     this.readDirContent();

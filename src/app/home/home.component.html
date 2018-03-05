@@ -11,45 +11,19 @@
   <div id="about_part" class="">
 
     <app-header-title name="title_qui" text="Qui Sommes-nous ?"></app-header-title>
-  
+
+    
     <div class="container cards-container">
-        <div class="row no-gutters">
-          <div class="card-wrapper  col-xl-3 col-md-6 p-lg-3">
-            <div class="card-dark " >
+      <div class="row no-gutters">
+            <ng-container *ngFor="let item of serviceBoxes">
                 
-              <app-service-box iconStr="fa fa-cogs"></app-service-box>
-        
-            </div>
-          </div>  
-          <div class="card-wrapper col-xl-3 col-md-6 p-lg-3">
-            <div class="card-dark">  
-
-              <app-service-box iconStr="fa fa-hourglass-half"></app-service-box>
-
-            </div>
-          </div>
-
-          <div class="card-wrapper col-xl-3 col-md-6 p-lg-3">
-
-          
-            <div class="card-dark">
-            
-            <app-service-box iconStr="fa fa-compass"></app-service-box>
-
-            
-            </div>
-          </div>
-
-          <div class="card-wrapper col-xl-3 col-md-6 p-lg-3">
-            <div class="card-dark">
-            
-            <app-service-box iconStr='fa fa-file-alt'></app-service-box>
-            
-            </div>
-
-          </div>
-          
-        </div>
+                  <div class="card-wrapper  col-xl-3 col-md-6 p-lg-3">
+                    <div class="card-dark ">                
+                      <app-service-box iconStr="{{item.icon}}" text={{item.text}}></app-service-box>                
+                    </div>
+                  </div>
+            </ng-container>
+      </div>
 
     </div>
   </div>
@@ -95,9 +69,11 @@
   </agm-map>
 </div> -->
   <!-- <app-image-loader [imgSrc]="'/assets/img/oeufs_2.jpg'"></app-image-loader> -->
+
+  <app-parallax-spacer imgUrl="assets/img/oeufs_1.jpg" height="25vh"></app-parallax-spacer>
 <div id="gallery_part">
   <app-header-title name="title_gallery" text="Quelques Images :"></app-header-title>
-  <app-slider sliderHeight="65vh" [items]=sliderItems [bBackgroundContain]=false [bDisplayNavigation]=true autoPlay=true autoPlayDelay=6 [bIsDraggable]=false></app-slider>
+  <app-slider sliderHeight="500px" [items]=sliderItems [bBackgroundContain]=false [bDisplayNavigation]=true autoPlay=true autoPlayDelay=6 [bIsDraggable]=false></app-slider>
 
 </div>
   <app-header-title name="title_contact" text="Nous Contacter."></app-header-title>

@@ -6,6 +6,54 @@
 #276FFF
 #04365C
 */
+/* width */
+::-webkit-scrollbar {
+    width: 12px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    /* box-shadow: inset 0 0 5px grey;  */
+    background: rgba(0,0,0,0.1);
+    border-radius: 6px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: orange; 
+    border-radius: 10px;
+    /* border:1px solid orangered; */
+}
+
+::-moz-scrollbar {
+    width: 12px;
+}
+/* Track */
+::-moz-scrollbar-track {
+    /* box-shadow: inset 0 0 5px grey;  */
+    background: rgba(0,0,0,0.1);
+    border-radius: 6px;
+}
+/* Handle */
+::-moz-scrollbar-thumb {
+    background: orange; 
+    border-radius: 10px;
+    /* border:1px solid orangered; */
+}
+
+::scrollbar {
+    width: 12px;
+}
+/* Track */
+::scrollbar-track {
+    /* box-shadow: inset 0 0 5px grey;  */
+    background: rgba(0,0,0,0.1);
+    border-radius: 6px;
+}
+/* Handle */
+::scrollbar-thumb {
+    background: orange; 
+    border-radius: 10px;
+    /* border:1px solid orangered; */
+}
 
 html, body{
     /* height:100%; */

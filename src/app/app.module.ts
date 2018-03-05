@@ -45,6 +45,7 @@ import { HeaderTitleComponent } from './header-title/header-title.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 import { ModuleOptions, NgStaticSiteGeneratorModule } from 'ng-static-site-generator';
+import { ParallaxSpacerComponent } from './parallax-spacer/parallax-spacer.component';
 
 const ngStaticSiteGeneratorModuleOptions: ModuleOptions = {
   openExternalLinksInNewTab: false // Automatically add target="_blank" to external links. Default false.
@@ -98,6 +99,7 @@ let Routes : Routes = [
     ServiceBoxComponent,
     HeaderTitleComponent,
     NotFoundComponent,
+    ParallaxSpacerComponent,
     
 
   ],

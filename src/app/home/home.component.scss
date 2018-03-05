@@ -33,7 +33,7 @@
         background-image: url('/assets/img/oeufs_2.jpg');    
         background-attachment: fixed;
         position: relative;
-        min-height: 100%;
+        // min-height: 100%;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
@@ -56,7 +56,9 @@
 
 
 
-
+#contact_part{
+    min-height: 500px;
+}
 .row{
     height:100%;
 }
@@ -155,7 +157,7 @@ $font2 : "Roboto";
     color : $primaryColor;
     font-family : $font1;
     font-size: 1.0em;
-
+    height:100%;
 
     border : 1px solid $secondaryColor ;
 
@@ -226,7 +228,7 @@ img {
     width: 100%;
 }
 agm-map{
-    height: 50vh;
+    height: 150px;
     max-width:100%;
     overflow-x: hidden;
 }

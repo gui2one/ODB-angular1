@@ -1,7 +1,3 @@
-
-
-
-
       <div id="main-wrapper">
 
         <h2>Gallery Manager</h2>
@@ -12,7 +8,7 @@
         <button class="btn-primary" (click)="saveToSite($event)">Save To Site</button>
         <button (click)="addGalleryItem($event)"> add Galley Item </button>
         <div id="items-wrapper" class="container items-wrapper">
-          <div  draggable="true" (dragstart)="onDragStart($event, item.displayID)"  (click)="onClickEdit($event,item.key)" *ngFor="let item of galleryDBData | async" (keypress)="onKeyPress($event)">
+          <div  (click)="onClickEdit($event,item.key)" *ngFor="let item of galleryDBData | async" (keypress)="onKeyPress($event)">
             <div data-id= {{item.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + item.imageUrl + ')'">
               <button class="btn btn-danger btn-delete" (click)="onClick($event,item.key)" id= {{item.key}}>X</button>
               <div class="spacer"></div>
@@ -54,7 +50,7 @@
               
               <input type="text" value={{editItemData.title}} id="item-title">
               <input type="hidden" value={{editItemData.key}} id="item-key" >
-              <img src="assets/img/uploads/{{editItemData.imageUrl}}">
+              <img src="assets/img/uploads/{{editItemData.imageUrl}}" style="max-width:500px;">
               <button type="button" class="btn btn-default" (click)="openUploadsDialog($event)">Select Image</button>
               <br>
               <button type="button" class="btn btn-default" (click)="confirmEdit($event)">Save</button>

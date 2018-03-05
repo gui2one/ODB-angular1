@@ -13,12 +13,12 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import * as $ from 'jquery';
-import {sortable} from 'jquery-ui/ui/widgets/sortable';
+import {sortable, draggable} from 'jquery-ui/ui/widgets/sortable';
 import { ElementRef } from '@angular/core/src/linker/element_ref';
 @Component({
   selector: 'app-gallery-manager',
   templateUrl: './gallery-manager.component.html',
-  styleUrls: ['./gallery-manager.component.css'],
+  styleUrls: ['./gallery-manager.component.scss'],
 
 })
 export class GalleryManagerComponent implements OnInit{
@@ -98,11 +98,18 @@ export class GalleryManagerComponent implements OnInit{
   ngAfterViewInit(){    
     
     let dummy_variable = sortable; /// VERY STRANGE !! dont remove this line or the sortable jquery-ui function won't work ....
+    let dummy_variable2 = draggable; /// VERY STRANGE !! dont remove this line or the sortable jquery-ui function won't work ....
     // console.log($("#items-wrapper"))
+    $(".gallery-item").each( (item)=>{
+      item.draggable();
+    });
     $("#items-wrapper").sortable({
+      start:function(event,ui){
+        console.log(event);
+      },
       stop: function(event, ui){
         let keysArray = [];
-        // console.log(event);
+        console.log(event);
         $("#items-wrapper .gallery-item").each( function(i,el){
           keysArray.push(el.id);
           // console.log(el.id);
@@ -143,6 +150,11 @@ export class GalleryManagerComponent implements OnInit{
     // console.log(displayID);
 
   }
+
+  onTouchMove(event, displayID){
+    event.preventDefault();
+    console.log(event)
+  }
   
   onClickEdit(event, key){
     event.preventDefault();
@@ -171,7 +183,7 @@ export class GalleryManagerComponent implements OnInit{
       // console.log("DO CHECK");
 
 
-      $("#edit-dialog").css({ left : -50, opacity:1.0});
+      $("#edit-dialog").css({ left : -50, opacity:0.0});
       $("#edit-dialog").animate({left : 0, opacity:1.0});
 
       //$('#edit-dialog').css({ left: 0, opacity:1.0});

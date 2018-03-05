@@ -9,14 +9,14 @@ $iconSize : 100px;
   overflow:hidden;
   width:auto;
   min-height: 300px;
-//   height:100%;  
+  height:100%;  
 //   border : 1px solid black;
 //   border-radius: 5px;
   text-align:center;
   text-justify:middle;
   position:relative;
   padding:20px;
-  margin:5px;
+  // margin:5px;
 
   box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
   .color-pane{
@@ -105,9 +105,9 @@ $iconSize : 100px;
     display : block;
     left:0px;
     top:0px;
-    
+    width:100%;
     margin:0 auto;
-    margin-top:$iconSize + 50px;
+    margin-top:$iconSize + 70px;
     padding: 5px 20px 10px 20px;
     // margin-top:30px;
     color:white;

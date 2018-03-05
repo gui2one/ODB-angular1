@@ -8,11 +8,12 @@ import * as $ from 'jquery'; // into app.component.ts
 export class MenuComponent implements OnInit {
 
   navbarHeight = 56;
-  scrollDuration = 750;
+  scrollDuration = 1000;
   constructor() { }
 
   ngOnInit() {
 
+    
     let root = this;
     // jQuery.get('/assets/php/test.php').then(data =>console.log(data));
     // console.log("menu init");
@@ -20,28 +21,11 @@ export class MenuComponent implements OnInit {
     $('.nav-link').click( function(){
       $('#navbarsExample04').removeClass('show');
     })
-    $("#headerButton").click(function () {
-      // console.log("click Home");
-      $('.navbar-toggler').click()
-      $('html, body').animate({
-        scrollTop: $("#header_part").offset().top
-      }, this.scrollDuration);
-    }.bind(this));  
+  
 
-    $("#homeButton").click(function () {
-      // console.log("click Home");
-      $('html, body').animate({
-        scrollTop: $("#about_part").offset().top - this.navbarHeight
-      }, this.scrollDuration);
-    }.bind(this));   
-    
-    $("#contactButton").click(function () {
-      // console.log("click Home");
-      $('html, body').animate({
-        scrollTop: $("#contact_part").offset().top - this.navbarHeight
-      }, this.scrollDuration);
-    }.bind(this));        
-
+    this.myScrollTo($("#headerButton"), $("#header_part"));
+    this.myScrollTo($("#homeButton"), $("#about_part"));
+    this.myScrollTo($("#contactButton"), $("#contact_part"));
     this.myScrollTo($("#galleryButton"),$("#gallery_part"));
     document.onscroll = function (event) {
       let triggerHeight = 100;
@@ -67,12 +51,32 @@ export class MenuComponent implements OnInit {
   }
 
 
+  ngAfterViewInit() {
+    // this.pauseVideo();
+  }
+
+  pauseVideo() {
+    // console.log($("video"));
+    $("video")[0].pause();
+  }
+
   myScrollTo(button, anchor){
+    let root = this;
     button.click( function(){
       $('html, body').animate({
-        scrollTop: anchor.offset().top - this.navbarHeight
-      }, this.scrollDuration);
-    }.bind(this));   
+        scrollTop: anchor.offset().top - root.navbarHeight
+      }, root.scrollDuration);
+
+      root.pauseVideo();
+      $("#navbar a").each( function(){
+        
+        $(this).removeClass("active")
+      })
+      button.addClass("active");
+      
+    }.bind(root));   
+
+    return false;
   
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit ,Inject } from '@angular/core';
 
 import { inject } from '@angular/core/testing';
 
@@ -16,7 +16,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit , AfterViewInit{
 
 
 
@@ -29,6 +29,11 @@ export class HomeComponent implements OnInit {
   galleryData : JSON;
   sliderItems : Array<any> = [];
 
+  serviceBoxes: any;
+  bServicesBoxesLoaded : boolean = false;
+
+
+  choices : Array<number>;
   constructor( public fireAuth : AngularFireAuth ) {}
 
 
@@ -85,12 +90,31 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  loadServiceBoxesData(){
+    $.ajax({
+      method: "GET",
+      url: "assets/data/serviceBoxesData.json",
+      dataType: "json", /// IMPORTNANT !!!!
+      success: (data) => {
+        
+        this.serviceBoxes = data;
+        console.log(this.serviceBoxes);
+
+        this.choices = [0, 8, 98, 15]
+        this.bServicesBoxesLoaded = true;
+        
+      }
+    });
+  }
+
+
+
 
   ngOnInit(){
     // this.dbData = this.getData();
     // console.log(this.fireAuth.auth.currentUser);
 
-
+      
       let sub = this.fireAuth.authState.subscribe(user=>{ 
         if(user){
 
@@ -105,9 +129,14 @@ export class HomeComponent implements OnInit {
     // console.log(sub);
     this.loadGalleryData();
     this.loadSiteData();
+    this.loadServiceBoxesData();
+    
     // this.adminLoggedIn = this.authService.checkLoggedIn();
   }
 
+  ngAfterViewInit(){
+    
+  }
   getData(){
     // return this.db.list('/gallery').valueChanges();
   }

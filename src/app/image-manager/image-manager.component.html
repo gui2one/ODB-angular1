@@ -1,8 +1,8 @@
 
 <div id="errorLog"></div>
-<div class="wrapper"  *ngIf="bLoggedIn">
+<div class="wrapper d-flex flex-column"  *ngIf="bLoggedIn">
+  <div id="top-part">
   <h2>Images Manager</h2>
-  <div class="">
     
     <form id="uploadForm" action="" method="POST" enctype="multipart/form-data">
       <input id="fileInput" type="file" name="file">
@@ -19,16 +19,35 @@
     </div>
   </form>
 
+
     <div class="images-wrapper">
-      <div *ngFor="let item of imageUrls; let i = index">
-        <div  class="item-container" [style.background-image]="'url(assets/img/uploads/' + item + ')'"  (click)="onItemClick($event, item)" id="{{i}}">
-          <!-- <img class="image-item" src="/assets/img/uploads/{{item}}" id="{{i}}"  (click)="onItemClick($event, item)"> -->
-          <button class="btn btn-danger btn-delete btn-sm" (click)="onDeleteClick($event,item)">X</button>
+      <div *ngFor="let item of dbData | async; let i = index">
+        <div class="item-container" [style.background-image]="'url(assets/img/uploads/' + item.fileName + ')'" (click)="onItemClick($event, item)"
+          id="{{i}}">
+
+          <button class="btn btn-danger btn-delete btn-sm" (click)="onDeleteClick($event,item.fileName)">X</button>
         </div>
       </div>
     </div>
-  </div>
 
+
+
+
+    
+  </div>
+  
+  <div class="image-details">
+    <ng-container *ngIf="selectedItem">
+      <p class="image-info">
+        {{selectedItem.fileName}} <br>
+      <b>Width :</b>{{selectedItem.width}} <br>
+      <b>Height :</b> {{selectedItem.height}}<br>
+      <b>Uploaded : </b>{{selectedItem.date}}
+    </p>
+    </ng-container>
+  
+  </div>
+ 
 
 
 </div>

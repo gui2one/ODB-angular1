@@ -19,10 +19,16 @@ $time : 0.35s;
     font-weight: 400;
     a{
         color:white;
+   
     }
 
     a:hover{
         color:$secondaryColor;
+    }
+
+    a.active{
+        // color:rgb(242, 212, 157);
+        text-decoration: underline;
     }
 
     span{

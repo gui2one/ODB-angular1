@@ -1,4 +1,4 @@
-<ng-container *ngIf="router.url === '/admin'">
+<div id="wrapper" *ngIf="router.url === '/admin'">
   <h2>Admin Panel</h2>
   <div class="admin-box">
       <label>
@@ -15,4 +15,39 @@
       <button class="btn btn-primary" (click)="saveToSite($event)">Save to Site</button>
 
   </div>
-</ng-container>
+  <div id="faq" role="tablist" aria-multiselectable="true">
+    <div class="card">
+    <h3 class="card-title collapse-header" data-toggle="collapse" data-parent="#myBox" href="#myBox" aria-expanded="true" aria-controls="myBox">Services</h3>
+    <div class="admin-box collapse show" id="myBox" role='tabcard'>
+   
+              <div #serviceBoxes *ngIf="homeDbData">
+              
+                
+                  <div *ngFor="let item of homeDbData.serviceBoxes; let id=index;" class="box-data-container" id={{id}}>
+                    
+                    <p class="text-edit" contenteditable id="{{id}}" (focusout)="onFocusOut($event)">{{item.title}}</p>      
+                    
+                    <div class="dropdown">
+                      <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        choose
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div  *ngFor="let icon of iconsList; let iconID = index;" class="dropdown-item" (click)="onChooseIcon($event,iconID)" id={{id}} [attr.data-iconid]="iconID"><i class="{{icon}}"></i></div>
+                      </div>
+                    </div>
+                    <i class="{{item.icon}} service-box-icons"></i>
+
+                    <textarea class="text-area" id="{{id}}" (focusout)="onFocusOut($event)">{{item.text}}</textarea>
+                  </div>
+                
+
+              </div>
+              <br>
+              <button class="btn btn-primary" (click)="saveServiceBoxesToSite($event)">Save to Site</button>
+
+            </div>
+
+      </div>
+    </div>
+</div>

@@ -141,6 +141,7 @@ export class OdbAdminDataService {
   updateGalleryItemData(key, data){
     this.db.database.ref().child("gallery").child(key).update(data)
   }
+
   deleteGalleryItem(key){
     // event.preventDefault();
     this.db.database.ref('gallery').child(key).remove();
@@ -148,4 +149,77 @@ export class OdbAdminDataService {
   }
 
 
+  loadUploadsDataFromDB(){
+    return this.db.list("uploads")
+      .valueChanges()
+      .map(items => items.sort((a: any, b: any) => { return a.unix_time - b.unix_time }));
+  }
+
+  loadHomeDataToDB(){
+    let prom = this.db.database.ref().child('/home-data').once('value');
+    return prom;
+  }
+
+  updateServiceBoxesItemData(id:number, title:string, text:string, icon: any = undefined){
+
+    let newData = {
+      title: title,
+      icon: icon,
+      text: text
+    }
+
+    // console.log(id,text); 
+    let child = this.db.database.ref().child("home-data/serviceBoxes/"+id.toString());
+    // console.log(child);
+
+    if (icon === undefined) {
+      // console.log("ICONE is undefined !!!!!");
+      child.child("icon").once("value", (snapshot)=>{
+        newData.icon = snapshot.val()
+        if(newData.icon === null){
+          newData.icon = "aaa";
+        }
+        child.update(newData) 
+        // console.log(newData.icon);  
+      })
+    } else{
+      child.update(newData)    
+    }
+  }
+
+
+  getServiceBoxesDataAsJSON() {
+
+    let data2 = this.db.database.ref("/").child("home-data/serviceBoxes").orderByChild("displayID").once("value")
+      .then((snapshot) => {
+        // this.galleryJsonData = 
+        
+        let data = JSON.stringify(snapshot.val());
+        this.saveServiceBoxesDataToJSON(data);
+
+
+      })
+  }
+  saveServiceBoxesDataToJSON(jsonData) {
+    let formData = new FormData();
+    formData.append("jsonString", jsonData);
+    let dbData = this.db.list("home-data/serviceBoxes");
+
+    $.ajax({
+      url: "assets/php/admin/saveServiceBoxesDataToJSON.php",
+      type: "POST",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: (data) => {
+        // console.log(data);
+        // console.log('data successfully saved');
+      },
+      error: (data) => {
+        // console.log(data);
+        // console.log('data successfully saved');
+      },
+
+    })
+  }
 }
