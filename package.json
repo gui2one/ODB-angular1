@@ -19,10 +19,8 @@
     "build-dev": "ng build && npm run gui2one_sync",
     "build-test-dev": "ng build --watch --base-href /test/ --deploy-url /test/ --output-path ./dist/test",
     "build-test-prod": "ng build --prod --aot --build-optimizer --base-href /test/ --deploy-url /test/ --output-path ./dist/test",
-
     "prestart": "ng build --prod  && ngc",
     "start": "ts-node src/server.ts"
-
   },
   "private": true,
   "dependencies": {

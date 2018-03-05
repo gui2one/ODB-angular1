@@ -30,7 +30,7 @@
                     <div class="dropdown">
                       <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        choose
+                        choose icon
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <div  *ngFor="let icon of iconsList; let iconID = index;" class="dropdown-item" (click)="onChooseIcon($event,iconID)" id={{id}} [attr.data-iconid]="iconID"><i class="{{icon}}"></i></div>
@@ -51,3 +51,6 @@
       </div>
     </div>
 </div>
+
+
+

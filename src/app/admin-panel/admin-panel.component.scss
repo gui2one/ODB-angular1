@@ -15,12 +15,14 @@
     padding:10px;
 }
 .text-area{
+    display:block;
     width:100%;
     max-width:800px;
+    height:150px;
 }
 
 .service-box-icons{
-    display: inline;
+    // display: inline;
     font-size:50px;
 }
 .dropdown{
@@ -34,7 +36,7 @@
 
 
 .text-edit{   
-   
+    
     font-size:0.9em;
 }
 
