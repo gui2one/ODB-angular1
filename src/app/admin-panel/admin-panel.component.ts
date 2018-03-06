@@ -83,7 +83,9 @@ export class AdminPanelComponent implements OnInit {
     "fa fa-cogs",
     "fa fa-hourglass-half",
     "fa fa-compass",
-    "fa fa-file-alt"
+    "fa fa-file-alt",
+    "far fa-comment-alt",
+    "fa fa-file-alt",
   ]
 
   ngOnInit() {

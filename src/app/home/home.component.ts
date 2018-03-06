@@ -43,10 +43,9 @@ export class HomeComponent implements OnInit , AfterViewInit{
         url: "assets/data/siteData.json",
         dataType: "json", /// IMPORTNANT !!!!
         success: (data) => {
-          console.log(data);
-          
+          // console.log(data);          
           this.bSiteIsOnline = data.isOnline;
-          console.log("Site is online  ???: "+this.bSiteIsOnline);          
+          // console.log("Site is online  ???: "+this.bSiteIsOnline);          
         }
       });
   }
@@ -98,7 +97,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
       success: (data) => {
         
         this.serviceBoxes = data;
-        console.log(this.serviceBoxes);
+        // console.log(this.serviceBoxes);
 
         this.choices = [0, 8, 98, 15]
         this.bServicesBoxesLoaded = true;
@@ -107,21 +106,17 @@ export class HomeComponent implements OnInit , AfterViewInit{
     });
   }
 
-
-
-
   ngOnInit(){
     // this.dbData = this.getData();
     // console.log(this.fireAuth.auth.currentUser);
-
       
       let sub = this.fireAuth.authState.subscribe(user=>{ 
         if(user){
 
-          console.log(user.email)
+          // console.log(user.email)
           this.adminLoggedIn = true;
         }else{
-          console.log("logged out")
+          // console.log("logged out")
           this.adminLoggedIn = false;
         }
       });
@@ -135,12 +130,24 @@ export class HomeComponent implements OnInit , AfterViewInit{
   }
 
   ngAfterViewInit(){
-    
+    this.resizeGoogleMap();
+  }
+
+  ngAfterViewChecked(){
+    this.resizeGoogleMap();
   }
   getData(){
     // return this.db.list('/gallery').valueChanges();
   }
 
+  resizeGoogleMap(){
+    let titleHeight = $('#contact_part .title-container').height()
+    let addressHeight = $('#contact_part .address').height()
+    let totalHeight = $('#contact_part').height()
+    // console.log(titleHeight);
+    // console.log(addressHeight);
+    $(".map-div").css({ height: totalHeight - ( titleHeight + addressHeight)})
+  }
 
 }
 

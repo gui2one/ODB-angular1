@@ -33,7 +33,18 @@
     cursor : pointer;
 }
 
+.dropdown-menu{
+    width: 100px;
+    height:200px;
+    overflow-y: scroll;
+}
+.dropdown-item{
+    // display:inline;
 
+    &:hover{
+        background-color: orange;
+    }
+}
 
 .text-edit{   
     

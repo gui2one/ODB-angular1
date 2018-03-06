@@ -107,8 +107,8 @@ export class SliderComponent implements OnInit{
 
     
     $(this.container).css({ height:this.sliderHeight});
-    console.log($(this.container));
-    console.log($(this.container).height());
+    // console.log($(this.container));
+    // console.log($(this.container).height());
     this.initSize();
 
     this.root = $(this.el.nativeElement.children[0].children[0]);   
