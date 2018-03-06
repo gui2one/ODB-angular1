@@ -304,7 +304,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
   }
 
   readDirContent(){
-    // console.log("readContentDir function");
+    console.log("readContentDir function");
     let formData = new FormData();
     
     jQuery.ajax({
@@ -312,9 +312,11 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
       url: "assets/php/admin/readUploadsDir.php",
       data: formData,
       success: (data) => {
+
+        console.log(data);
+
         try{
 
-          // console.log(data);
           this.dirData = JSON.parse(data);
           this.filterImages();
           

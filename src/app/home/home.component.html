@@ -19,7 +19,7 @@
                 
                   <div class="card-wrapper  col-xl-3 col-md-6 p-lg-3">
                     <div class="card-dark ">                
-                      <app-service-box iconStr="{{item.icon}}" text={{item.text}}></app-service-box>                
+                      <app-service-box iconStr="{{item.icon}}" text={{item.text}} title={{item.title}}></app-service-box>                
                     </div>
                   </div>
             </ng-container>
@@ -77,6 +77,8 @@
 
 </div>
   <app-header-title name="title_contact" text="Nous Contacter."></app-header-title>
+  <app-contact-form></app-contact-form>
+
   <app-footer></app-footer>
 
 </ng-container> <!-- end if online -->

@@ -1,9 +1,18 @@
-<app-header></app-header>
-<div class="container">
-  <p>
-    contact-form works!
-  </p>
-</div>
-<app-slider [items]='items' [sliderHeight]='sliderHeight' [autoPlayDelay] = 10></app-slider>
 
-<app-footer></app-footer>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 adresse">tel adresse et cie</div>
+    <div class="col-md-6 d-flex flex-row">
+      <form action="">
+        <input type="text" name="prenom" placeholder="prenom"/>
+        <input type="text" name="nom" placeholder="nom"/>
+        <input type="text" name="entreprise" placeholder="entreprise"/>
+        <textarea name="message" placeholder="message" rows="5"></textarea>
+        <br>
+        <button class="btn" type="submit" (click)="submitContactForm($event)">Envoyer</button>
+      </form>
+    </div>
+
+    
+  </div>
+</div>

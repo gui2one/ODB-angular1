@@ -224,7 +224,7 @@ export class AdminPanelComponent implements OnInit {
     let currrentBox = this.serviceBoxes.nativeElement.children[event.currentTarget.id]
     // console.log(currrentBox);
     let title = currrentBox.children[0].innerHTML
-    let text = currrentBox.children[3].value
+    let text = currrentBox.children[2].value
 
     // console.log($(event.target.parentNode)[0].childNodes);
     this.dataService.updateServiceBoxesItemData(event.target.id, title, text, undefined)
@@ -241,7 +241,7 @@ export class AdminPanelComponent implements OnInit {
 
     // console.log(parentBox.childNodes)
     let title = parentBox.children[0].innerHTML
-    let text = parentBox.children[3].value
+    let text = parentBox.children[2].value
  
     // console.log(title)
     this.dataService.updateServiceBoxesItemData(event.currentTarget.id, title, text, this.iconsList[iconID])
