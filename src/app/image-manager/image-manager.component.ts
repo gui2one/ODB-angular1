@@ -304,7 +304,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
   }
 
   readDirContent(){
-    console.log("readContentDir function");
+    // console.log("readContentDir function");
     let formData = new FormData();
     
     jQuery.ajax({
@@ -313,7 +313,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
       data: formData,
       success: (data) => {
 
-        console.log(data);
+        // console.log(data);
 
         try{
 

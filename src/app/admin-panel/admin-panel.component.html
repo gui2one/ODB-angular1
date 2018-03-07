@@ -1,6 +1,13 @@
 <div id="wrapper" *ngIf="router.url === '/admin'">
   <h2>Admin Panel</h2>
   <div class="admin-box">
+    
+    <button class="btn" (click)="backupDataBase($event)">Backup database</button>
+    <form ><input type="file" name="" id="backupFile" (change)="overwriteDatabase($event,this)">
+    <!-- <input type="submit" value="Ecraser base de donnée" (click)="overrideDatabase($event)"> -->
+  </form>
+  </div>
+  <div class="admin-box">
       <label>
         <app-toggle toggleName="toggle1" (click)="onClickToggle1($event)"></app-toggle>
         <ng-container *ngIf="siteDbData">

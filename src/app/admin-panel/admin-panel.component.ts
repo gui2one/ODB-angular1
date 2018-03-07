@@ -249,4 +249,23 @@ export class AdminPanelComponent implements OnInit {
     this.dataService.updateServiceBoxesItemData(event.currentTarget.id, title, text, this.iconsList[iconID])
   }
 
+
+  backupDataBase(event){
+    event.preventDefault();
+    this.dataService.backupDataBase();
+  }
+
+  overwriteDatabase(event,fileData){
+    event.preventDefault();
+    let file = event.target.files[0];
+    // console.log(file);
+    let reader = new FileReader();
+    reader.onload = (e)=>{
+      console.log(reader.result);
+
+      this.dataService.overwriteDatabase(reader.result);
+    }
+    reader.readAsText(file);
+
+  }
 }

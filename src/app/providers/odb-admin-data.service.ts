@@ -3,6 +3,7 @@ import { AngularFireDatabase } from "angularfire2/database";
 import { Observable } from 'rxjs/Observable'
 import * as $ from 'jquery'
 import { Promise } from 'q';
+import {Location} from '@angular/common'
 @Injectable()
 export class OdbAdminDataService {
 
@@ -212,14 +213,29 @@ export class OdbAdminDataService {
       contentType: false,
       processData: false,
       success: (data) => {
-        // console.log(data);
-        // console.log('data successfully saved');
+        console.log(data);
+        console.log('data successfully saved');
       },
       error: (data) => {
         // console.log(data);
-        // console.log('data successfully saved');
+        console.log('error saving data');
       },
 
     })
+  }
+
+
+  backupDataBase(){
+    let data = this.db.database.ref("/").once("value", (snapshot)=>{
+      let jsonData = JSON.stringify(snapshot.val());
+      let formData = new FormData();
+      formData.append("jsonString", jsonData);
+      window.location.replace('assets/php/admin/downloadBackupFile.php?jsonString='+ jsonData+'');
+
+    })
+  }
+
+  overwriteDatabase(jsonData){
+    this.db.database.ref("/").set(JSON.parse(jsonData))
   }
 }
