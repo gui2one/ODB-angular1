@@ -10,4 +10,6 @@
     $baseName = str_replace("_thumbnail","",$filePath);
     unlink($baseName);
     // print_r("\n\tbase name : ".$baseName);
+
+    print_r($filePath);
 ?>

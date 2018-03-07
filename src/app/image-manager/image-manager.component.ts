@@ -88,7 +88,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
     this.holder = document.getElementById("holder");
     if (this.bLoggedIn) {
 
-      this.readDirContent();
+      // this.readDirContent();
       // console.log(this.holder);
       this.holder.addEventListener("drop", (event) => {
         event.preventDefault();
@@ -121,7 +121,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
   confirmDelete(event){
     event.preventDefault();
     event.stopPropagation();
-    console.log(event)
+    // console.log(event)
     this.removeFile(this.deleteCandidate);
     this.modalRef.hide();
   }
@@ -144,30 +144,30 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
     }
 
     
-    console.log(_name)
+    // console.log(_name)
     return _name;
   }
 
   uploadFile(event = null, files = null) {
     
     let formData: any;
-    console.log(files);
+    // console.log(files);
 
     
     
     for(let i=0 ; i<files.length; i++){
-      console.log(files[i].name);
+      // console.log(files[i].name);
       // files[i].name = this.checkFileName(files[i].name);
     }
     if(event != null){
-      console.log(event);
+      // console.log(event);
       event.preventDefault();
       event.stopPropagation();
       let form = jQuery(document.getElementById('uploadForm'))[0];
       formData = new FormData(form);
 
     }else{
-      console.log("not an event !!! ");     
+      // console.log("not an event !!! ");     
 
       // console.log(files);
       formData = new FormData();
@@ -193,7 +193,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
           
           for(let i=0; i< data.length; i++){
             let dat = JSON.parse(data[i]);
-            console.log(dat);
+            // console.log(dat);
             if (dat.success) {
               this.showLogInfos("success", dat.success.msg);
               let fileInput = jQuery(document.getElementById("fileInput"))[0];
@@ -208,16 +208,16 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
 
           }
 
-          this.readDirContent();
+          // this.readDirContent();
         } else {
-          console.log("no data");
+          // console.log("no data");
         }
 
         // console.log(jsonData);
 
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
         //console.log(this.errorLogDiv); 
         this.errorLogDiv[0].innerHTML = err.responseText;
 
@@ -227,7 +227,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
 
   onDeleteClick(event, item){
     this.deleteCandidate = item
-    console.log(item);
+    // console.log(item);
     this.openModal(this.templateRef);
   }
   onItemClick(event,item){
@@ -249,12 +249,12 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
   }
 
   updateImageDatails(item){
-    console.log(item);
+    // console.log(item);
   }
   removeFile(fileName){
 
     // event.preventDefault();
-
+    // console.log(fileName);
     let formData = new FormData();
     formData.append('fileName',fileName);
 
@@ -267,25 +267,16 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
       success: (data)=>{
         // console.log(data);
         this.deleteUploadFromDB(this.deleteCandidate);
-        this.readDirContent();
+        // this.readDirContent();
       },
       error: (err)=>{
-        console.log("error !!!");
+        // console.log("error !!!");
         console.log(err);
       }
 
     });
   }
-  receiveMessage(event){
-    // console.log(event);
-    this.message = event;
-    this.bLoggedIn = this.message;  
-    if(this.bLoggedIn) {
-      this.readDirContent();
 
- 
-    }
-  }
 
   showLogInfos(type: string, message: string) {
     if (type === "success") {
@@ -293,7 +284,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
     } else if (type === "error") {
       this.errorLogDiv.css({ backgroundColor: 'red' });
     } else {
-      console.log("bad infos type ( \"success\" or \"error\" )");
+      // console.log("bad infos type ( \"success\" or \"error\" )");
       return 0;
     }
 
@@ -303,78 +294,36 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
     setTimeout(() => this.errorLogDiv.css({ opacity: '0' }), 3000);
   }
 
-  readDirContent(){
-    // console.log("readContentDir function");
-    let formData = new FormData();
-    
-    jQuery.ajax({
-      type: "POST",
-      url: "assets/php/admin/readUploadsDir.php",
-      data: formData,
-      success: (data) => {
 
-        // console.log(data);
-
-        try{
-
-          this.dirData = JSON.parse(data);
-          this.filterImages();
-          
-        } 
-        catch(e){
-          console.log(e);
-        }
-        // console.log(this.dirData.length);
-      },
-      contentType: false,
-      processData: false
-    })
-  }
-
-  filterImages(){
-    if(this.bFilterImages){
-      this.imageUrls = [];
-      // console.log(this.dirData)
-      this.dirData.forEach(element => {
-        let ext = element.split(".").pop().toLowerCase();
-        if(ext === "jpg" || ext === "jpeg"){
-          this.imageUrls.push(element);
-        }
-      });
-    }else{
-      this.imageUrls = this.dirData;
-    }
-  }
 
   deleteUploadFromDB(deleteCandidate){
-    console.log(deleteCandidate);
+    // console.log(deleteCandidate);
     deleteCandidate = deleteCandidate.replace("_thumbnail","");
-    console.log(deleteCandidate);
+    // console.log(deleteCandidate);
     deleteCandidate = deleteCandidate.split("/").pop()
-    console.log(deleteCandidate);
+    // console.log(deleteCandidate);
     const uploadsRef = this.db.database.ref().child("uploads");
     
     let ret = uploadsRef.orderByChild("fileName").equalTo(deleteCandidate).on("child_added", (snapshot)=>{
       let k = snapshot.key;
-      // console.log(snapshot.key);
-      this.reallyDelete(k);
+
+      const uploadsRef = this.db.database.ref().child("uploads");
+
+      let ret = uploadsRef.child(k).remove();
     });
-    //console.log(this.deleteCandidateKey);
+    
   }
 
-  reallyDelete(key : any){
-    const uploadsRef = this.db.database.ref().child("uploads");
 
-    let ret = uploadsRef.child(key).remove();
-  }
 
   addUploadToDB(data:any){
-    console.log(data.fileName);
+    // console.log(data.fileName);
     let date = new Date();
     let unix_time = date.getTime();
 
     let emptyUploadsData: object = {
       fileName: data.fileName,
+      thumbName : data.thumbName,
       fileSize: data.fileSize,
       width: data.width,
       height: data.height,
@@ -382,7 +331,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
       date: date.toDateString()
     }    
     let key = this.db.database.ref("/uploads").push(emptyUploadsData).key;
-    this.readDirContent();
+  
   }
 
 
