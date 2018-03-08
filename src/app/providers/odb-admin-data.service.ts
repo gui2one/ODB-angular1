@@ -236,6 +236,10 @@ export class OdbAdminDataService {
   }
 
   overwriteDatabase(jsonData){
-    this.db.database.ref("/").set(JSON.parse(jsonData))
+    this.db.database.ref("/").set(JSON.parse(jsonData)).then(()=>{
+      this.getGalleryDataAsJSON();
+      this.getServiceBoxesDataAsJSON();
+      this.getSiteDataToJSON();
+    })
   }
 }
