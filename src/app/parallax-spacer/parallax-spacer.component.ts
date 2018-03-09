@@ -9,8 +9,13 @@ export class ParallaxSpacerComponent implements OnInit {
 
   constructor(private element : ElementRef) { }
 
+
   @Input() imgUrl : string = "assets/img/oeufs_2.jpg";
   @Input() height : number = 200;
+
+
+  wrapper : HTMLElement;
+  movingBg : HTMLElement;
   ngOnInit() {
 
     // window.addEventListener("scroll", this.onScroll.bind(this));
@@ -18,7 +23,10 @@ export class ParallaxSpacerComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    $("#wrapper").css({ height : this.height})
+    this.wrapper = $(this.element.nativeElement).children()[0];
+    this.movingBg = $(this.wrapper).children()[0];
+    console.log(this.movingBg);
+    $(this.wrapper).css({ height : this.height})
     $(window).scroll(function (e) {
       this.onScroll()
     }.bind(this))
@@ -27,9 +35,9 @@ export class ParallaxSpacerComponent implements OnInit {
   onScroll(event){
     let wHeight = window.innerHeight;
     let rect = this.element.nativeElement.getBoundingClientRect();
-    let scrollTop = ($(window).scrollTop());
-    let elTop = $("#wrapper").offset().top
-    let elHeight = $("#wrapper").height()
+    let scrollTop = $(window).scrollTop();
+    let elTop = $(this.wrapper).offset().top;
+    let elHeight = $(this.wrapper).height();
 
     // console.log(elTop - scrollTop)
     // console.log("scrollTop -->" + scrollTop)
@@ -45,7 +53,7 @@ export class ParallaxSpacerComponent implements OnInit {
       let heightOnPage = wHeight - (elTop - scrollTop);
 
       // console.log("height on page  -->"+ heightOnPage / (wHeight + elHeight))
-      $("#movingBackground").css(
+      $(this.movingBg).css(
         'top', -(((heightOnPage / (wHeight + elHeight)) * wHeight) * 0.35)+"px"
 
       )

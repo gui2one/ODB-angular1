@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
 
   video : any;
   isPlaying : boolean;
+  userPaused : boolean = false;
   constructor() { }
 
   ngOnInit() {
@@ -39,7 +40,7 @@ export class HeaderComponent implements OnInit {
     this.isPlaying = !this.video.paused;
   }
   ngAfterViewChecked(){
-    let sourceRatio = 1280 / 720;
+    let sourceRatio = 1280.0 / 720.0;
     let width = $("#video")[0].offsetWidth;
     let height = $("#video")[0].offsetHeight;     
     let windowWidth = window.innerWidth;
@@ -70,26 +71,33 @@ export class HeaderComponent implements OnInit {
       })
 
     }
+    
+
+    if(window.scrollY +200 >  windowHeight){
+      this.video.pause();
+      
+    } else if( window.scrollY < 100 && !this.userPaused){
+
+      this.video.play();
+      // this.isPlaying = !this.video.paused
+    }
+
     this.isPlaying = !this.video.paused
-
-    // if( ! this.isPlaying){
-
-    //   // $('#playButton').trigger('click');
-    //   // console.log($('#playButton'));    
-    // }
 
   }
 
   onClickPlay(event){
     // event.preventDefault();
-    console.log("play button click");
+    // console.log("play button click");
     this.video.play();
     this.isPlaying = !this.video.paused
+    this.userPaused = false;
   }
 
   onClickPause(){
     this.video.pause();
     this.isPlaying = !this.video.paused
+    this.userPaused = true;
   }
 
 
