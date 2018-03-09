@@ -12,7 +12,7 @@ export class ParallaxSpacerComponent implements OnInit {
 
   @Input() imgUrl : string = "assets/img/oeufs_2.jpg";
   @Input() height : number = 200;
-
+  @Input() parallaxRatio : number = 0.5;
 
   wrapper : HTMLElement;
   movingBg : HTMLElement;
@@ -54,7 +54,7 @@ export class ParallaxSpacerComponent implements OnInit {
 
       // console.log("height on page  -->"+ heightOnPage / (wHeight + elHeight))
       $(this.movingBg).css(
-        'top', -(((heightOnPage / (wHeight + elHeight)) * wHeight) * 0.35)+"px"
+        'top', -(((heightOnPage / (wHeight + elHeight)) * wHeight) * this.parallaxRatio)+"px"
 
       )
     }

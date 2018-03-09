@@ -180,7 +180,7 @@ $iconSize : 100px;
     top:0px;
     width:100%;
     margin:0 auto;
-    margin-top:$iconSize + 130px;
+    margin-top:$iconSize + 100px ;
     padding: 5px 20px 10px 20px;
     // margin-top:30px;
     color:white;
@@ -236,5 +236,24 @@ $iconSize : 100px;
   }    
 }
 
+
+
+@media only screen and (max-width: 600px) {
+  .box {
+      .icon{   
+      margin-top: 5px;
+      
+      font-size: $iconSize/2;   
+
+    }
+    .content-light{
+      margin-top :( $iconSize/2) +100px;
+    }
+
+     .content-dark{
+      margin-top :( $iconSize/2)  + 50px;
+    }
+  }
+}
 
 
