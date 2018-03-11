@@ -5,7 +5,7 @@ import { enableProdMode } from '@angular/core'
 import * as express from 'express';
 import { join } from 'path';
 import { readFileSync } from 'fs';
-import { AppServerModuleNgFactory } from '../dist/ngfactory/src/app/app-server.module.ngfactory'
+// import { AppServerModuleNgFactory } from '../dist/ngfactory/src/app/app-server.module.ngfactory'
 
 enableProdMode()
 
@@ -17,8 +17,8 @@ const template = readFileSync(join(DIST_DIR, 'index.html')).toString()
 app.engine('html', (_, options, callback) => {
     const newOptions = { document: template, url: options.req.url };
 
-    renderModuleFactory(AppServerModuleNgFactory, newOptions)
-        .then(html => callback(null, html))
+    // renderModuleFactory(AppServerModuleNgFactory, newOptions)
+    //     .then(html => callback(null, html))
 })
 
 app.set('views', 'src')

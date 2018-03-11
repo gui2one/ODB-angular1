@@ -37,6 +37,9 @@ import { ToggleComponent } from '../toggle/toggle.component';
 // import { ToggleComponent } from '../toggle/toggle.component';
 import { AdminSideBarComponent } from '../admin-side-bar/admin-side-bar.component';
 import { AdminPanelComponent } from '../admin-panel/admin-panel.component';
+
+import { SiteUtilsService } from '../providers/site-utils.service'
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 let Routes : Routes = [
   {
     path: "",
@@ -55,6 +58,7 @@ let Routes : Routes = [
   },  
 ]
 @NgModule({
+
   imports: [
     // ContactFormModule,
     RouterModule.forChild(Routes),
@@ -66,7 +70,8 @@ let Routes : Routes = [
     ModalModule.forRoot(),
 
     ToggleModule,
-    ConfirmModalModule
+    ConfirmModalModule,
+    
     
   ], 
   providers: [
@@ -74,9 +79,9 @@ let Routes : Routes = [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     AuthService,
     // OdbDataService,
-    OdbAdminDataService
+    OdbAdminDataService,
+    SiteUtilsService
   ],
-  bootstrap: [AdminComponent],
   declarations: [
     AdminComponent, 
     LoginComponent,
@@ -88,7 +93,9 @@ let Routes : Routes = [
     AdminUploadsComponent,
     AdminSideBarComponent,
     AdminPanelComponent
-    ]  
+  ],
+
+  bootstrap: [AdminComponent],
 })
 export class AdminModule implements OnInit{
 

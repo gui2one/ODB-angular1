@@ -1,10 +1,19 @@
+<div id="modal-wrapper" class="d-flex flex-column justify-content-center">
 
+  <div class="modal-overlay"></div>
+  <div id="modal-box" class="d-flex flex-column align-self-center">
 
-<div id="modal-wrapper" >
+    <div class="message">
+      <p>{{message}}</p>
+    </div>
 
-  <div class="message"><p>Do you confirm ? </p></div>
-  
-  <button class="btn btn-confirm btn-primary">Confirm</button>
+    <div class="d-flex flex-row justify-content-end">
+    <button class="btn btn-confirm btn-secondary" (click)="broadcastMessage(true);">{{confirmBtnText}}</button>
+    <button class="btn btn-confirm btn-primary" (click)="broadcastMessage(false);">{{declineBtnText}}</button>
+    </div>
+  </div>
+
 </div>
+
 
 

@@ -41,4 +41,6 @@ export class SiteUtilsService {
   updateDivData(){
     this.div.innerHTML = this.window.innerWidth() + " / " + this.window.innerHeight();
   }
+
+  
 }

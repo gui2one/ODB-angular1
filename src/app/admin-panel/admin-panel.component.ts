@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, ComponentRef, ComponentFactory } from '@angular/core';
 //import { Output, Input } from '@angular/core/src/metadata/directives';
 import { Router, Route } from '@angular/router';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -13,6 +13,9 @@ import * as $ from 'jquery';
 import { NgModule } from '@angular/core/src/metadata/ng_module';
 import { Promise } from 'q';
 import { ConfirmModalModule } from "../confirm-modal/confirm-modal.module";
+import { ConfirmModalComponent } from "../confirm-modal/confirm-modal.component";
+
+import { SiteUtilsService } from "../providers/site-utils.service";
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
@@ -25,6 +28,10 @@ import { ConfirmModalModule } from "../confirm-modal/confirm-modal.module";
 export class AdminPanelComponent implements OnInit {
 
   @ViewChild("serviceBoxes") serviceBoxes : ElementRef;
+  @ViewChild("testModal") testModal: ConfirmModalComponent;
+  @ViewChild("overwriteDatabaseModal") overwriteDatabaseModal: ConfirmModalComponent;
+
+
   
 
   siteDbData: any;
@@ -45,7 +52,9 @@ export class AdminPanelComponent implements OnInit {
     private dataService: OdbAdminDataService,
     public router: Router,
     public confirmModal : ConfirmModalModule,
-    public element : ElementRef
+    public element : ElementRef,
+    private siteUtils : SiteUtilsService,
+    private resolver: ComponentFactoryResolver
   ) { }
 
   emptySiteData : object = {
@@ -89,18 +98,16 @@ export class AdminPanelComponent implements OnInit {
     "fa fa-compass",
     "fa fa-file-alt",
     "far fa-comment-alt",
-    "fa fa-file-alt",
+    "fas fa-comments",
+    "far fa-comments",
+    "fas fa-book",
+    
   ]
 
   ngOnInit() {
 
-    // console.log("ADMIN COMPONENT LOADED !!");
-    // console.log(this.router.url);
 
 
-    // console.log(this.authService.loggedIn);
-
-    // console.log(this.authService.checkLoggedIn());
     this.errorLogDiv = $(document.getElementById("errorLog"));
     this.bLoggedIn = localStorage.getItem('ODB_connected') == 'true' ? true : false;
 
@@ -262,10 +269,11 @@ export class AdminPanelComponent implements OnInit {
   overwriteDatabase(event,fileData){
     event.preventDefault();
     let file = event.target.files[0];
+    event.target.value = "";
     // console.log(file);
     let reader = new FileReader();
     reader.onload = (e)=>{
-      console.log(reader.result);
+      // console.log(reader.result);
 
       this.dataService.overwriteDatabase(reader.result);
     }
@@ -274,8 +282,30 @@ export class AdminPanelComponent implements OnInit {
   }
 
 
-  openModalClick(event){
-    event.preventDefault();
+  testModalCallback(){
+    console.log('my funck!!!!! BETTER ....  STRONGER')
+    console.log(this);
+  }
+
+  testModalCallback2(arg1 : string, arg2 : string) {
+
+    console.log('22222222222222')
+    console.log(arg2);
+    console.log(this);
+  }
+
+
+  testModalDecide(event :boolean){
+    console.log("decide ....")
+    console.log(event)
 
   }
+
+  testModalDecide2(event : boolean){
+    console.log("decide 2 ....")
+    console.log(event)
+  }
+
+
+
 }
