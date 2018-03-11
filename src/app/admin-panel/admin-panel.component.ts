@@ -100,8 +100,7 @@ export class AdminPanelComponent implements OnInit {
     "far fa-comment-alt",
     "fas fa-comments",
     "far fa-comments",
-    "fas fa-book",
-    
+    "fas fa-book",    
   ]
 
   ngOnInit() {
