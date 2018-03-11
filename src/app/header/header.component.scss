@@ -5,7 +5,7 @@
 
     overflow : hidden;
     // width:100vw;
-    // height:100vh;
+     height:100vh;
 }
 
 video{
@@ -17,6 +17,10 @@ video{
     margin: 0;
 }
 
+
+#alternative-to-video{
+    display: none;
+}
 .video-controls{
     position: absolute;
     
@@ -172,5 +176,15 @@ video{
         font-size: 0.8em;
 
     }      
+}
+
+@media screen and (max-width: 450px) , screen and (max-height: 450px) {
+    #alternative-to-video{
+        display: inherit;
+    }
+
+    video{
+        display:  none;
+    }
 }
 

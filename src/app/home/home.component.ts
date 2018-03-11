@@ -9,7 +9,7 @@ import * as $ from 'jquery';
 
 // import { AuthService } from '../providers/auth.service.ts.service';
 import { AngularFireAuth } from 'angularfire2/auth';
-// import{ AuthService } from '../providers/auth.service.ts.service'
+import{SiteUtilsService} from '../providers/site-utils.service'
 
 @Component({
   selector: 'app-home',
@@ -34,7 +34,35 @@ export class HomeComponent implements OnInit , AfterViewInit{
 
 
   choices : Array<number>;
-  constructor( public fireAuth : AngularFireAuth ) {}
+  constructor(  public fireAuth : AngularFireAuth, 
+                private siteUtils : SiteUtilsService            
+              ) {}
+
+
+  ngOnInit() {
+
+
+
+    // this.siteUtils.displayScreenInfos();
+
+    let sub = this.fireAuth.authState.subscribe(user => {
+      if (user) {
+
+        // console.log(user.email)
+        this.adminLoggedIn = true;
+      } else {
+        // console.log("logged out")
+        this.adminLoggedIn = false;
+      }
+    });
+
+    // console.log(sub);
+    this.loadGalleryData();
+    this.loadSiteData();
+    this.loadServiceBoxesData();
+
+    // this.adminLoggedIn = this.authService.checkLoggedIn();
+  }
 
 
   loadSiteData(){
@@ -106,28 +134,6 @@ export class HomeComponent implements OnInit , AfterViewInit{
     });
   }
 
-  ngOnInit(){
-    // this.dbData = this.getData();
-    // console.log(this.fireAuth.auth.currentUser);
-      
-      let sub = this.fireAuth.authState.subscribe(user=>{ 
-        if(user){
-
-          // console.log(user.email)
-          this.adminLoggedIn = true;
-        }else{
-          // console.log("logged out")
-          this.adminLoggedIn = false;
-        }
-      });
-
-    // console.log(sub);
-    this.loadGalleryData();
-    this.loadSiteData();
-    this.loadServiceBoxesData();
-    
-    // this.adminLoggedIn = this.authService.checkLoggedIn();
-  }
 
   ngAfterViewInit(){
     this.resizeGoogleMap();

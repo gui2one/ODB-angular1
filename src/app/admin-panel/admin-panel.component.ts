@@ -12,6 +12,7 @@ import * as firebase from 'firebase'
 import * as $ from 'jquery';
 import { NgModule } from '@angular/core/src/metadata/ng_module';
 import { Promise } from 'q';
+import { ConfirmModalModule } from "../confirm-modal/confirm-modal.module";
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
@@ -24,7 +25,7 @@ import { Promise } from 'q';
 export class AdminPanelComponent implements OnInit {
 
   @ViewChild("serviceBoxes") serviceBoxes : ElementRef;
-
+  
 
   siteDbData: any;
   homeDbData : object;
@@ -42,7 +43,10 @@ export class AdminPanelComponent implements OnInit {
     public authService: AuthService,
     private db: AngularFireDatabase,
     private dataService: OdbAdminDataService,
-    public router: Router) { }
+    public router: Router,
+    public confirmModal : ConfirmModalModule,
+    public element : ElementRef
+  ) { }
 
   emptySiteData : object = {
     isOnline : false
@@ -266,6 +270,12 @@ export class AdminPanelComponent implements OnInit {
       this.dataService.overwriteDatabase(reader.result);
     }
     reader.readAsText(file);
+
+  }
+
+
+  openModalClick(event){
+    event.preventDefault();
 
   }
 }

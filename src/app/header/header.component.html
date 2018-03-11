@@ -3,10 +3,10 @@
 <!-- <div class="header" [defaultImage]="defaultImage" [lazyLoad]="backgroundImage"> -->
   <!-- <div class="empty-header"></div> -->
   <div id="header_wrapper">
-      <video autoplay defaultMuted loop id="video"  src="assets/img/loeuf_dubreil_FINAL_03.mp4">
+      <video autoplay defaultMuted loop id="video"  src="assets/img/loeuf_dubreil_FINAL_03.mp4"> 
        
       </video>
-
+      <img id="alternative-to-video" src="assets/img/oeufs_2.jpg">
       <div *ngIf="!isPlaying">
         <div class="video-controls" (click)="onClickPlay($event)">
           <i id="playButton" class="fas fa-play-circle" ></i>

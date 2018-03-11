@@ -1,6 +1,6 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+// import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
@@ -47,6 +47,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ModuleOptions, NgStaticSiteGeneratorModule } from 'ng-static-site-generator';
 import { ParallaxSpacerComponent } from './parallax-spacer/parallax-spacer.component';
 
+import { SpacerComponent } from './spacer/spacer.component';
+import { ParallaxBackgroundComponent } from './parallax-background/parallax-background.component';
+
+
+import{SiteUtilsService} from './providers/site-utils.service'
 const ngStaticSiteGeneratorModuleOptions: ModuleOptions = {
   openExternalLinksInNewTab: false // Automatically add target="_blank" to external links. Default false.
 };
@@ -100,6 +105,8 @@ let Routes : Routes = [
     HeaderTitleComponent,
     NotFoundComponent,
     ParallaxSpacerComponent,
+    SpacerComponent,
+    ParallaxBackgroundComponent,
     
 
   ],
@@ -120,13 +127,16 @@ let Routes : Routes = [
 
     AngularFireModule.initializeApp(environment.firebase),
     // AngularFireDatabaseModule,
-    AngularFireAuthModule,    
+    AngularFireAuthModule,
+    // HttpClientModule
+ 
 
   ],
   providers: [
     // { provide: APP_BASE_HREF, useValue: '/test/' },
    { provide: LocationStrategy, useClass: HashLocationStrategy },
   //  AuthService
+  SiteUtilsService
 
   ],
   bootstrap: [AppComponent]

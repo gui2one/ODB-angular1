@@ -1,7 +1,13 @@
+<app-confirm-modal #overwriteDataBaseModal display="false"></app-confirm-modal>
+
 <div id="wrapper" *ngIf="router.url === '/admin'">
-  <h2>Admin Panel</h2>
+  <h2>Admin Panel ...</h2>
   <div class="admin-box">
     
+    <button class="btn btn-primary" (click)="openModalClick($event)">test modal</button>
+    
+
+
     <button class="btn" (click)="backupDataBase($event)">Backup database</button>
     <form ><input type="file" name="" id="backupFile" (change)="overwriteDatabase($event,this)">
     <!-- <input type="submit" value="Ecraser base de donnée" (click)="overrideDatabase($event)"> -->

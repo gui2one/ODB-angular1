@@ -20,7 +20,9 @@ import { ImageManagerComponent } from '../image-manager/image-manager.component'
 import { AdminHeaderComponent } from '../admin-header/admin-header.component'
 
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+
+// import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { ConfirmModalModule } from "../confirm-modal/confirm-modal.module";
 
 
 // import { OdbDataService } from "../providers/odb-data.service";
@@ -64,6 +66,7 @@ let Routes : Routes = [
     ModalModule.forRoot(),
 
     ToggleModule,
+    ConfirmModalModule
     
   ], 
   providers: [
@@ -80,7 +83,7 @@ let Routes : Routes = [
     GalleryComponent,
     ImageManagerComponent,
     AdminHeaderComponent,
-    ConfirmModalComponent,
+    // ConfirmModalComponent,
     GalleryManagerComponent,
     AdminUploadsComponent,
     AdminSideBarComponent,
