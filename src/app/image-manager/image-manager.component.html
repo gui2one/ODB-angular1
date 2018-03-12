@@ -1,23 +1,50 @@
 
 <div id="errorLog"></div>
 <div class="wrapper d-flex flex-column"  *ngIf="bLoggedIn">
-  <div id="top-part">
+  <div id="top-part" class="p-sm-1 p-md-2 p-xl-4">
   <h2>Images Manager</h2>
-    
-    <form id="uploadForm" action="" method="POST" enctype="multipart/form-data">
-      <input id="fileInput" type="file" name="file">
-      <button type="submit" name="submit" (click)="uploadFile($event, [])">Upload</button>
-    </form>
-  <form id="uploadFormDrop" method="post" action="" enctype="multipart/form-data">
-    <input type="file" hidden>
-    <input id="fileDragName" hidden>
-    <input id="fileDragSize" hidden>
-    <input id="fileDragType" hidden>
-    <input id="fileDragData" hidden>
-    <div id="holder">
-      <p>Glissez vos fichiers ici</p>
+ 
+  <div class="admin-collapse">
+    <div class="admin-collapse-header" data-toggle="collapse" data-target="#collapseTwo" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          Upload Images
+        </button>
+      </h5>
     </div>
-  </form>
+  
+    <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="admin-collapse-body d-flex flex-column">
+  
+        <div class="admin-collapse-group">
+          <p class="admin-collapse-group-title">Upload</p>
+
+
+
+
+            <form id="uploadForm" action="" method="POST" enctype="multipart/form-data">
+              <input id="fileInput" type="file" name="file">
+              <button type="submit" name="submit" (click)="uploadFile($event, [])">Upload</button>
+            </form>
+          <form id="uploadFormDrop" method="post" action="" enctype="multipart/form-data">
+            <input type="file" hidden>
+            <input id="fileDragName" hidden>
+            <input id="fileDragSize" hidden>
+            <input id="fileDragType" hidden>
+            <input id="fileDragData" hidden>
+            <div id="holder">
+              <p>Glissez vos fichiers ici</p>
+            </div>
+          </form>
+
+
+      </div>
+      </div>
+      </div>
+      </div>
+
+
+
 
 
     <div class="images-wrapper">

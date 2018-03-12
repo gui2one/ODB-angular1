@@ -1,10 +1,16 @@
-@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css');
 
+
+@import "../../assets/sass/_variables.scss";
+@import "../../assets/sass/_mixins.scss";
+
+@include admin-collapse;
 #wrapper{
     // padding : 15px;
 }
 
-
+.my-mixin{
+    
+}
 .admin-box{
 
     margin:5px;

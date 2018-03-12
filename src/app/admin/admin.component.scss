@@ -1,3 +1,5 @@
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css');
+
 #wrapper{
     position:relative;
     width:100%;
@@ -5,69 +7,69 @@
 
     
 }
-.admin-collapse-header{
+// .admin-collapse-header{
 
-    cursor: pointer;
-    background-color: #ddd;
-    &:hover{
-        background-color: orange;
-    }
+//     cursor: pointer;
+//     background-color: #ddd;
+//     &:hover{
+//         background-color: orange;
+//     }
 
-    & .btn-link::before{
-        font-family: FontAwesome;
-        content : "\f107"; //fas fa-angle-right
-        font-size : 1.5em;
-        line-height: 0em;
-        vertical-align: middle;
-        display: inline-block;
-    }
-    & .btn-link.collapsed::before{
-        font-family: FontAwesome;
-        content : "\f105";
-    }    
+//     & .btn-link::before{
+//         font-family: FontAwesome;
+//         content : "\f107"; //fas fa-angle-right
+//         font-size : 1.5em;
+//         line-height: 0em;
+//         vertical-align: middle;
+//         display: inline-block;
+//     }
+//     & .btn-link.collapsed::before{
+//         font-family: FontAwesome;
+//         content : "\f105";
+//     }    
 
 
 
-}
+// }
 
-.admin-collapse-body{
+// .admin-collapse-body{
 
-    border : 1px solid black;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-top-width: 0;
+//     border : 1px solid black;
+//     border-bottom-left-radius: 5px;
+//     border-bottom-right-radius: 5px;
+//     border-top-width: 0;
 
-    padding:5px;
-    &:hover{
-        border-color: orange;
-    }
-}
-.admin-collapse-group{
-    position: relative;
-    border-radius : 5px;
-    border-style: solid;
-    border-color: grey;
-    border-width: 1px;
+//     padding:5px;
+//     &:hover{
+//         border-color: orange;
+//     }
+// }
+// .admin-collapse-group{
+//     position: relative;
+//     border-radius : 5px;
+//     border-style: solid;
+//     border-color: grey;
+//     border-width: 1px;
 
-    background-color: none;
+//     background-color: none;
 
-    padding : 5px;
-    padding-top: 20px;
+//     padding : 5px;
+//     padding-top: 20px;
 
-    margin-top : 30px;
+//     margin-top : 30px;
 
-    & .admin-collapse-group-title{
-        background-color: white;
-        position :absolute;
-        top: 0px;
-        transform : translateY(-75%);
+//     & .admin-collapse-group-title{
+//         background-color: white;
+//         position :absolute;
+//         top: 0px;
+//         transform : translateY(-75%);
 
-        &::before, &::after{
-            content:" ";
-            white-space: pre;
-        }
-    }
-}
+//         &::before, &::after{
+//             content:" ";
+//             white-space: pre;
+//         }
+//     }
+// }
 
 
 .admin-box{

@@ -4,7 +4,7 @@
 
 
 
-<div id="wrapper" class="" *ngIf="router.url === '/admin'">
+<div id="wrapper" class="p-sm-1 p-md-2 p-xl-4" *ngIf="router.url === '/admin'">
   <h2>Admin Panel ...</h2>
 
   <div class="admin-collapse">
@@ -100,13 +100,8 @@
                   <div class="admin-collapse-group">
                     <p class="admin-collapse-group-title">Charger une base de Donnée</p>
 
-                    <form>
-                      <!-- <input type="file" name="" id="backupFile" (change)="overwriteDatabase($event,this)"> -->
-                      <label for="load-backup-file">Charger un fichier de sauvegarde :
-                        <br>
+                    <form>      
                         <input type="file" name="load-backup-file" id="backupFile" (change)="overwriteDatabaseModal.show('Confirm overwiting data base ?! really  really ????','yes really !','', overwriteDatabase.bind(this),$event,this)">
-                      </label>
-                      <!-- <input type="submit" value="Ecraser base de donnée" (click)="overrideDatabase($event)"> -->
                     </form>
 
                   </div>
@@ -117,57 +112,7 @@
 
  
 
-<!-- 
-  <div class="admin-box">
-      <label>
-        <app-toggle toggleName="toggle1" (click)="onClickToggle1($event)"></app-toggle>
-        <ng-container *ngIf="siteDbData">
-          <span *ngIf="bSiteOnline" class="online">online</span>
-          <span *ngIf="!bSiteOnline" class="offline">offline</span>
-        </ng-container>
 
-
-      </label>
-      <br>
-
-      <button class="btn btn-primary" (click)="saveToSite($event)">Save to Site</button>
-
-  </div> -->
-  <!-- <div aria-multiselectable="true">
-    <div class="card">
-    <h3 class="card-title collapse-header" data-toggle="collapse" data-parent="#myBox" href="#myBox" aria-expanded="true" aria-controls="myBox">Services</h3>
-    <div class="admin-box collapse show" id="myBox" role='tabcard'>
-   
-              <div #serviceBoxes class="row" *ngIf="homeDbData">
-              
-                
-                  <div *ngFor="let item of homeDbData.serviceBoxes; let id=index;" class="box-data-container col-md-6  col-lg-3 no-gutters" id={{id}}>
-                    
-                    <p class="text-edit" contenteditable id="{{id}}" (focusout)="onFocusOut($event)">{{item.title}}</p>      
-                    
-                    <div class="dropdown">
-                      <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <i class="{{item.icon}} service-box-icons"></i>
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <div  *ngFor="let icon of iconsList; let iconID = index;" class="dropdown-item" (click)="onChooseIcon($event,iconID)" id={{id}} [attr.data-iconid]="iconID"><i class="{{icon}}"></i></div>
-                      </div>
-                    </div>
-                    
-
-                    <textarea class="text-area" id="{{id}}" (focusout)="onFocusOut($event)">{{item.text}}</textarea>
-                  </div>
-                
-
-              </div>
-              <br>
-              <button class="btn btn-primary" (click)="saveServiceBoxesToSite($event)">Save to Site</button>
-
-            </div>
-
-      </div>
-    </div> -->
 </div>
 
 
