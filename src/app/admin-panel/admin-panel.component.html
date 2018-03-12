@@ -88,20 +88,23 @@
                   
                   <div class="admin-collapse-group">
                     <p class="admin-collapse-group-title">Sauvagarder la base de donnée</p>
-                    <button class="btn btn-primary" (click)="testModal.show('Ca va ??','confirm', 'deny',testModalCallback.bind(this))">test modal</button>
-                    <button class="btn btn-primary" (click)="testModal.show('what ???','','',testModalCallback2.bind(this))">test modal</button>
+                    <!--<button class="btn btn-primary" (click)="testModal.show('Ca va ??','confirm', 'deny',testModalCallback.bind(this))">test modal</button>
+                    <button class="btn btn-primary" (click)="testModal.show('what ???','','',testModalCallback2.bind(this))">test modal</button>-->
                   
                   
                   
-                    <button class="btn" (click)="backupDataBase($event)">Backup database</button>
+                    <button class="btn btn-primary" (click)="backupDataBase($event)">Sauvagarder</button>
 
                   </div>
 
                   <div class="admin-collapse-group">
                     <p class="admin-collapse-group-title">Charger une base de Donnée</p>
 
-                    <form>      
-                        <input type="file" name="load-backup-file" id="backupFile" (change)="overwriteDatabaseModal.show('Confirm overwiting data base ?! really  really ????','yes really !','', overwriteDatabase.bind(this),$event,this)">
+                    <form>     
+                      <label class="custom-file-upload">
+                        <div class="btn btn-primary">Charger une Sauvegarde</div>
+                        <input class="" type="file" name="load-backup-file" id="backupFile" (change)="overwriteDatabaseModal.show('Confirm overwiting data base ?! really  really ????','yes really !','', overwriteDatabase.bind(this),$event,this)">
+                      </label>
                     </form>
 
                   </div>

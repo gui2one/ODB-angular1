@@ -112,11 +112,14 @@ $font2 : "Roboto";
 
 
 
-#wrapper{
-    position:static;
-    width: 100%;
-    height: 100%;
-    overflow: scroll;
+#site-wrapper{
+    // position:static;
+    // width: 100%;
+    // height: 100%;
+    // overflow: scroll;
+
+    opacity : 0.0;
+    transition : all 1s ; // opacity initialized in script
 }
     
 #about_part{
@@ -135,17 +138,6 @@ $font2 : "Roboto";
     
 }
 
-
-// :host >>>.slider-wrapper{
-//     /* margin-top:50px !important;
-//     margin-bottom:50px !important; */
-//     backface-visibility: hidden;
-//     -webkit-backface-visibility: hidden;
-//     margin-left:0px;
-//     margin-right:0px;
-//     width:100%;
-//     height:80vh;
-// }
 
 .cards-container{
     max-width: 1600px;
@@ -248,19 +240,22 @@ agm-map{
     left:0px;
 }
 
-.modifs-en-cours{
+#modifs-en-cours{
 
     position : absolute;
     top: 50%;
     left : 50%;
     transform : translate(-50%, -50%);
-
-    border : 1px solid black;
+    color : hsl(0, 0%, 29%);
+    transition : all 0.5;
+    // border : 1px solid black;
 
     & img{
         display : block;
         margin : 0 auto;
         margin-bottom : 30px;
+        padding : 10px;
+        box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
     }
 }
 

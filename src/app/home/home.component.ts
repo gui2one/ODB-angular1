@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
 
   dbData : Observable<any[]>;
 
-  bSiteIsOnline : boolean = true;
+  bSiteIsOnline : boolean = false;
   adminLoggedIn : boolean = false;
   // authService : AuthService;
 
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
   ngOnInit() {
 
 
-
+    
     // this.siteUtils.displayScreenInfos();
 
     let sub = this.fireAuth.authState.subscribe(user => {
@@ -136,7 +136,13 @@ export class HomeComponent implements OnInit , AfterViewInit{
 
 
   ngAfterViewInit(){
+
     this.resizeGoogleMap();
+
+    $('#site-wrapper').animate( {
+      opacity : 1.0
+    }, 400)
+    console.log($("#site-wrapper"));
   }
 
   ngAfterViewChecked(){

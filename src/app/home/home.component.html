@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div id="site-wrapper">
 
 <ng-container *ngIf="bSiteIsOnline || adminLoggedIn">
       <ng-container *ngIf="!bSiteIsOnline"><div id="site_offline">Site Offline</div></ng-container> 
@@ -85,7 +85,7 @@
 </ng-container> <!-- end if online -->
 
 <ng-container *ngIf="!bSiteIsOnline && !adminLoggedIn">
-  <div class="modifs-en-cours">
+  <div id="modifs-en-cours">
 
     <img src="assets/img/odb_logo_medium.png" alt="">
     <h2>En cours de modification</h2>

@@ -5,15 +5,15 @@
   <h2>Images Manager</h2>
  
   <div class="admin-collapse">
-    <div class="admin-collapse-header" data-toggle="collapse" data-target="#collapseTwo" id="headingOne">
+    <div class="admin-collapse-header" data-toggle="collapse" data-target="#collapseOne" id="headingOne">
       <h5 class="mb-0">
-        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
           Upload Images
         </button>
       </h5>
     </div>
   
-    <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="admin-collapse-body d-flex flex-column">
   
         <div class="admin-collapse-group">
@@ -46,17 +46,34 @@
 
 
 
+  <div class="admin-collapse">
+    <div class="admin-collapse-header" data-toggle="collapse" data-target="#collapseTwo" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          Images
+        </button>
+      </h5>
+    </div>
+  
+    <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="admin-collapse-body d-flex flex-column">
+  
+        <div class="admin-collapse-group">
+          <!--<p class="admin-collapse-group-title">Images currently in the data base:</p>-->
 
-    <div class="images-wrapper">
-      <div *ngFor="let item of dbData | async; let i = index">
-        <div class="item-container" [style.background-image]="'url(assets/img/uploads/' + item.thumbName + ')'" (click)="onItemClick($event, item)"
-          id="{{i}}">
+                      <div class="images-wrapper">
+                        <div *ngFor="let item of dbData | async; let i = index">
+                          <div class="item-container" [style.background-image]="'url(assets/img/uploads/' + item.thumbName + ')'" (click)="onItemClick($event, item)"
+                            id="{{i}}">
 
-          <button class="btn btn-danger btn-delete btn-sm" (click)="onDeleteClick($event,item.thumbName)">X</button>
+                            <button class="btn btn-danger btn-delete btn-sm" (click)="onDeleteClick($event,item.thumbName)">X</button>
+                          </div>
+                        </div>
+                      </div>
         </div>
       </div>
     </div>
-
+  </div>
 
 
 
