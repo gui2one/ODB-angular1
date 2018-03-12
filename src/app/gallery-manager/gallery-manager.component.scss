@@ -1,8 +1,13 @@
+@import "../../assets/sass/_variables.scss";
+@import "../../assets/sass/_mixins.scss";
+@include admin-collapse;
+
+
 #main-wrapper{
     height:100%;
     background-color: rgb(250,250,250);
-    margin:0px;
-    padding: 15px;
+    // margin:0px;
+    // padding: 15px;
 }
 
 #wrapper{
@@ -43,9 +48,9 @@
     // left:0px;
     // top:0px;
     // z-index: 100;
-    // height:100%;
+    height:100%;
     // width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.6);
     
 }
 
@@ -56,7 +61,7 @@
     z-index: 100;
     height:100%;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .items-wrapper{

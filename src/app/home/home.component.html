@@ -4,7 +4,7 @@
       <ng-container *ngIf="!bSiteIsOnline"><div id="site_offline">Site Offline</div></ng-container> 
       <app-header id="header_part"></app-header>
 
-      <app-spacer height="100vh">
+      <app-spacer height="50%">
  
         <app-parallax-background imgUrl="assets/img/batiment_pour_spacer.jpg" height="100%" parallaxRatio=0.9></app-parallax-background>
       </app-spacer>
@@ -27,7 +27,12 @@
 
         </div>
       </div>
-      <app-parallax-spacer imgUrl="assets/img/oeufs_1.jpg" height="25vh"  parallaxRatio="0.4"></app-parallax-spacer>
+
+      <app-spacer height="50vh">
+      
+        <app-parallax-background imgUrl="assets/img/oeufs_1.jpg" height="100%" parallaxRatio=0.9></app-parallax-background>
+      </app-spacer>
+      
       <div id="contact_part" class="">
 
         <div class="row no-gutters ">
@@ -71,11 +76,20 @@
     </div> -->
       <!-- <app-image-loader [imgSrc]="'/assets/img/oeufs_2.jpg'"></app-image-loader> -->
 
-      <app-parallax-spacer imgUrl="assets/img/oeufs_2.jpg" height="30%" parallaxRatio=0.5></app-parallax-spacer>
-    <div id="gallery_part">
-      <!--<app-header-title name="title_gallery" text="Quelques Images :"></app-header-title>-->
-      <app-slider sliderHeight="500px" [items]=sliderItems [bBackgroundContain]=false [bDisplayNavigation]=true autoPlay=true autoPlayDelay=6 [bIsDraggable]=false></app-slider>
 
+            <app-spacer height="50vh">
+            
+              <app-parallax-background imgUrl="assets/img/oeufs_2.jpg" height="100%" parallaxRatio=0.9></app-parallax-background>
+            </app-spacer>
+      <!--<app-parallax-spacer imgUrl="assets/img/oeufs_2.jpg" height="30%" parallaxRatio=0.5></app-parallax-spacer>-->
+
+
+    <div id="gallery_part">
+      <div class="slider-container">
+        <div class="slider-wrapper">
+        <app-slider id="homeSlider" sliderHeight="75vh" [items]=sliderItems [bBackgroundContain]=false [bDisplayNavigation]=true autoPlay=true autoPlayDelay=6 [bIsDraggable]=false></app-slider>
+        </div>
+      </div>
     </div>
       <app-header-title name="title_contact" text="Nous Contacter."></app-header-title>
       <app-contact-form></app-contact-form>

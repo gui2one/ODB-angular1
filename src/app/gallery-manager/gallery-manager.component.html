@@ -1,75 +1,100 @@
-      <div id="main-wrapper">
+<div id="main-wrapper" class="mr-auto p-sm-1 p-md-2 p-xl-4">
 
-        <h2>Gallery Manager</h2>
-        <!-- <app-admin-header [bLoggedIn]="bLoggedIn" (messageEvent)="receiveMessage($event)"></app-admin-header> -->
-        <div *ngIf="bLoggedIn" class="wrapper">
-            <div id="errorLog"></div>
+  <h2>Gallery Manager</h2>
 
-        <button class="btn-primary" (click)="saveToSite($event)">Save To Site</button>
-        <button (click)="addGalleryItem($event)"> add Galley Item </button>
-        <div id="items-wrapper" class="container items-wrapper">
-          <div  (click)="onClickEdit($event,item.key)" *ngFor="let item of galleryDBData | async" (keypress)="onKeyPress($event)">
-            <div data-id= {{item.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + item.imageUrl + ')'">
-              <button class="btn btn-danger btn-delete" (click)="onClick($event,item.key)" id= {{item.key}}>X</button>
-              <div class="spacer"></div>
-              <div><span class="item-title"> {{item.title}}</span></div>
-          </div></div>
 
+        
+  <div *ngIf="bLoggedIn" class="wrapper">
+    <div id="errorLog"></div>
+
+
+    <div class="admin-collapse">
+      <div class="admin-collapse-header" data-toggle="collapse" data-target="#collapseOne" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Gallery Items
+
+          </button>
+        </h5>
+      </div>
+    
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="admin-collapse-body d-flex flex-column">
+    
+          <div class="admin-collapse-group">
+            <p class="admin-collapse-group-title">Home Gallery</p>
+
+          <button class="btn btn-primary" (click)="saveToSite($event)">Save To Site</button>
+          <button class="btn" (click)="addGalleryItem($event)"> add Galley Item </button>
+          <div id="items-wrapper" class="container items-wrapper">
+            <!--(touchmove)="onTouchTap($event)" -->
+              <div draggable=true (click)="onClickEdit($event,item.key)" *ngFor="let item of galleryDBData | async"
+              (keypress)="onKeyPress($event)"
+              data-id= {{item.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + item.imageUrl + ')'">
+                <button class="btn btn-danger btn-delete" (click)="onClick($event,item.key)" id= {{item.key}}>X</button>
+                <div class="spacer"></div>
+                <div><span class="item-title"> {{item.title}}</span></div>
+            </div>
+
+          </div>
+
+          </div>
+          </div>
         </div>
-      </div>
-      </div>
+    </div>
+  </div>
+</div>
       <!-- <a href="images/image-1.jpg" data-lightbox="image-1" data-title="My caption">Image #1</a> -->
-      <ng-container *ngIf="bDisplayEditDialog">
+<ng-container *ngIf="bDisplayEditDialog">
 
-        <ng-container *ngTemplateOutlet="editGalleryItemTemplate"></ng-container>
+  <ng-container *ngTemplateOutlet="editGalleryItemTemplate"></ng-container>
 
-      </ng-container>
+</ng-container>
 
-      <ng-container *ngIf="bDisplayUploadsDialog">
+<ng-container *ngIf="bDisplayUploadsDialog">
 
-        <ng-container *ngTemplateOutlet="uploadsDialogTemplate"></ng-container>
+  <ng-container *ngTemplateOutlet="uploadsDialogTemplate"></ng-container>
 
-      </ng-container>
-
-
-
-      <ng-template #template>
-        <div class="modal-body text-center">
-          <p>Supprimer l'element de la gallery ?</p>
-          <button type="button" class="btn btn-default" (click)="confirmDelete($event)">Yes</button>
-          <button type="button" class="btn btn-primary" (click)="declineDelete($event)">No</button>
-        </div>
-      </ng-template>
-
-      <ng-template #editGalleryItemTemplate>
-        <div id="edit-dialog-wrapper">
-          <div id="edit-dialog" class="text-center">
-            <form id="edit-form" action="" method="POST" (keypress)="onKeyPress($event)">
-                <p>Edit Gallery Item</p>
-
-              
-              <input type="text" value={{editItemData.title}} id="item-title">
-              <input type="hidden" value={{editItemData.key}} id="item-key" >
-              <img src="assets/img/uploads/{{editItemData.imageUrl}}" style="max-width:500px;">
-              <button type="button" class="btn btn-default" (click)="openUploadsDialog($event)">Select Image</button>
-              <br>
-              <button type="button" class="btn btn-default" (click)="confirmEdit($event)">Save</button>
-              <button type="button" class="btn btn-primary" (click)="declineEdit()">Cancel</button>
+</ng-container>
 
 
-            </form>
-          </div>
-        </div>
-      </ng-template>
 
-      <ng-template #uploadsDialogTemplate >
-        <div id="uploads-dialog">
-          
-          <div class="text-center">
-              <button type="button" class="btn btn-default" (click)="closeUploadsDialog($event)">Close Manager</button>
-              <app-image-manager (selectedEvent)="imageSelected($event)"></app-image-manager>
-          </div>
-        </div>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Supprimer l'element de la gallery ?</p>
+    <button type="button" class="btn btn-default" (click)="confirmDelete($event)">Yes</button>
+    <button type="button" class="btn btn-primary" (click)="declineDelete($event)">No</button>
+  </div>
+</ng-template>
 
-      </ng-template>
+<ng-template #editGalleryItemTemplate>
+  <div id="edit-dialog-wrapper">
+    <div id="edit-dialog" class="text-center">
+      <form id="edit-form" action="" method="POST" (keypress)="onKeyPress($event)">
+          <p>Edit Gallery Item</p>
+
+        
+        <input type="text" value={{editItemData.title}} id="item-title">
+        <input type="hidden" value={{editItemData.key}} id="item-key" >
+        <img src="assets/img/uploads/{{editItemData.imageUrl}}" style="max-width:500px;">
+        <button type="button" class="btn btn-warning" (click)="openUploadsDialog($event)">Select Image</button>
+        <br>
+        <button type="button" class="btn btn-default" (click)="confirmEdit($event)">Save</button>
+        <button type="button" class="btn btn-primary" (click)="declineEdit()">Cancel</button>
+
+
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #uploadsDialogTemplate >
+  <div id="uploads-dialog">    
+    <div class="">
+      <app-image-manager [bShowDetails]="false" (selectedEvent)="imageSelected($event)"></app-image-manager>
+      <button type="button" class="btn btn-warning mr-auto" (click)="closeUploadsDialog($event)">Close Uploads Manager</button>
+    </div>
+  </div>
+
+</ng-template>
 

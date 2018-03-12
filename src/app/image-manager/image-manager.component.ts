@@ -34,9 +34,10 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
     //this.uploadFile(null,files);
   }  
   
-  @Input()
-  bShowHeader : boolean = true;
+  @Input() bShowHeader : boolean = true;
+  @Input() bShowDetails : boolean = true;
   holder : any;
+
 
   dbData : Observable<any>;
   modalRef: BsModalRef;
@@ -241,7 +242,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
     jQuery(event.target).addClass("selected");
 
     this.selectedItem = item;
-    this.selectedEvent.emit(item.fileName);
+    this.selectedEvent.emit(item.thumbName);
     
 
     this.updateImageDatails(this.selectedItem);

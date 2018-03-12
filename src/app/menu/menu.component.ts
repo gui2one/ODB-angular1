@@ -7,7 +7,7 @@ import * as $ from 'jquery'; // into app.component.ts
 })
 export class MenuComponent implements OnInit {
 
-  navbarHeight = 56;
+  navbarHeight = 54;
   scrollDuration = 1000;
   constructor() { }
 

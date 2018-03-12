@@ -8,7 +8,7 @@
      height:100vh;
 }
 
-video{
+#video{
     background-color : black;
     filter:brightness(80%);
     overflow-x: hidden;
@@ -20,6 +20,13 @@ video{
 
 #alternative-to-video{
     display: none;
+    filter:brightness(80%);
+    overflow : hidden;
+    // width:100vw;
+     height:100vh;
+     background-image: url("/assets/img/oeufs_1.jpg");
+     background-size:cover;
+     background-position: center center;
 }
 .video-controls{
     position: absolute;

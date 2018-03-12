@@ -18,7 +18,8 @@ hr{
 }
 input{
     display:block;
-    width: 300px;
+    width:100%;
+    max-width: 300px;
     color : hsl(39, 100%, 40%); ;
     
     margin-top: 5px;

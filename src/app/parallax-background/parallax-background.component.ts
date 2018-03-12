@@ -65,8 +65,14 @@ export class ParallaxBackgroundComponent implements OnInit {
       let heightOnPage = this.wHeight - (elTop - scrollTop);
 
       // console.log("height on page  -->"+ heightOnPage / (this.wHeight + this.elHeight))
-      $(this.movingBg).css(
-        'top', ((((heightOnPage / (this.wHeight + this.elHeight)) * this.wHeight) * this.parallaxRatio) - (this.wHeight / 2.0)) + "px"
+
+      let calculation = (     (     (heightOnPage / (this.wHeight + this.elHeight))    * this.wHeight   ) *  this.parallaxRatio   ) - (this.wHeight / 2.0);
+      $(this.movingBg).css({
+        // top: calculation + "px",
+        transform :  "translateY("+calculation+"px)"
+
+      }
+
 
       )
     }

@@ -42,7 +42,7 @@ export class SpacerComponent implements OnInit, AfterViewInit {
   onResize(){
     // console.log("hey")
     this.wHeight = window.innerHeight;
-    console.log(this.parseHeight(this.height))
+    // console.log(this.parseHeight(this.height))
     $(this.wrapper).css({
       height: this.parseHeight(this.height)
     })

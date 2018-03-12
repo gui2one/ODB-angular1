@@ -6,7 +6,10 @@
       <video autoplay defaultMuted loop id="video"  src="assets/img/loeuf_dubreil_FINAL_03.mp4"> 
        
       </video>
-      <img id="alternative-to-video" src="assets/img/oeufs_2.jpg">
+      <div id="alternative-to-video">
+         <!--<img src="assets/img/oeufs_2.jpg">-->
+      </div>
+      
       <div *ngIf="!isPlaying">
         <div class="video-controls" (click)="onClickPlay($event)">
           <i id="playButton" class="fas fa-play-circle" ></i>

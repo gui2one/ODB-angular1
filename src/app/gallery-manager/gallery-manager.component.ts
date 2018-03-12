@@ -69,6 +69,7 @@ export class GalleryManagerComponent implements OnInit{
     private OdbAdminData : OdbAdminDataService,
     private modalService : BsModalService,
     private vcRef: ViewContainerRef,
+    // private sortable : sortable
     // public sortable : sortable
   ) 
   { 
@@ -98,11 +99,13 @@ export class GalleryManagerComponent implements OnInit{
   ngAfterViewInit(){    
     
     let dummy_variable = sortable; /// VERY STRANGE !! dont remove this line or the sortable jquery-ui function won't work ....
-    let dummy_variable2 = draggable; /// VERY STRANGE !! dont remove this line or the sortable jquery-ui function won't work ....
+    // let dummy_variable2 = draggable; /// VERY STRANGE !! dont remove this line or the sortable jquery-ui function won't work ....
     // console.log($("#items-wrapper"))
-    $(".gallery-item").each( (item)=>{
-      item.draggable();
-    });
+
+    // $(".gallery-item").each( (item)=>{
+    //   item.draggable();
+    // });
+
     $("#items-wrapper").sortable({
       start:function(event,ui){
         console.log(event);
@@ -254,6 +257,21 @@ export class GalleryManagerComponent implements OnInit{
     this.openModal(this.templateRef);
     //this.removeFile(event.target.src);
   }  
+  
+  onTouchTap(event){
+    // location.reload();
+    // event.preventDefault();
+    // event.stopPropagation();
+    let target = $(event.currentTarget);
+    // console.log(target)
+    target[0].draggable = true;
+    console.log(target[0].draggable)
+
+    target.trigger("drag");
+    target.css({
+      border : "2px solid red"
+    })
+  }
   addGalleryItem(event) {
     event.preventDefault();
     this.OdbAdminData.addGalleryItem(event);

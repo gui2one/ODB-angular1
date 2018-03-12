@@ -13,7 +13,7 @@
     
       </ng-container>
     </div>
-  <div class="w-100 d-flex flex-column">
+  <div class="w-100 h-100 d-flex flex-column">
  
 
 
@@ -33,6 +33,15 @@
     <div>
       <ng-container *ngIf="!bSideBarCollapsed">Images Manager </ng-container>
       <i class="fas fa-upload"></i>
+    </div>
+  </a>
+  </div>
+
+  <div class="w-100 h-100 d-flex flex-column-reverse">
+  <a routerLink="/" class="side-bar-button" href="#" target="_blank">
+    <div>
+      <ng-container *ngIf="!bSideBarCollapsed">View Site</ng-container>
+      <i class="fas fa-eye"></i>
     </div>
   </a>
   </div>
