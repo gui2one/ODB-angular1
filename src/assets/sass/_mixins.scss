@@ -1,14 +1,48 @@
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css');
 @import "./_variables.scss";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints.scss";
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+); 
+
+@mixin save-to-site{
+
+    .save-to-site{
+        display: inline-block;
+        .btn::after{
+            font-family: Fontawesome;
+            font-size: 1.5em;
+            content :" \f0c7";
+        }        
+    }
+    
+    
+    
+}
+
 
 @mixin admin-collapse{
 
+
+    $border-radius : 3px;
+
     & .admin-collapse-header{
         cursor: pointer;
-        background-color: #ddd;
+        background-color: orange;
         &:hover{
-            background-color: orange;
+            background-color: orange + hsl(0,0,10%);
         }
 
+        & .btn-link{
+            color : white;
+            text-decoration: none;
+            cursor: pointer;
+        }
         & .btn-link::before{
             font-family: FontAwesome;
             content : "\f107"; //fas fa-angle-right
@@ -26,8 +60,8 @@
     & .admin-collapse-body{
 
         border : 2px solid rgba(0,0,0,0.4);
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
         border-top-width: 0;
 
         padding:5px;
@@ -39,12 +73,39 @@
     }
 
     &.admin-collapse-group{
+
+        $paddingSize : 10px;
+        @include media-breakpoint-between(xs, sm) {
+            padding : $paddingSize / 2;
+            & .admin-collapse-group-title{
+                margin-left : (-$paddingSize + 20);
+            }
+        }        
+        @include media-breakpoint-between(sm, md) {
+            padding : $paddingSize;
+            & .admin-collapse-group-title{
+                margin-left : (-$paddingSize + 20);
+            }
+        }
+        @include media-breakpoint-between(md, lg) {   
+            padding : $paddingSize * 2;
+            & .admin-collapse-group-title{
+                margin-left : (-$paddingSize * 2) + 20;
+            }            
+        }       
+        @include media-breakpoint-between(lg, xl) {   
+            padding : $paddingSize * 3;
+            & .admin-collapse-group-title{
+                margin-left : (-$paddingSize * 3) + 20;
+            }               
+        }           
+        // @include save-to-site;
         position: relative;
-        border-radius : 5px;
+        border-radius : $border-radius;
 
         border-style: solid;
-        border-color: grey;
-        border-width: 1px;
+        border-color: rgba(0,0,0,0.2);
+        border-width: 2px;
 
         background-color: #eee;
 
@@ -53,7 +114,12 @@
         padding-top : 20px;
         padding-bottom : 20px;
         
-
+        &:hover{
+            background-color: #fff;
+            & .admin-collapse-group-title{
+                background-color: #fff;
+            }
+        }
         &:first-child{
             margin-top: 25px;
         }
@@ -79,12 +145,12 @@
             font-weight : bold;
             transform : translateY(-100%);
 
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
+            border-top-left-radius: $border-radius;
+            border-top-right-radius: $border-radius;
 
             border-style: solid;
-            border-color: grey;
-            border-width: 1px;
+            border-color: rgba(0,0,0,0.2);
+            border-width: 2px;
             border-bottom-width: 0px;
 
             &::before, &::after{
@@ -94,3 +160,4 @@
         }
     }
 }
+

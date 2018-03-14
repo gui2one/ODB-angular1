@@ -31,9 +31,9 @@
   
         </label>
         <br>
-  
-        <button class="btn btn-primary" (click)="saveToSite($event)">Save to Site</button>
-  
+          <div class="save-to-site">
+            <button class="btn btn-primary" (click)="saveToSite($event)">Save to Site</button>
+          </div>
         </div>
 
         <div class="admin-collapse-group">
@@ -68,7 +68,9 @@
 
           
         <!-- <br> -->
-        <button class="btn btn-primary" (click)="saveServiceBoxesToSite($event)">Save to Site</button>
+          <div class="save-to-site">
+            <button class="btn btn-primary" (click)="saveServiceBoxesToSite($event)">Save to Site</button>
+          </div>
         </div>
   
       </div>
@@ -87,13 +89,15 @@
       <div class="admin-collapse-body d-flex flex-column">
                   
                   <div class="admin-collapse-group">
-                    <p class="admin-collapse-group-title">Sauvagarder la base de donnée</p>
+                    <p class="admin-collapse-group-title">Sauvegarder la base de donnée</p>
                     <!--<button class="btn btn-primary" (click)="testModal.show('Ca va ??','confirm', 'deny',testModalCallback.bind(this))">test modal</button>
                     <button class="btn btn-primary" (click)="testModal.show('what ???','','',testModalCallback2.bind(this))">test modal</button>-->
                   
                   
-                  
-                    <button class="btn btn-primary" (click)="backupDataBase($event)">Sauvagarder</button>
+                      <div class="save-to-site">
+
+                        <button class="btn btn-primary" (click)="backupDataBase($event)">Sauvegarder</button>
+                      </div>
 
                   </div>
 

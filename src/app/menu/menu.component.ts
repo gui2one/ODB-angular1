@@ -17,7 +17,7 @@ export class MenuComponent implements OnInit {
     let root = this;
     // jQuery.get('/assets/php/test.php').then(data =>console.log(data));
     // console.log("menu init");
-    $('#navbar').css({ backgroundColor: 'rgba(0,0,0,1.0)' });
+    // $('#navbar').css({ backgroundColor: 'rgba(0,0,0,1.0)' });
     $('.nav-link').click( function(){
       $('#navbarsExample04').removeClass('show');
     })
@@ -84,10 +84,10 @@ export class MenuComponent implements OnInit {
 
   }
   menuFadeIn() {
-    $('#navbar').addClass("fade-in").removeClass("fade-out");
+    $('#navbar-wrapper').addClass("fade-in").removeClass("fade-out");
   }
   menuFadeOut() {
-    $('#navbar').addClass("fade-out").removeClass("fade-in");
+    $('#navbar-wrapper').addClass("fade-out").removeClass("fade-in");
   }
 
 

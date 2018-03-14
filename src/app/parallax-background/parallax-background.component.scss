@@ -4,12 +4,13 @@
     width:100%;
     top:0px;
     background-color: orange;
-    overflow: hidden;
+    // overflow: hidden;
     z-index : -1;
 }
 #overlay{
     position:relative;
-    height:100%;
+    top:0px;
+    height:100vh;
     width:100%;
     
     

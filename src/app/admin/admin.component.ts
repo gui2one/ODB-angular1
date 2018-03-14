@@ -81,6 +81,9 @@ export class AdminComponent implements OnInit {
     // console.log("view init");
     let content = $("#admin-content");
     content.css({ marginLeft: $("#side-bar-wrapper").width() })
+
+    $("#edit-dialog").css({  marginLeft: $("#side-bar-wrapper").width() });
+    $("#uploads-dialog").css({  marginLeft: $("#side-bar-wrapper").width() });
   }
 
   onCollapse(event){

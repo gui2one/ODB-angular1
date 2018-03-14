@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
       url: "assets/data/galleryData.json", 
       dataType: "json", /// IMPORTNANT !!!!
       success: (data) => {
-        // console.log(data);
+
 
         this.galleryData = data;
         
@@ -93,8 +93,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
           let itemTempArray = [];
           itemTempArray.push( this.galleryData[item].displayID)
           itemTempArray.push("assets/img/uploads/" + this.galleryData[item].imageUrl.replace("_thumbnail", ""))
-    
-          // console.log(itemTempArray);
+
          
 
           if( this.galleryData[item].imageUrl){
@@ -104,15 +103,11 @@ export class HomeComponent implements OnInit , AfterViewInit{
           });
           }
 
-          // this.sliderItems.push( itemTempArray);
+ 
         }
 
         this.sliderItems =  this.sliderItems.sort((a:any, b:any) => { return a.displayID - b.displayID });
-        // console.log(ordered);
-        // console.log("Slider Items  : ");
-        // console.log(this.sliderItems);
-        // console.log("GalleryData  : ");
-        // console.log(this.galleryData);
+
       }
     });
   }
