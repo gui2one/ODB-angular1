@@ -137,7 +137,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
     $('#site-wrapper').animate( {
       opacity : 1.0
     }, 400)
-    console.log($("#site-wrapper"));
+    // console.log($("#site-wrapper"));
   }
 
   ngAfterViewChecked(){

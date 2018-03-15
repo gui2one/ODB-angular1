@@ -26,7 +26,7 @@ export class SpacerComponent implements OnInit, AfterViewInit {
     // window.addEventListener("resize", this.onResize.bind(this));
     this.wrapper = $(this.el.nativeElement).children()[0];
     $(window).on("resize", this.onResize.bind(this))
-    console.log(this.parseHeight(this.height));
+    // console.log(this.parseHeight(this.height));
     window.dispatchEvent(new Event('resize'));
     // this.onResize();
 

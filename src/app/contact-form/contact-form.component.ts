@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SliderComponent } from '../slider/slider.component'
 import { NgModule } from '@angular/core/src/metadata/ng_module';
 import { CommonModule } from '@angular/common';
+
 import * as $ from "jquery"
 // import {ContactFormComponentRoutingModule} from "./contact-form-routing.module"
 @Component({
@@ -38,6 +39,10 @@ export class ContactFormComponent implements OnInit {
         console.log(msg);
       });
 
+  }
+
+  log(data){
+    console.log(data)
   }
 
 

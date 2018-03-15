@@ -11,6 +11,7 @@ import {RouterModule, Routes} from '@angular/router';
 // import { AppRoutingModule } from './app-routing.module';
 
 import { ContactFormComponent } from './contact-form/contact-form.component';
+import { FormsModule } from "@angular/forms";
 // import { ContactFormModule } from './contact-form/contact-form.module';
 import { HomeComponent } from './home/home.component';
 
@@ -128,7 +129,7 @@ let Routes : Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     // AngularFireDatabaseModule,
     AngularFireAuthModule,
-    // HttpClientModule
+    FormsModule
  
 
   ],

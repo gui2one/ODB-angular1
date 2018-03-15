@@ -1,43 +1,54 @@
 #wrapper{
     margin-bottom: 30px;
-    background: #333;
+    // background: #333;
     border-radius : 0px;
     margin-bottom : 0px;
+
+    
 }
 
 hr{
     border-color:hsl(39, 100%, 40%);    ;
 }
 .box {    
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.4);
-    background-color : #eee;
+    // box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    // background-color : #303030;
+    border : 2px solid rgba(orange, 0.05);
     width:100%;
     height : auto;
-    // padding: 10px;
     margin : 5px;
 }
-input{
+input, textarea{
     display:block;
     width:100%;
+    border : 2px solid rgba(orange, 0.05);
+    background-color: #333;
     max-width: 300px;
-    color : hsl(39, 100%, 40%); ;
+    color : rgba(orange,1.0);
+
+    &::placeholder {
+     color : rgba(orange, 0.5);
+    }
     
     margin-top: 5px;
-    margin-bottom: 5px;
-}
-form{
-    // width:100%;    
+    margin-bottom: 5px;    
 }
 textarea{
-
-    color : hsl(39, 100%, 40%);    
-    margin-top:5px;
-    margin-bottom: 5px;
-    width:100%;
-    
+    max-width: unset;
+    min-height : 100px;
+}
+form button{
+    // width:100%;    
+    background-color : orange;
+    font-weight : bold;
 }
 
 .adresse{
     // border: 1px solid black;
-    color : hsl(39, 100%, 40%);    
+    color : orange;    
+}
+
+.warning{
+    background-color: rgba(red,0.6);
+    color : white;
 }

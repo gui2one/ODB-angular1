@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster|Roboto|Raleway:400,800');
+@import "./assets/sass/_variables.scss";
+
 /* You can add global styles to this file, and also import other style files */
 /*  kuler colors
 #DEDC05
@@ -7,6 +10,11 @@
 #04365C
 */
 /* width */
+
+html, body{
+    font-family: "Raleway", sans-serif;
+    // -webkit-overflow-scrolling: touch;
+}
 ::-webkit-scrollbar {
     width: 12px;
 }

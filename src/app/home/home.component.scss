@@ -139,6 +139,12 @@ $font2 : "Roboto";
 }
 
 
+#contact_form_part{
+    position : relative;
+    background: #333;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
 .cards-container{
     max-width: 1600px;
 }

@@ -3,14 +3,14 @@
     height:100%;
     width:100%;
     top:0px;
-    background-color: orange;
+    background-color: blue;
     // overflow: hidden;
     z-index : -1;
 }
 #overlay{
-    position:relative;
+    position:absolute;
     top:0px;
-    height:100vh;
+    // height:auto;
     width:100%;
     
     
@@ -19,7 +19,7 @@
 
 #movingBackground{
     position:absolute;
-    height:100vh;
+    // height:100vh;
     width:100%;
     top:0px;
     // background-image: url("/assets/img/oeufs_1.jpg");

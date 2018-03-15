@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster|Roboto|Raleway:400,800');
+@import "../../assets/sass/_variables.scss";
+
+
+
 $iconSize : 100px;
 
 // html, body{
@@ -16,7 +21,7 @@ $iconSize : 100px;
   padding:20px;
   box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
   user-select: none;
-
+  font-family : "Raleway", sans-serif;
   .color-pane{
     position:absolute;
     z-index : 0;
@@ -40,9 +45,10 @@ $iconSize : 100px;
 
   }
 
-  .title{
-    color: red;
-
+  & .title{
+    
+    
+    
     & h5{
       white-space: nowrap;
       word-wrap: none;

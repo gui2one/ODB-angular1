@@ -15,7 +15,9 @@ export class ParallaxBackgroundComponent implements OnInit {
   @Input() parallaxRatio: number = 0.5;
 
   wrapper: HTMLElement;
+  parent : HTMLElement;
   movingBg: HTMLElement;
+  overlay: HTMLElement;
 
   wHeight: any;
 
@@ -29,17 +31,28 @@ export class ParallaxBackgroundComponent implements OnInit {
 
   ngAfterViewInit() {
     this.wHeight = window.innerHeight;
-    this.elHeight = $(this.wrapper).height();
+    this.parent = $(this.element.nativeElement).parent()[0];
     this.wrapper = $(this.element.nativeElement).children()[0];
+
     this.movingBg = $(this.wrapper).children()[0];
-    // console.log(this.movingBg);
-    $(this.wrapper).css({ height: this.parseHeight(this.height) * this.parallaxRatio })
+    this.overlay = $(this.wrapper).children()[1];
+    // console.log(this.wrapper);
+   
+
+    // console.log(this.elHeight, this.elHeight * (1 / this.parallaxRatio));
+    
     $(window).scroll(function (e) {
       this.onScroll(e)
     }.bind(this))
 
     $(window).trigger("scroll");
 
+  }
+
+  ngAfterViewChecked(){
+    let computedHeight = this.elHeight * (1 / this.parallaxRatio);
+    $(this.movingBg).css({ height : computedHeight + "px" });
+    $(this.overlay).css({ height : computedHeight + "px" });
   }
 
   onScroll(event) {
@@ -49,24 +62,27 @@ export class ParallaxBackgroundComponent implements OnInit {
     let rect = this.element.nativeElement.getBoundingClientRect();
     let scrollTop = $(window).scrollTop();
     let elTop = $(this.wrapper).offset().top;
-    this.elHeight = $(this.wrapper).height();
+    this.elHeight = $(this.parent).height();
 
-    // console.log(elTop - scrollTop)
-    // console.log("scrollTop -->" + scrollTop)
-    // console.log("this.elHeight -->" + this.elHeight)
+    let computedHeight = this.elHeight * (1 / this.parallaxRatio)
+    //$(this.wrapper).css({ height: this.parseHeight(this.height) * this.parallaxRatio })
+
 
     if ((elTop - scrollTop) + this.elHeight < 0) {
-      //  console.log("way up top");
+      //console.log("way up top");
     } else if (elTop - scrollTop > this.wHeight) {
-      //  console.log("down the bottom");
+      //console.log("down the bottom");
 
     } else {
-      //  console.log("in the page");
+      //console.log("in the page");
       let heightOnPage = this.wHeight - (elTop - scrollTop);
 
       // console.log("height on page  -->"+ heightOnPage / (this.wHeight + this.elHeight))
 
-      let calculation = (     (     (heightOnPage / (this.wHeight + this.elHeight))    * this.wHeight   ) *  this.parallaxRatio   ) - (this.wHeight / 2.0);
+      // let calculation = (     (     (heightOnPage / (this.wHeight + this.elHeight))    * this.wHeight   ) *  this.parallaxRatio   ) - (this.wHeight / 2.0);
+      let calculation = (((heightOnPage / (this.wHeight + this.elHeight)) * this.wHeight) * this.parallaxRatio) - (this.wHeight / 2.0);
+
+      // calculation -= this.elHeight * (1-this.parallaxRatio) * 2;
       $(this.movingBg).css({
         // top: calculation + "px",
         transform :  "translateY("+calculation+"px)"

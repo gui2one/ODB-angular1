@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Lobster|Roboto|Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Lobster|Roboto|Raleway:400,800');
 @import "./node_modules/compass-mixins/lib/compass/css3";
 
 $primaryColor : #333;
@@ -7,7 +8,7 @@ $primaryFontColor : white;
 $secondaryColor :  orange;
 $secondaryFontColor: #111;
 
-$font1 : "Open Sans";
+$font1 : "Raleway", sans-serif;
 $font2 : "Roboto";
 
 $small : 576px;

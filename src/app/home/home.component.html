@@ -4,7 +4,7 @@
       <ng-container *ngIf="!bSiteIsOnline"><div id="site_offline">Site Offline</div></ng-container> 
       <app-header id="header_part"></app-header>
 
-      <app-spacer height="99%">
+      <app-spacer height="100vh">
  
         <app-parallax-background imgUrl="assets/img/batiment_pour_spacer.jpg" height="100%" parallaxRatio=0.9></app-parallax-background>
       </app-spacer>
@@ -30,7 +30,7 @@
 
       <app-spacer height="50vh">
       
-        <app-parallax-background imgUrl="assets/img/oeufs_1.jpg" height="100%" parallaxRatio=0.9></app-parallax-background>
+        <app-parallax-background imgUrl="assets/img/oeufs_1.jpg" height="100%" parallaxRatio=0.6></app-parallax-background>
       </app-spacer>
       
       <div id="contact_part" class="">
@@ -79,9 +79,9 @@
 
             <app-spacer height="50vh">
             
-              <app-parallax-background imgUrl="assets/img/oeufs_2.jpg" height="100%" parallaxRatio=0.9></app-parallax-background>
+              <app-parallax-background imgUrl="assets/img/oeufs_2.jpg" height="100%" parallaxRatio=0.6></app-parallax-background>
             </app-spacer>
-      <!--<app-parallax-spacer imgUrl="assets/img/oeufs_2.jpg" height="30%" parallaxRatio=0.5></app-parallax-spacer>-->
+      
 
 
     <div id="gallery_part">
@@ -91,9 +91,11 @@
         </div>
       </div>
     </div>
+
+    <div id="contact_form_part">
       <app-header-title name="title_contact" text="Nous Contacter."></app-header-title>
       <app-contact-form></app-contact-form>
-
+    </div>
       <app-footer></app-footer>
 
 </ng-container> <!-- end if online -->
