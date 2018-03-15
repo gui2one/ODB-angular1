@@ -58,10 +58,12 @@ $iconSize : 100px;
 
     & h5:before{
       content:'-- ';
+      
     }
   
     & h5:after{
       content:' --';
+      
     }
   }
 
@@ -87,6 +89,7 @@ $iconSize : 100px;
     transition-delay:0.2s;     
     -ms-transition-delay:0.2s;     
     opacity : 0;
+    box-sizing: border-box;
     transform : translateY(50%) rotateZ(0deg);    
 
     & h5{

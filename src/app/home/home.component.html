@@ -1,113 +1,114 @@
-<div id="site-wrapper">
+<!-- <div id="scroller"> -->
+  <div id="site-wrapper">
 
-<ng-container *ngIf="bSiteIsOnline || adminLoggedIn">
-      <ng-container *ngIf="!bSiteIsOnline"><div id="site_offline">Site Offline</div></ng-container> 
-      <app-header id="header_part"></app-header>
+  <ng-container *ngIf="bSiteIsOnline || adminLoggedIn">
+        <ng-container *ngIf="!bSiteIsOnline"><div id="site_offline">Site Offline</div></ng-container> 
+        <app-header id="header_part"></app-header>
 
-      <app-spacer height="100vh">
- 
-        <app-parallax-background imgUrl="assets/img/batiment_pour_spacer.jpg" height="100%" parallaxRatio=0.9></app-parallax-background>
-      </app-spacer>
-      <div id="about_part" class="">
-        <!--<app-parallax-spacer imgUrl="assets/img/oeufs_2.jpg" height="100%" parallaxRatio="0.5"></app-parallax-spacer>-->
-        <app-header-title name="title_qui" text="Qui Sommes-nous ?"></app-header-title>
+        <app-spacer height="100vh">
+  
+          <app-parallax-background imgUrl="assets/img/batiment_pour_spacer.jpg" height="100%" parallaxRatio=0.9></app-parallax-background>
+        </app-spacer>
+        <div id="about_part" class="">
+          <!--<app-parallax-spacer imgUrl="assets/img/oeufs_2.jpg" height="100%" parallaxRatio="0.5"></app-parallax-spacer>-->
+          <app-header-title name="title_qui" text="Qui Sommes-nous ?"></app-header-title>
 
-        
-        <div class="container cards-container">
-          <div class="row no-gutters">
-                <ng-container *ngFor="let item of serviceBoxes">
-                    
-                      <div class="card-wrapper  col-xl-3 col-md-6 p-lg-3">
-                        <div class="card-dark ">                
-                          <app-service-box iconStr="{{item.icon}}" text={{item.text}} title={{item.title}}></app-service-box>                
-                        </div>
-                      </div>
-                </ng-container>
-          </div>
-
-        </div>
-      </div>
-
-      <app-spacer height="50vh">
-      
-        <app-parallax-background imgUrl="assets/img/oeufs_1.jpg" height="100%" parallaxRatio=0.6></app-parallax-background>
-      </app-spacer>
-      
-      <div id="contact_part" class="">
-
-        <div class="row no-gutters ">
-          <div class="col-md-3 col-lg-6 no-gutters d-none d-md-block">
-            
-          </div>
-
-          <div class="col-md-9 col-lg-6 no-gutters dark-bg">
           
-            <app-header-title name="title_ou" text="Où Sommes-nous ?"></app-header-title>
-            <div class="">
+          <div class="container cards-container">
+            <div class="row no-gutters">
+                  <ng-container *ngFor="let item of serviceBoxes">
+                      
+                        <div class="card-wrapper  col-xl-3 col-md-6 p-lg-3">
+                          <div class="service-box-container">                
+                            <app-service-box iconStr="{{item.icon}}" text={{item.text}} title={{item.title}}></app-service-box>                
+                          </div>
+                        </div>
+                  </ng-container>
+            </div>
+
+          </div>
+        </div>
+
+        <app-spacer height="50vh">
+        
+          <app-parallax-background imgUrl="assets/img/oeufs_1.jpg" height="100%" parallaxRatio=0.6></app-parallax-background>
+        </app-spacer>
+        
+        <div id="contact_part" class="">
+
+          <div class="row no-gutters ">
+            <div class="col-md-3 col-lg-6 no-gutters d-none d-md-block">
               
-              <div class="row no-gutters">
-                <div class="address">
-                  <div class="address-box">
-                    <p>Addresse : L'oeuf du Breil <br>35780 Le Breil</p>
-                  </div>
-                  <div class="address-box">
-                    <p> Et pis d'autres infos </p>
+            </div>
+
+            <div class="col-md-9 col-lg-6 no-gutters dark-bg">
+            
+              <app-header-title name="title_ou" text="Où Sommes-nous ?"></app-header-title>
+              <div class="">
+                
+                <div class="row no-gutters">
+                  <div class="address">
+                    <div class="address-box">
+                      <p>Addresse : L'oeuf du Breil <br>35780 Le Breil</p>
+                    </div>
+                    <div class="address-box">
+                      <p> Et pis d'autres infos </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="row no-gutters">
-                
-                  <div class="map-div">
-                  <agm-map [latitude]="48.225762" [longitude]="-1.707568" [zoom]=17>
-                    <agm-marker [latitude]="48.225762" [longitude]="-1.707568" [label]="{text:'Oeuf du Breil'}" ></agm-marker>
-                  </agm-map>
-                  </div>
-                
+                <div class="row no-gutters">
+                  
+                    <div class="map-div">
+                    <agm-map [latitude]="48.225762" [longitude]="-1.707568" [zoom]=17>
+                      <agm-marker [latitude]="48.225762" [longitude]="-1.707568" [label]="{text:'Oeuf du Breil'}" ></agm-marker>
+                    </agm-map>
+                    </div>
+                  
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-    <!-- <div class="map-div">
-      <agm-map [latitude]="48.225762" [longitude]="-1.707568" [zoom]=17>
-        <agm-marker [latitude]="48.225762" [longitude]="-1.707568" [label]="{text:'Oeuf du Breil'}"></agm-marker>
-      </agm-map>
-    </div> -->
-      <!-- <app-image-loader [imgSrc]="'/assets/img/oeufs_2.jpg'"></app-image-loader> -->
-
-
-            <app-spacer height="50vh">
-            
-              <app-parallax-background imgUrl="assets/img/oeufs_2.jpg" height="100%" parallaxRatio=0.6></app-parallax-background>
-            </app-spacer>
-      
+      <!-- <div class="map-div">
+        <agm-map [latitude]="48.225762" [longitude]="-1.707568" [zoom]=17>
+          <agm-marker [latitude]="48.225762" [longitude]="-1.707568" [label]="{text:'Oeuf du Breil'}"></agm-marker>
+        </agm-map>
+      </div> -->
+        <!-- <app-image-loader [imgSrc]="'/assets/img/oeufs_2.jpg'"></app-image-loader> -->
 
 
-    <div id="gallery_part">
-      <div class="slider-container">
-        <div class="slider-wrapper">
-        <app-slider id="homeSlider" sliderHeight="75vh" [items]=sliderItems [bBackgroundContain]=false [bDisplayNavigation]=true autoPlay=true autoPlayDelay=6 [bIsDraggable]=false></app-slider>
+              <app-spacer height="50vh">
+              
+                <app-parallax-background imgUrl="assets/img/oeufs_2.jpg" height="100%" parallaxRatio=0.6></app-parallax-background>
+              </app-spacer>
+        
+
+
+      <div id="gallery_part">
+        <div class="slider-container">
+          <div class="slider-wrapper">
+          <app-slider id="homeSlider" sliderHeight="75vh" [items]=sliderItems [bBackgroundContain]=false [bDisplayNavigation]=true autoPlay=true autoPlayDelay=6 [bIsDraggable]=false></app-slider>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div id="contact_form_part">
-      <app-header-title name="title_contact" text="Nous Contacter."></app-header-title>
-      <app-contact-form></app-contact-form>
-    </div>
-      <app-footer></app-footer>
+      <div id="contact_form_part">
+        <app-header-title name="title_contact" text="Nous Contacter."></app-header-title>
+        <app-contact-form></app-contact-form>
+      </div>
+        <app-footer></app-footer>
 
-</ng-container> <!-- end if online -->
-
-<ng-container *ngIf="!bSiteIsOnline && !adminLoggedIn">
-  <div id="modifs-en-cours">
-
-    <img src="assets/img/odb_logo_medium.png" alt="">
-    <h2>En cours de modification</h2>
-
-  
+  </ng-container> <!-- end if online -->
   </div>
-</ng-container>
-</div>
+  <ng-container *ngIf="!bSiteIsOnline && !adminLoggedIn">
+    <div id="modifs-en-cours">
+
+      <img src="assets/img/odb_logo_medium.png" alt="">
+      <h2>En cours de modification</h2>
+
+    
+    </div>
+  </ng-container>
+<!-- </div> -->
  

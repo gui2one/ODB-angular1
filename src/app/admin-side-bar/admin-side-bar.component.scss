@@ -68,5 +68,9 @@
 .conn-infos{
     // margin-top : auto;
     word-break: break-all;
+    position : relative;
+    
+    text-overflow: ellipsis;
+
 }
 

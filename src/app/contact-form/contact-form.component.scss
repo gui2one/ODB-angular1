@@ -49,6 +49,23 @@ form button{
 }
 
 .warning{
-    background-color: rgba(red,0.6);
-    color : white;
+    // position : absolute;
+    // width:100%;
+    // border:1px solid rgba(red,0.6);
+    box-shadow: 0 0 5px rgba(red,1);
+    
+
+}
+
+@keyframes appearAndDissapear{
+    0%{
+        opacity : 0;
+    }
+    2%, 80%{
+        opacity : 1;
+    }
+
+    100%{
+        opacity : 0;
+    }
 }

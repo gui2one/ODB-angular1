@@ -106,7 +106,7 @@
 
                     <form>     
                       <label class="custom-file-upload">
-                        <div class="btn btn-primary">Charger une Sauvegarde</div>
+                        <div class="btn btn-primary">Charger une Sauvegarde <i class="fas fa-download"></i></div>
                         <input class="" type="file" name="load-backup-file" id="backupFile" (change)="overwriteDatabaseModal.show('Confirm overwiting data base ?! really  really ????','yes really !','', overwriteDatabase.bind(this),$event,this)">
                       </label>
                     </form>
@@ -118,7 +118,7 @@
   </div>
 
  
-
+<app-json-editor></app-json-editor>
 
 </div>
 

@@ -15,22 +15,22 @@
 
       <div class="box p-sm-1 p-md-3 p-lg-5">
         <form>
-          <input class="form-control" required type="text" ngModel name="firstName" #firstName="ngModel" (change)="log(firstName)" placeholder="Prenom" />
-          <div class="warning" *ngIf="firstName.errors && firstName.touched" >Champ Requis</div>
-          <input class="form-control" required type="text" ngModel name="lastName" #lastName="ngModel" (change)="log(lastName)" placeholder="Nom" />
-          <input class="form-control" required type="text" ngModel email name="email" #email="ngModel" (change)="log(email)" placeholder="Email" />
-          <div class="warning" *ngIf="email.errors && email.touched">
+          <input class="form-control" required type="text" ngModel name="firstName" #firstName="ngModel" (blur)="checkFirstName(firstName)" placeholder="Prenom" />
+          <!-- <div class="form-control warning"  *ngIf="firstName.errors && firstName.touched" >Champ Requis ...</div> -->
+          <input class="form-control" required type="text" ngModel name="lastName" #lastName="ngModel" (blur)="checkLastName(lastName)" placeholder="Nom" />
+          <input class="form-control" required type="text" ngModel email name="email" #email="ngModel" (blur)="checkEmail(email)" placeholder="Email" />
+          <!-- <div class="warning" *ngIf="email.errors && email.touched">
             <ng-container *ngIf="email.errors.required">
              <p> Champ Requis</p>
             </ng-container>
             <ng-container *ngIf="email.errors.email">
               <p>Email invalide</p>
               </ng-container>
-            </div>
+            </div> -->
           <input class="form-control" type="text" ngModel name="company" #company="ngModel" (change)="log(company)" placeholder="Entreprise"/>
-          <textarea class="form-control" name="message" placeholder="Message" rows="5"></textarea>
+          <textarea required type="text" class="form-control" ngModel name="message" #message="ngModel" (blur)="checkMessage(message)" placeholder="Message" rows="5"></textarea>
           <br>
-          <button [disabled]="email.errors || firstName.errors || lastName.errors" class="btn btn-sm" type="submit" (click)="submitContactForm($event)">Envoyer</button>
+          <button [disabled]="email.errors || firstName.errors || lastName.errors || message.errors" class="btn btn-sm" type="submit" (click)="submitContactForm($event)">Envoyer</button>
         </form>
       </div>
     </div>

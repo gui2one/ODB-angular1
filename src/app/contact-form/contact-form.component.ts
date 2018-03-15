@@ -41,6 +41,45 @@ export class ContactFormComponent implements OnInit {
 
   }
 
+  checkFirstName(ctrl){
+    // let inputElement = event.input.srcElement
+    if(ctrl.errors){
+
+      $('form input[name="firstName"]').addClass("warning")
+    }else{
+      $('form input[name="firstName"]').removeClass("warning")
+    }
+  }
+
+  checkLastName(ctrl) {
+    // let inputElement = event.input.srcElement
+    if (ctrl.errors) {
+
+      $('form input[name="lastName"]').addClass("warning")
+    } else {
+      $('form input[name="lastName"]').removeClass("warning")
+    }
+  }  
+
+  checkEmail(ctrl) {
+    // let inputElement = event.input.srcElement
+    console.log(ctrl.errors);
+    if (ctrl.errors) {
+      $('form input[name="email"]').addClass("warning")
+    } else {
+      $('form input[name="email"]').removeClass("warning")
+    }
+  }    
+
+  checkMessage(ctrl) {
+    console.log("check !!!");
+    if (ctrl.errors) {
+
+      $('form textarea[name="message"]').addClass("warning")
+    } else {
+      $('form textarea[name="message"]').removeClass("warning")
+    }
+  }      
   log(data){
     console.log(data)
   }

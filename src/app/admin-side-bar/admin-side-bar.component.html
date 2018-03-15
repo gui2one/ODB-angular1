@@ -6,7 +6,7 @@
   </div>
     <div class="conn-infos">
       <ng-container *ngIf="bLoggedIn && !bSideBarCollapsed">
-    
+        <span>Connected as :</span><br>
         <span>{{userEmail}}</span>
         <br>
         <button class="btn btn-primary" (click)="logOut($event)">Log Out</button>

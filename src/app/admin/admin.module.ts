@@ -40,6 +40,7 @@ import { AdminPanelComponent } from '../admin-panel/admin-panel.component';
 
 import { SiteUtilsService } from '../providers/site-utils.service'
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { JsonEditorComponent } from '../json-editor/json-editor.component';
 let Routes : Routes = [
   {
     path: "",
@@ -92,7 +93,8 @@ let Routes : Routes = [
     GalleryManagerComponent,
     AdminUploadsComponent,
     AdminSideBarComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    JsonEditorComponent
   ],
 
   bootstrap: [AdminComponent],
