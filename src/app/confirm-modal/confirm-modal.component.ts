@@ -27,13 +27,13 @@ export class ConfirmModalComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log("confirm modal Triggered");
+    // console.log("confirm modal Triggered");
 
-    console.log(this.display);
+    // console.log(this.display);
     this.wrapper = $(this.element.nativeElement)[0].children[0];
     this.modalBox = $(this.element.nativeElement)[0].children[0].children[1];
 
-    console.log(this.modalBox);
+    // console.log(this.modalBox);
   
   }
 
@@ -44,7 +44,7 @@ export class ConfirmModalComponent implements OnInit {
         visibility: "hidden",
         opacity : 0.0
        });
-      console.log("hidden")
+      // console.log("hidden")
     }else{
       $(this.wrapper).css({ 
         visibility: "visible",

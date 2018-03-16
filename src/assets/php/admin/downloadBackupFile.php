@@ -1,6 +1,7 @@
 <?php
-    require_once("../variables.php");
-    require_once("../Message.php");
+
+    require_once "../variables.php";
+    require_once "../Message.php";
     $docRoot = $_SERVER["DOCUMENT_ROOT"];
 
     

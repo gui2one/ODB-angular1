@@ -1,11 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
 import { AngularFireDatabase } from "angularfire2/database";
 import { Observable } from 'rxjs/Observable'
 import * as $ from 'jquery'
 import { Promise } from 'q';
 import {Location} from '@angular/common'
+
+import { Broadcaster } from "./broadcaster";
+
 @Injectable()
 export class OdbAdminDataService {
+
+  // @Output() sendNotificationEvent : EventEmitter<any> = new EventEmitter<(any)>()
 
   galleryDBData : Observable<any[]>;
   galleryJsonData : any;
@@ -14,20 +19,22 @@ export class OdbAdminDataService {
   galleryItemData: object = {
     key: "",
     displayID: 0,
-    title: "title",
+    title_fr: "title fr",
+    title_en: "title en",
     width: 400,
     height: 500,
     imageUrl: ""
   };
 
-  constructor(private db:AngularFireDatabase) { 
-    // this.galleryDBData = this.loadGalleryDataFromDB();
-    // console.log(this.galleryDBData);
-
+  constructor(private db:AngularFireDatabase,
+  private broadcaster : Broadcaster) 
+  
+  {
+    
   }
 
   onInit(){
-
+    this.broadcaster.broadcast('globalCountUpdate', 'I am your friend!');
   }
 
   myFunc(){
@@ -60,8 +67,11 @@ export class OdbAdminDataService {
       contentType: false,
       processData: false,
       success: (data) => {
-        console.log("data saved success");
+        // console.log("data saved success");
         console.log(data);
+        // this.sendNotificationEvent.emit(data)
+        // this.broadcaster.broadcast('globalCountUpdate', 'admin notif !!!!');
+        this.broadcaster.broadcast('successNotification', 'Data Saved');
       },
 
     })
@@ -116,19 +126,19 @@ export class OdbAdminDataService {
   addGalleryItem(event) {
 
     event.preventDefault();
-    this.db.database.ref().child('gallery').once("value", (snapshot)=>{
+    this.db.database.ref("/").child('gallery').once("value", (snapshot)=>{
       console.log(snapshot.numChildren());
     
 
      
-      let key = this.db.database.ref().child('gallery').push().key;
+      let key = this.db.database.ref("/").child('gallery').push().key;
 
       let updates: object = {};
       this.galleryItemData["key"] = key;
       this.galleryItemData["displayID"] = snapshot.numChildren();
       updates["/gallery/" + key] = this.galleryItemData;
 
-      this.db.database.ref().update(updates);
+      this.db.database.ref("/").update(updates);
       // console.log(key);   
 
     })
@@ -214,7 +224,7 @@ export class OdbAdminDataService {
       processData: false,
       success: (data) => {
         console.log(data);
-        console.log('data successfully saved');
+        this.broadcaster.broadcast('successNotification', 'Boxes Data Saved Boxes Data Saved Boxes Data Saved');
       },
       error: (data) => {
         // console.log(data);

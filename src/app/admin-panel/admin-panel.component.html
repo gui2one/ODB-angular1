@@ -1,11 +1,11 @@
 <app-confirm-modal #testModal (onDecide)="testModalDecide($event)" display="false"></app-confirm-modal>
 <app-confirm-modal #overwriteDatabaseModal display="false"></app-confirm-modal>
 
-
+<app-admin-notification #adminNotification (globalCountUpdate)="onGlobalCountUpdate($event)"></app-admin-notification>
 
 
 <div id="wrapper" class="p-sm-1 p-md-2 p-xl-4" *ngIf="router.url === '/admin'">
-  <h2>Admin Panel ...</h2>
+  <h2>Admin Panel</h2>
 
   <div class="admin-collapse">
     <div class="admin-collapse-header" data-toggle="collapse" data-target="#collapseTwo" id="headingOne">
@@ -36,6 +36,9 @@
           </div>
         </div>
 
+        <!--<button class="btn btn-danger" (click)="notify($event, 'error', 'pas cool')">click me</button>-->
+
+
         <div class="admin-collapse-group">
           <p class="admin-collapse-group-title">Service Boxes</p>
                   <div #serviceBoxes class="row m-0" *ngIf="homeDbData">
@@ -44,7 +47,8 @@
                     <div *ngFor="let item of homeDbData.serviceBoxes; let id=index;" class="box-data-container col-sm-6  col-xl-3 "
                       id={{id}}>
             
-                      <p class="text-edit" contenteditable id="{{id}}" (focusout)="onFocusOut($event)">{{item.title}}</p>
+                      <label for="{{id}}">Title</label>
+                      <input type="text" class="text-edit multilangInput" id="{{id}}" (focusout)="onFocusOut($event)" [value]="item.title" />
             
                       <div class="dropdown">
                         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"

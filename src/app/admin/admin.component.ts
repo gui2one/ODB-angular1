@@ -86,6 +86,10 @@ export class AdminComponent implements OnInit {
     $("#uploads-dialog").css({  marginLeft: $("#side-bar-wrapper").width() });
   }
 
+  notify(event){
+    console.log(event);
+  }
+
   onCollapse(event){
     if (event) {
       $("#side-bar-wrapper").addClass("collapsed");

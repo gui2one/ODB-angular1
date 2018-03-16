@@ -1,0 +1,6 @@
+<div id="wrapper">
+    <ng-container *ngFor="let item of items; let id = index;">
+       <div *ngIf="item.type==='success'" class="admin_notification admin_notification-success">{{item.content}}</div> 
+       <div *ngIf="item.type==='error'" class="admin_notification admin_notification-error">{{item.content}}</div> 
+    </ng-container>
+</div>

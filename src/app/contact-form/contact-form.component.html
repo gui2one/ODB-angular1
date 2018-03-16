@@ -14,11 +14,13 @@
     <div class="col-md-6 d-flex">
 
       <div class="box p-sm-1 p-md-3 p-lg-5">
+
+        <div id="messageSuccess" >Le message à bien été envoyé.</div>
         <form>
-          <input class="form-control" required type="text" ngModel name="firstName" #firstName="ngModel" (blur)="checkFirstName(firstName)" placeholder="Prenom" />
+          <input class="form-control" required type="text" ngModel name="firstName" #firstName="ngModel" (ngModelChange)="checkFirstName(firstName)" (blur)="checkFirstName(firstName)" placeholder="Prenom" />
           <!-- <div class="form-control warning"  *ngIf="firstName.errors && firstName.touched" >Champ Requis ...</div> -->
-          <input class="form-control" required type="text" ngModel name="lastName" #lastName="ngModel" (blur)="checkLastName(lastName)" placeholder="Nom" />
-          <input class="form-control" required type="text" ngModel email name="email" #email="ngModel" (blur)="checkEmail(email)" placeholder="Email" />
+          <input class="form-control" required type="text" ngModel name="lastName" #lastName="ngModel" (ngModelChange)="checkLastName(lastName)" (blur)="checkLastName(lastName)" placeholder="Nom" />
+          <input class="form-control" required type="text" ngModel email name="email" #email="ngModel" (ngModelChange)="checkEmail(email)" (blur)="checkEmail(email)" placeholder="Email" />
           <!-- <div class="warning" *ngIf="email.errors && email.touched">
             <ng-container *ngIf="email.errors.required">
              <p> Champ Requis</p>

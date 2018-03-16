@@ -18,7 +18,12 @@ export class JsonEditorComponent implements OnInit {
         header : {
           title : "Home Title text",
           content : "content text"
+        },
+        secondObject: {
+          title: "secondObject Title text",
+          content: "content secondObject"
         }
+
       },
       newObject :{
         newData : "100"
@@ -32,7 +37,21 @@ export class JsonEditorComponent implements OnInit {
     }
 
     // this.mockData = this.getObjectKeys(data);
-    // this.printObject(data);
+    // console.log(this.traverse(data));
+  }
+  traverse(obj) {
+    var ids = [];
+    for (var prop in obj) {
+      if (typeof obj[prop] === "object" && obj[prop]) {
+        
+
+        console.log(prop, "-->",obj[prop])
+        ids = ids.concat(this.traverse(obj[prop]));
+      }else{
+        console.log(prop, "-->", obj[prop])
+      }
+    }
+    return ids;
   }
 
   printObject(_object : object){
@@ -43,7 +62,7 @@ export class JsonEditorComponent implements OnInit {
 
       let currentObj : object = _object[item];
 
-      console.log("", item, " -->")
+      console.log(item, " |-->")
       if( typeof currentObj === "object"){
 
         while(typeof currentObj === "object" && counter < 30){
@@ -53,11 +72,12 @@ export class JsonEditorComponent implements OnInit {
               currentObj = currentObj[key]
               console.log("\t", key, " -->")
               console.log(currentObj)
-              continue
-            }else{
-              console.log(currentObj[key])
-              continue
-            }
+              // continue
+             }
+            //else{
+            //   console.log(currentObj[key])
+            //   continue
+            // }
           }
           counter++;
           

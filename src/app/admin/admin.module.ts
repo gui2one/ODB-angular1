@@ -41,6 +41,10 @@ import { AdminPanelComponent } from '../admin-panel/admin-panel.component';
 import { SiteUtilsService } from '../providers/site-utils.service'
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { JsonEditorComponent } from '../json-editor/json-editor.component';
+
+// import { AdminNotificationComponent } from '../admin-notification/admin-notification.component';
+import { AdminNotificationModule } from '../admin-notification/admin-notification.module';
+import { Broadcaster } from '../providers/broadcaster';
 let Routes : Routes = [
   {
     path: "",
@@ -72,6 +76,7 @@ let Routes : Routes = [
 
     ToggleModule,
     ConfirmModalModule,
+    AdminNotificationModule
     
     
   ], 
@@ -81,7 +86,8 @@ let Routes : Routes = [
     AuthService,
     // OdbDataService,
     OdbAdminDataService,
-    SiteUtilsService
+    SiteUtilsService,
+    Broadcaster
   ],
   declarations: [
     AdminComponent, 

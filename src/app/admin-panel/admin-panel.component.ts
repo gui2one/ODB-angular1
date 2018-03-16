@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, ComponentRef, ComponentFactory } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, ComponentRef, ComponentFactory } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 //import { Output, Input } from '@angular/core/src/metadata/directives';
 import { Router, Route } from '@angular/router';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -15,7 +16,11 @@ import { Promise } from 'q';
 import { ConfirmModalModule } from "../confirm-modal/confirm-modal.module";
 import { ConfirmModalComponent } from "../confirm-modal/confirm-modal.component";
 
+import { AdminNotificationModule } from "../admin-notification/admin-notification.module";
+import { AdminNotificationComponent } from "../admin-notification/admin-notification.component";
 import { SiteUtilsService } from "../providers/site-utils.service";
+
+import { Broadcaster } from "../providers/broadcaster";
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
@@ -32,6 +37,8 @@ export class AdminPanelComponent implements OnInit {
   @ViewChild("overwriteDatabaseModal") overwriteDatabaseModal: ConfirmModalComponent;
 
 
+  @ViewChild("adminNotification") adminNotification : AdminNotificationComponent;
+  // @Output() sendNotificationEvent = new EventEmitter<(object)>();
   
 
   siteDbData: any;
@@ -52,6 +59,7 @@ export class AdminPanelComponent implements OnInit {
     private dataService: OdbAdminDataService,
     public router: Router,
     public confirmModal : ConfirmModalModule,
+    public broadcaster: Broadcaster,
     public element : ElementRef,
     private siteUtils : SiteUtilsService,
     private resolver: ComponentFactoryResolver
@@ -106,13 +114,12 @@ export class AdminPanelComponent implements OnInit {
   ngOnInit() {
 
 
-
     this.errorLogDiv = $(document.getElementById("errorLog"));
     this.bLoggedIn = localStorage.getItem('ODB_connected') == 'true' ? true : false;
 
     if (this.bLoggedIn) {
 
-      this.dbData = this.getGalleryData();
+      // this.dbData = this.getGalleryData();
 
       let prom = this.dataService.loadSiteDataFromDB();
       prom.then((data) => {
@@ -162,8 +169,12 @@ export class AdminPanelComponent implements OnInit {
 
   }
 
+  notify(event, type:string, message:string){
+    // this.broadcaster.broadcast("errorNotification", message)
+    this.adminNotification.success("good", "Nicely Done");
+  }
   saveToSite(event) {
-    console.log("saveToSite function fired");
+    // console.log("saveToSite function fired");
     this.dataService.getSiteDataToJSON();
   }
 
@@ -195,23 +206,23 @@ export class AdminPanelComponent implements OnInit {
     //localStorage.setItem('ODB_connected', 'false');
   }
 
-  addGalleryItem(event) {
+  // addGalleryItem(event) {
 
-    event.preventDefault();
-    let key = this.dataBase.ref().child('gallery').push().key;
+  //   event.preventDefault();
+  //   let key = this.dataBase.ref().child('gallery').push().key;
 
-    let updates: object = {};
-    this.galleryItemData["key"] = key;
-    updates["/gallery/" + key] = this.galleryItemData;
+  //   let updates: object = {};
+  //   this.galleryItemData["key"] = key;
+  //   updates["/gallery/" + key] = this.galleryItemData;
 
-    this.dataBase.ref().update(updates);
-    // console.log(key);   
-  }
+  //   this.dataBase.ref().update(updates);
+  //   // console.log(key);   
+  // }
 
 
-  getGalleryData() {
-    return this.db.list('/gallery').valueChanges();
-  }
+  // getGalleryData() {
+  //   return this.db.list('/gallery').valueChanges();
+  // }
 
 
 
@@ -234,12 +245,13 @@ export class AdminPanelComponent implements OnInit {
   onFocusOut(event){
     event.preventDefault();
     let currrentBox = this.serviceBoxes.nativeElement.children[event.currentTarget.id]
-    // console.log(currrentBox);
-    let title = currrentBox.children[0].innerHTML
-    let text = currrentBox.children[2].value
-
+    console.log(currrentBox);
+    let title = currrentBox.children[1].value
+    let text = currrentBox.children[3].value
+    console.log(title);
+    console.log(event.currentTarget.id);
     // console.log($(event.target.parentNode)[0].childNodes);
-    this.dataService.updateServiceBoxesItemData(event.target.id, title, text, undefined)
+    this.dataService.updateServiceBoxesItemData(event.currentTarget.id, title, text, undefined)
   }
 
   onChooseIcon(event, iconID){
@@ -252,8 +264,8 @@ export class AdminPanelComponent implements OnInit {
     let parentBox = event.currentTarget.parentNode.parentNode.parentNode
 
     // console.log(parentBox.childNodes)
-    let title = parentBox.children[0].innerHTML
-    let text = parentBox.children[2].value
+    let title = parentBox.children[1].value
+    let text = parentBox.children[3].value
  
     // console.log(title)
     this.dataService.updateServiceBoxesItemData(event.currentTarget.id, title, text, this.iconsList[iconID])

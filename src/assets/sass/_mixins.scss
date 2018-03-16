@@ -25,7 +25,14 @@ $grid-breakpoints: (
     
 }
 
+@mixin multilangInput{
+    .multilangInput{
+        // background-color: blue;
+        border : 3px solid red;
 
+
+    }
+}
 @mixin admin-collapse{
 
 

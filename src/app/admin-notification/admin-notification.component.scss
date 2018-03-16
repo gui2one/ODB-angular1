@@ -1,0 +1,42 @@
+#wrapper{
+    position : fixed;
+    bottom:0px;
+    right : 0px;
+    z-index : 1000;
+    // background-color : green;
+    padding : 0px;
+
+    transition : all 0.5s;
+}
+
+.admin_notification{
+    width : 200px;
+    padding :10px;
+    color : white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: none;
+    white-space: nowrap;
+    animation: fadeout 0.5s ease-in 5s 1 forwards;
+
+    font-size : 0.75em;
+}
+.admin_notification-success{
+    background-color: green;
+    
+}
+.admin_notification-error{
+    background-color: red;
+    
+}
+
+@keyframes fadeout{
+    0%{
+        opacity : 1.0;
+        transform: translateX(0px)
+    }
+    100%{
+        opacity : 0.0;
+        transform: translateX(100%);
+    }
+}

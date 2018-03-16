@@ -219,7 +219,8 @@ export class GalleryManagerComponent implements OnInit{
     // this.modalRef.hide();
     // console.log("editing item -->"+ this.editCandidateKey);
     // console.log($('#edit-form')[0]['item-title'].value);
-    this.editItemData['title'] = $('#edit-form')[0]['item-title'].value;
+    this.editItemData['title_fr'] = $('#edit-form')[0]['item-title-fr'].value;
+    this.editItemData['title_en'] = $('#edit-form')[0]['item-title-en'].value;
 
     if(this.selectedImageUrl !== ""){
 

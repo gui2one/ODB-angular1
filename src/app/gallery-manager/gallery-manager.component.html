@@ -33,7 +33,7 @@
                 data-id= {{item.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + item.imageUrl + ')'">
                   <button class="btn btn-danger btn-delete" (click)="onClick($event,item.key)" id= {{item.key}}>X</button>
                   <div class="spacer"></div>
-                  <div  class="item-title"><span> {{item.title}}</span></div>
+                  <div  class="item-title"><span> {{item.title_fr}}</span></div>
               </div>
 
             </div>
@@ -81,8 +81,11 @@
       
       
       <form id="edit-form" action="" method="POST" (keypress)="onKeyPress($event)">
-        <label for="item-title">Title : 
-        <input type="text" value={{editItemData.title}} id="item-title">
+        <label for="item-title-fr">Titre (fr): 
+        <input type="text" value={{editItemData.title_fr}} id="item-title-fr">
+        </label>
+        <label for="item-title-en">Titre (en):
+          <input type="text" value={{editItemData.title_en}} id="item-title-en">
         </label>
         <input type="hidden" value={{editItemData.key}} id="item-key" >
       </form>
