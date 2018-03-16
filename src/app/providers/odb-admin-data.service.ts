@@ -100,6 +100,7 @@ export class OdbAdminDataService {
       processData:false,
       success:(data) =>{
         console.log(data);
+        this.broadcaster.broadcast("successNotification", "Gallery Items Saved")
         // console.log('data successfully saved');
       },
       error: (data) => {

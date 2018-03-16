@@ -16,9 +16,10 @@ $iconSize : 100px;
   min-height: 300px;
   height:100%;  
   text-align:center;
-  text-justify:middle;
+  // text-justify:middle;
   position:relative;
   padding:20px;
+  margin : 0px;
   box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
   user-select: none;
   font-family : "Raleway", sans-serif;
@@ -52,34 +53,35 @@ $iconSize : 100px;
     & h5{
       white-space: nowrap;
       word-wrap: none;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      // overflow: hidden;
+      // text-overflow: ellipsis;
     }
 
-    & h5:before{
-      content:'-- ';
+    // & h5:before{
+    //   content:'-- ';
       
-    }
+    // }
   
-    & h5:after{
-      content:' --';
+    // & h5:after{
+    //   content:' --';
       
-    }
+    // }
   }
 
 
   
   .title-light{
-    text-align : center;    
-    position:relative;
+    // text-align : center;    
+    position:absolute;
     display : block;
-    
+    padding : 0px;
     left:0px;
     top:0px;
     width:100%;
     margin:0 auto;
-    margin-top: 10px;
-    // padding: 5px 20px 10px 20px;
+    margin-top: 30px;
+    
+    // padding: -15px 20px 10px 20px;
     
     color:white;    
     transition:all 0.5s;
@@ -99,16 +101,16 @@ $iconSize : 100px;
 
   .title-dark{
     text-align : center;    
-    position:absolute;
-    display : block;
+    position:relative;
+    display : inline-block;
     // font-weight: bolder;
     left:0px;
     top:0px;
     width:100%;
-    margin:0 auto;
+
     margin-top:10px;
-    // padding: 5px 20px 10px 20px;
-    // margin-top:30px;
+;
+
     color:orange;    
     transition:all 0.5s;
     -ms-transition:all 0.5s;
@@ -116,8 +118,7 @@ $iconSize : 100px;
     -ms-transition-timing-function : cubic-bezier(0.2,1.5,0.5,1.0);    
     transition-delay:0.2s;     
     -ms-transition-delay:0.2s;     
-    // opacity : 0;
-    transform : translateY(50%) rotateZ(0deg);   
+  
     
     & h5{
       font-weight: bolder;
@@ -143,7 +144,7 @@ $iconSize : 100px;
     color:white;    
     transition:all 0.5s;
     display: block;
-    // font-size:20px;
+  
     width: 100%;
     transition-timing-function : cubic-bezier(0.2,1.5,0.5,1.0);    
     -ms-transition-timing-function : cubic-bezier(0.2,1.5,0.5,1.0);        
@@ -161,15 +162,13 @@ $iconSize : 100px;
 
   
   .content{
-    // position : absolute;
-    // bottom:30px;
-    // left:0px;
+
     margin-top:$iconSize + 30px;
   }
   
   .content-dark{
     text-align : center;
-    // margin:0 auto;
+
     margin-top:$iconSize + 50px;
     color:orange;
     transition:all 0.5s;
@@ -191,7 +190,7 @@ $iconSize : 100px;
     margin:0 auto;
     margin-top:$iconSize + 100px ;
     padding: 5px 20px 10px 20px;
-    // margin-top:30px;
+;
     color:white;
     
     transition:all 0.5s;
@@ -229,7 +228,7 @@ $iconSize : 100px;
   
   .title-dark{
     opacity : 0.0;
-    transform : translateY(-10%) rotateZ(0deg);
+    transform : translateY(-50%) rotateZ(0deg);
   }
   .title-light{
     opacity : 1.0;

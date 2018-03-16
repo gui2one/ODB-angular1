@@ -3,7 +3,7 @@
 
     
     <div id="wrapper" class="" (window:resize)="onResize($event)" >
-      
+      <app-admin-notification #adminNotification></app-admin-notification>
       <app-admin-side-bar bSideBarCollaped="bSideBarCollaped" [bLoggedIn]="bLoggedIn" [userEmail] = "userEmail" (onCollapse)="onCollapse($event)"></app-admin-side-bar>
 
       <div id="admin-content">
