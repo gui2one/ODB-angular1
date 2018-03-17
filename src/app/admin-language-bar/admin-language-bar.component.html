@@ -1,0 +1,15 @@
+<div class="multilang-wrapper">
+    <button #menuToggle id="menu-toggle" type="button" data-toggle="dropdown" [style.background-image]="'url(assets/img/flags/'+flagSVGs[chosenFlagID]+')'">&nbsp;
+      <!-- <img src="assets/img/flags/fr.svg" /> -->
+    </button>
+    <div class="dropdown-menu">
+      <a *ngFor="let flag of flagSVGs; let id=index;" class="dropdown-item">
+        <div class="flag" (click)="onChooseLanguage($event)" [attr.data-flagid]="id" [style.background-image]="'url(assets/img/flags/'+flag+')'">
+
+        </div>
+      </a>
+    </div>
+
+</div>
+
+

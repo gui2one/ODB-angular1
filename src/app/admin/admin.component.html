@@ -10,6 +10,7 @@
         
         <!-- <app-admin-header [bLoggedIn]="bLoggedIn" [userEmail] = "userEmail" ></app-admin-header>      -->
           <div *ngIf="bLoggedIn" class="">
+            <app-admin-language-bar></app-admin-language-bar>
             <ng-container *ngIf="router.url === '/admin'">
             <app-admin-panel ></app-admin-panel>
             </ng-container>

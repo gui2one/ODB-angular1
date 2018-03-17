@@ -45,6 +45,12 @@ import { JsonEditorComponent } from '../json-editor/json-editor.component';
 // import { AdminNotificationComponent } from '../admin-notification/admin-notification.component';
 import { AdminNotificationModule } from '../admin-notification/admin-notification.module';
 import { Broadcaster } from '../providers/broadcaster';
+
+// import { AdminMultilangInputComponent } from '../admin-multilang-input/admin-multilang-input.component';
+import { AdminMultilangInputModule } from "../admin-multilang-input/admin-multilang-input.module";
+import { AdminLanguageBarComponent } from '../admin-language-bar/admin-language-bar.component';
+
+import { LanguagesService } from "../providers/languages.service";
 let Routes : Routes = [
   {
     path: "",
@@ -76,7 +82,8 @@ let Routes : Routes = [
 
     ToggleModule,
     ConfirmModalModule,
-    AdminNotificationModule
+    AdminNotificationModule,
+    AdminMultilangInputModule
     
     
   ], 
@@ -87,7 +94,8 @@ let Routes : Routes = [
     // OdbDataService,
     OdbAdminDataService,
     SiteUtilsService,
-    Broadcaster
+    Broadcaster,
+    LanguagesService
   ],
   declarations: [
     AdminComponent, 
@@ -100,7 +108,9 @@ let Routes : Routes = [
     AdminUploadsComponent,
     AdminSideBarComponent,
     AdminPanelComponent,
-    JsonEditorComponent
+    JsonEditorComponent,
+    AdminLanguageBarComponent,
+    
   ],
 
   bootstrap: [AdminComponent],

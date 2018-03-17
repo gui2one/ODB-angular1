@@ -1,0 +1,50 @@
+.multilang-wrapper{
+    width : auto;
+    // border : 1px solid red;
+    width : 100%;
+    input{
+        border : 2px solid orange;
+        margin:0px;
+        padding : 0px;
+    }
+    #flag-menu{
+        align-self : flex-end;
+        width : auto;
+    }
+    #menu-toggle{
+        // display: block;
+        background-color: pink;
+        width:32px;
+        height: 32px;
+        padding : 0px;
+        margin: 0px;
+        background-size: contain;
+        border-width: 0px;
+    }
+
+    .dropdown-item{
+        padding: 0;
+        display : inline;
+    }
+
+    .flag{
+        display: inline-block;
+        width:20px;
+        height: 20px;
+        padding : 0px;
+        margin: 0px;
+        background-size: contain;
+    }
+
+    img{
+        // display: block;
+        width: 32px;
+        height: 32px;
+        border :1px solid red;
+    }
+
+    label{
+        margin-bottom: 0px;
+    }
+
+}

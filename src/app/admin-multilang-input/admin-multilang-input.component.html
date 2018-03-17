@@ -1,0 +1,23 @@
+<div class="multilang-wrapper">
+  <div class="">
+  <label >
+    {{name}}    
+    <ng-container *ngFor="let lang of langService.languages;">
+      <input [hidden]="currentLanguage !== lang" [attr.data-language]="lang" name="text_{{lang}}" type="text" class="{{lang}}" value="{{values[lang]}}" (blur)="onBlur($event)"/>
+    </ng-container>
+  </label>
+   
+      <button #menuToggle id="menu-toggle" class="btn btn-sm" type="button" data-toggle="dropdown" [style.background-image]="'url(assets/img/flags/'+flagSVGs[currentLanguage]+')'">&nbsp;
+        <!-- <img src="assets/img/flags/fr.svg" /> -->
+      </button>
+      <div class="dropdown-menu">
+        <a *ngFor="let flag of flagsArray; let id=index;"  class="dropdown-item">
+          <div class="flag" (click)="onChooseLanguage($event)" [attr.data-flagid]="id" [style.background-image]="'url(assets/img/flags/'+flag+')'">
+   
+          </div>
+        </a>
+      </div>
+  
+  </div>
+
+</div>

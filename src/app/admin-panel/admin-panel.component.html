@@ -3,7 +3,7 @@
 
 
 
-
+<app-admin-multilang-input name="cool"></app-admin-multilang-input>
 <div id="wrapper" class="p-sm-1 p-md-2 p-xl-4" *ngIf="router.url === '/admin'">
   <h2>Admin Panel</h2>
 
@@ -46,9 +46,15 @@
             
                     <div *ngFor="let item of homeDbData.serviceBoxes; let id=index;" class="box-data-container col-sm-6  col-xl-3 "
                       id={{id}}>
-            
-                      <label for="{{id}}">Title</label>
-                      <input type="text" class="text-edit multilangInput" id="{{id}}" (focusout)="onFocusOut($event)" [value]="item.title" />
+                      <app-admin-multilang-input 
+                            id="{{id}}" 
+                            [attr.data-value]="item.title[langService.currentLanguage]" 
+                            [(value)]="item.title[langService.currentLanguage]"                             
+                            (focusout)="onFocusOut($event)"  
+                            name="Title">
+                      </app-admin-multilang-input>
+                      <!-- <label for="{{id}}">Title</label>
+                      <input type="text" class="text-edit" id="{{id}}" (focusout)="onFocusOut($event)" [value]="item.title" /> -->
             
                       <div class="dropdown">
                         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"

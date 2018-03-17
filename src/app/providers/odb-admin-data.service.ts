@@ -172,7 +172,7 @@ export class OdbAdminDataService {
     return prom;
   }
 
-  updateServiceBoxesItemData(id:number, title:string, text:string, icon: any = undefined){
+  updateServiceBoxesItemData(id:number, title:object, text:string, icon: any = undefined){
 
     let newData = {
       title: title,
@@ -180,7 +180,7 @@ export class OdbAdminDataService {
       text: text
     }
 
-    // console.log(id,text); 
+    console.log(newData); 
     let child = this.db.database.ref().child("home-data/serviceBoxes/"+id.toString());
     // console.log(child);
 

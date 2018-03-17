@@ -21,6 +21,7 @@ import { AdminNotificationComponent } from "../admin-notification/admin-notifica
 import { SiteUtilsService } from "../providers/site-utils.service";
 
 import { Broadcaster } from "../providers/broadcaster";
+import { LanguagesService } from '../providers/languages.service';
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
@@ -62,7 +63,9 @@ export class AdminPanelComponent implements OnInit {
     public broadcaster: Broadcaster,
     public element : ElementRef,
     private siteUtils : SiteUtilsService,
-    private resolver: ComponentFactoryResolver
+    private langService : LanguagesService,
+
+    // private resolver: ComponentFactoryResolver
   ) { }
 
   emptySiteData : object = {
@@ -112,6 +115,12 @@ export class AdminPanelComponent implements OnInit {
   ]
 
   ngOnInit() {
+
+    this.broadcaster.on("multilangInput")
+      .subscribe(message => {
+        console.log("!!!!",message);
+      })
+
 
 
     this.errorLogDiv = $(document.getElementById("errorLog"));
@@ -172,6 +181,10 @@ export class AdminPanelComponent implements OnInit {
   notify(event, type:string, message:string){
     // this.broadcaster.broadcast("errorNotification", message)
     this.adminNotification.success("good", "Nicely Done");
+  }
+  inputEvent(event){
+    // event.preventDefault();
+    console.log("----------->",event);
   }
   saveToSite(event) {
     // console.log("saveToSite function fired");
@@ -244,15 +257,34 @@ export class AdminPanelComponent implements OnInit {
 
   onFocusOut(event){
     event.preventDefault();
+    event.stopPropagation();
+    // console.log(event.currentTarget)
     let currrentBox = this.serviceBoxes.nativeElement.children[event.currentTarget.id]
-    console.log(currrentBox);
-    let title = currrentBox.children[1].value
-    let text = currrentBox.children[3].value
+    let inputNode = currrentBox.children[0].querySelector(".multilang-wrapper div label input");
+    
+    // console.log(inputNode.getAttribute("name"));
+    
+    let title : object = {}; //= { fr: inputNode.value, }
+    
+    for(let lang in this.langService.languages){
+      let curLang = this.langService.languages[lang]
+      console.log(curLang)
+      let langInput = currrentBox.children[0].querySelector(".multilang-wrapper div label input[name='text_"+curLang+"'");
+      title[curLang] = langInput.value
+    }
+    
     console.log(title);
-    console.log(event.currentTarget.id);
+    let text = currrentBox.children[2].value
+    // console.log(currrentBox.children[0].getAttribute("data-value"));
+    // console.log(event.currentTarget.id);
     // console.log($(event.target.parentNode)[0].childNodes);
     this.dataService.updateServiceBoxesItemData(event.currentTarget.id, title, text, undefined)
+
+
+    
   }
+
+
 
   onChooseIcon(event, iconID){
     event.preventDefault();
@@ -263,9 +295,10 @@ export class AdminPanelComponent implements OnInit {
     ///// go up 3 elements to find the parentBox
     let parentBox = event.currentTarget.parentNode.parentNode.parentNode
 
-    // console.log(parentBox.childNodes)
-    let title = parentBox.children[1].value
-    let text = parentBox.children[3].value
+    console.log(parentBox.children[0].getAttribute("data-value"));
+
+    let title = parentBox.children[0].getAttribute("data-value")
+    let text = parentBox.children[2].value
  
     // console.log(title)
     this.dataService.updateServiceBoxesItemData(event.currentTarget.id, title, text, this.iconsList[iconID])

@@ -12,6 +12,7 @@ import * as firebase from 'firebase'
 import * as $ from 'jquery';
 import { NgModule } from '@angular/core/src/metadata/ng_module';
 import { Promise } from 'q';
+import { LanguagesService } from '../providers/languages.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -36,13 +37,15 @@ export class AdminComponent implements OnInit {
 
   galleryData : object;
   dataBase: any = firebase.database();
-  errorLogDiv : any; 
+  
 
   constructor(
     public authService: AuthService, 
     private db : AngularFireDatabase, 
     private dataService : OdbAdminDataService,
-    private router : Router) { }
+    private router : Router,
+    private langService : LanguagesService
+  ) { }
 
   galleryItemData : object = {
     key:"",
@@ -55,14 +58,14 @@ export class AdminComponent implements OnInit {
     console.log(change);
   }
 
-  // onUnload(event){
+  // ngOnDestroy(event){
   //   alert(event);
   //   this.authService.logOut();
   // }
 
   ngOnInit() {
 
-    this.errorLogDiv = $(document.getElementById("errorLog"));
+    
     this.authService.checkLoggedIn().subscribe((auth) =>{
       this.bLoggedIn = auth !== null;
 
@@ -73,7 +76,8 @@ export class AdminComponent implements OnInit {
       this.bGotData = true;
     });
 
-
+    this.langService.currentLanguage = "en";
+    console.log(this.langService.currentLanguage);
 
   }
 
