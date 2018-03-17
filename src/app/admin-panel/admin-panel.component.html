@@ -48,8 +48,8 @@
                       id={{id}}>
                       <app-admin-multilang-input 
                             id="{{id}}" 
-                            [attr.data-value]="item.title[langService.currentLanguage]" 
-                            [(value)]="item.title[langService.currentLanguage]"                             
+                            [attr.data-value]="item.title[langService.currentLanguage]"                             
+                            [values]= "item.title"
                             (focusout)="onFocusOut($event)"  
                             name="Title">
                       </app-admin-multilang-input>

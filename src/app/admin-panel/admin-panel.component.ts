@@ -44,6 +44,8 @@ export class AdminPanelComponent implements OnInit {
 
   siteDbData: any;
   homeDbData : object;
+  serviceBoxesTitles : object = {};
+
   bSiteOnline: boolean = false;
   dbData: Observable<any[]>;
   bLoggedIn: boolean = false;
@@ -53,6 +55,8 @@ export class AdminPanelComponent implements OnInit {
   galleryData: object;
   dataBase: any = firebase.database();
   errorLogDiv: any;
+
+  
 
   constructor(
     public authService: AuthService,
@@ -116,10 +120,10 @@ export class AdminPanelComponent implements OnInit {
 
   ngOnInit() {
 
-    this.broadcaster.on("multilangInput")
-      .subscribe(message => {
-        console.log("!!!!",message);
-      })
+    // this.broadcaster.on("multilangInput")
+    //   .subscribe(message => {
+    //     console.log("!!!!",message);
+    //   })
 
 
 
@@ -169,8 +173,13 @@ export class AdminPanelComponent implements OnInit {
 
         this.db.database.ref("/").child('home-data')          
           .on("value", (snapshot) => {
-            // console.log(snapshot)
+            console.log("got home data")
             this.homeDbData = snapshot.val()
+
+            for(let item in this.homeDbData){
+              console.log(item);
+            }
+            console.log(snapshot.exportVal())
           })
 
       })

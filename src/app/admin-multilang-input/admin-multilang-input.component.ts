@@ -14,8 +14,8 @@ export class AdminMultilangInputComponent implements OnInit {
   @ViewChild("menuToggle") menuToggle : HTMLElement;
   imgPath = "assets/img/flags/";
 
-  @Input() @Output() value : string= "default ...";
-  @Output() values : object = {};
+  // @Input() @Output() value : string= "default ...";
+  @Input() @Output() values : object = {};
   @Input() @Output() currentLanguage: string = "fr";
 
   chosenFlagID = 0;
