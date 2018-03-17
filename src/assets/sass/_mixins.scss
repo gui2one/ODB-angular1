@@ -142,7 +142,7 @@ $grid-breakpoints: (
             white-space: nowrap;
             overflow : hidden;
             text-overflow: ellipsis;   
-            
+            user-select: none;
 
             background-color: #eee;
             position :absolute;

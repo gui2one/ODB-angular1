@@ -53,6 +53,7 @@ import { ParallaxBackgroundComponent } from './parallax-background/parallax-back
 
 
 import{SiteUtilsService} from './providers/site-utils.service'
+import { SiteLanguagesService } from './providers/site-languages.service';
 const ngStaticSiteGeneratorModuleOptions: ModuleOptions = {
   openExternalLinksInNewTab: false // Automatically add target="_blank" to external links. Default false.
 };
@@ -137,7 +138,8 @@ let Routes : Routes = [
     // { provide: APP_BASE_HREF, useValue: '/test/' },
    { provide: LocationStrategy, useClass: HashLocationStrategy },
   //  AuthService
-  SiteUtilsService
+  SiteUtilsService,
+  SiteLanguagesService
 
   ],
   bootstrap: [AppComponent]

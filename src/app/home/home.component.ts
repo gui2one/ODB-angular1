@@ -10,6 +10,7 @@ import * as $ from 'jquery';
 // import { AuthService } from '../providers/auth.service.ts.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import{SiteUtilsService} from '../providers/site-utils.service'
+import { SiteLanguagesService } from '../providers/site-languages.service';
 
 @Component({
   selector: 'app-home',
@@ -35,14 +36,15 @@ export class HomeComponent implements OnInit , AfterViewInit{
 
   choices : Array<number>;
   constructor(  public fireAuth : AngularFireAuth, 
-                private siteUtils : SiteUtilsService            
+                private siteUtils : SiteUtilsService,
+                private siteLangService : SiteLanguagesService         
               ) {}
 
 
   ngOnInit() {
 
 
-    
+    console.log(this.siteLangService.currentLanguage);
     // this.siteUtils.displayScreenInfos();
 
     let sub = this.fireAuth.authState.subscribe(user => {

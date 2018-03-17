@@ -29,9 +29,7 @@ $time : 0.35s;
 
     transition-timing-function:cubic-bezier(.54,-0.57,.46,1);    
 }
-#navbar{
-
-    
+#navbar{    
 
     font-family:'Raleway', sans-serif;
     font-weight: 400;
@@ -41,7 +39,7 @@ $time : 0.35s;
     padding-right:5px;
     a{
         color:white;
-   
+        display: inline-block;
     }
 
     a:hover{
@@ -69,6 +67,40 @@ $time : 0.35s;
     transition-timing-function:cubic-bezier(.54,-0.57,.46,1);
 
     color:white;
+
+    & .lang-dropdown{
+        display: inline-block;
+        $flagSize : 30px;
+        & .dropdown-menu{
+            padding : 0px;
+            min-width: unset;
+        }
+
+        & .flags-menu-toggle{
+            display: inline-block;
+            opacity : 0.4;
+            transition : all 0.5s;
+            &:hover{
+                opacity : 1.0;
+            }
+        }
+        
+        & .dropdown-item{
+            display: inline-block;
+            padding : 0px;
+            width : $flagSize;
+            height : $flagSize;            
+        }
+        & .flag{
+            width : $flagSize;
+            height : $flagSize;
+        }
+    }
+    & .dropdown-item{
+        background-color: #111;
+    }
+
+
 
     /* background-color: rgba(0,0,0,1.0) !important;  */
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery'; // into app.component.ts
+import { SiteLanguagesService } from '../providers/site-languages.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -9,15 +10,17 @@ export class MenuComponent implements OnInit {
 
   navbarHeight = 54;
   scrollDuration = 1000;
-  constructor() { }
+
+  flagsArray = [ 'fr.svg', 'gb.svg']
+  flagSVGs = {fr : 'fr.svg', en :'gb.svg'}
+  constructor(
+    private siteLangService : SiteLanguagesService
+  ) { }
 
   ngOnInit() {
 
-    
     let root = this;
-    // jQuery.get('/assets/php/test.php').then(data =>console.log(data));
-    // console.log("menu init");
-    // $('#navbar').css({ backgroundColor: 'rgba(0,0,0,1.0)' });
+
     $('.nav-link').click( function(){
       $('#navbarsExample04').removeClass('show');
     })
@@ -88,6 +91,14 @@ export class MenuComponent implements OnInit {
   }
   menuFadeOut() {
     $('#navbar-wrapper').addClass("fade-out").removeClass("fade-in");
+  }
+
+  onFlagClick(event){
+    event.preventDefault();
+    console.log(event.currentTarget);
+    console.log(event.currentTarget.id);
+
+    this.siteLangService.currentLanguage = this.siteLangService.languages[ parseInt(event.currentTarget.id)]
   }
 
 

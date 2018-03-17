@@ -11,12 +11,14 @@ import { LanguagesService } from '../providers/languages.service';
 export class AdminMultilangInputComponent implements OnInit {
 
   @Output() multilangInputEvent = new EventEmitter<(string)>();
-  @ViewChild("menuToggle") menuToggle : HTMLElement;
+  @ViewChild("menuToggle") menuToggle : ElementRef;
   imgPath = "assets/img/flags/";
 
   // @Input() @Output() value : string= "default ...";
   @Input() @Output() values : object = {};
-  @Input() @Output() currentLanguage: string = "fr";
+  @Input() @Output() currentLanguage: string = "";
+  @Input() name : string = "default name";
+  @Input() inputType : string = "text";
 
   chosenFlagID = 0;
   globalLanguage = "fr";
@@ -30,10 +32,11 @@ export class AdminMultilangInputComponent implements OnInit {
   flagsArray : Array<any> = []
   
 
-  @Input() name : string = "default name";
+
+
   constructor(
     private broadcaster : Broadcaster,
-    private element : ElementRef,
+    public element : ElementRef,
     private langService : LanguagesService
   ) { 
 
@@ -49,19 +52,36 @@ export class AdminMultilangInputComponent implements OnInit {
       }
 
 
-    console.log(this.values)
+
     
     this.broadcaster.on("changeLanguage")
     .subscribe(message => {
       console.log(message);
+      // this.currentLanguage = message.toString();
       this.currentLanguage = message.toString();
     }); 
 
+    this.currentLanguage = this.langService.currentLanguage;
 
+    
     
   }
 
   ngOnInit() {
+    $(this.menuToggle.nativeElement).css({ border: "3px solid green" })
+    // console.log("------------------- MultlilangInput INIT -------------------")
+    
+  }
+
+  ngAfterViewInit(){
+    
+    // console.log(this.menuToggle.nativeElement);
+    
+  }
+
+  public getValues() : object{
+
+    return this.values;
   }
 
   onChooseLanguage(event){
@@ -69,8 +89,8 @@ export class AdminMultilangInputComponent implements OnInit {
     let el : HTMLElement = event.currentTarget;
 
     let chosenID = $(el).attr("data-flagid");
-    console.log(el.attributes);
-    console.log($(el).attr("data-flagid"));
+    // console.log(el.attributes);
+    // console.log($(el).attr("data-flagid"));
 
     this.chosenFlagID = parseInt(chosenID);
     $(this.menuToggle).css({ backgroundImage: "assets/img/flags/" + this.flagSVGs[this.globalLanguage]})
@@ -81,11 +101,19 @@ export class AdminMultilangInputComponent implements OnInit {
 
   onBlur(event){
     event.preventDefault();
-    
+    event.stopPropagation();
     console.log(event.currentTarget)
-    console.log(event.currentTarget.getAttribute("data-language"))
+    // console.log(event.currentTarget.getAttribute("data-language"))
     let curLang = event.currentTarget.getAttribute("data-language")
-    this.values[curLang] = event.currentTarget.value;
+    console.log(curLang);
+    if(this.inputType === "text"){
+      this.values[curLang] = event.currentTarget.value;
+    }else if(this.inputType === "textarea"){
+
+      console.log("setting input component values")
+      this.values[curLang] = event.currentTarget.value;
+      console.log(event.currentTarget.value);
+    }
 
     // this.value = event.currentTarget.value;
     

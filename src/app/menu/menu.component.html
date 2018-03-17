@@ -22,9 +22,27 @@
           <li class="nav-item">
             <a id="galleryButton" routerLink="/" class="nav-link" href="#">Photos</a>
           </li>
-
+        <div id="flagsMenu" class="dropdown lang-dropdown">
+        
+          <a class="nav-link" data-toggle="dropdown"> Langue :</a>
+          <div class="flags-menu-toggle" data-toggle="dropdown">
+            <img class="flag" src="assets/img/flags/{{flagSVGs[siteLangService.currentLanguage]}}" alt="">
+          </div>
+          <div class="dropdown-menu dropdown-menu-right">
+        
+            <a class="dropdown-item" *ngFor="let lang of siteLangService.languages; let id = index;">
+              <img (click)="onFlagClick($event)" id="{{id}}" class="flag" src="assets/img/flags/{{flagSVGs[lang]}}">
+            </a>
+            <!-- <a class="dropdown-item">lien</a>
+                    <a class="dropdown-item">lien</a> -->
+        
+          </div>
+        </div>
         </ul>
 
+
+
+        
       </div>
 
   

@@ -172,8 +172,9 @@ export class OdbAdminDataService {
     return prom;
   }
 
-  updateServiceBoxesItemData(id:number, title:object, text:string, icon: any = undefined){
+  updateServiceBoxesItemData(id:number, title:object, text:object, icon: any = undefined){
 
+    console.log("-------------------updateServiceBoxesItemData-------------------")
     let newData = {
       title: title,
       icon: icon,

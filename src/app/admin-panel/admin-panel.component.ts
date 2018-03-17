@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, ComponentRef, ComponentFactory } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, ComponentRef, ComponentFactory, ViewChildren, QueryList } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 //import { Output, Input } from '@angular/core/src/metadata/directives';
 import { Router, Route } from '@angular/router';
@@ -22,6 +22,9 @@ import { SiteUtilsService } from "../providers/site-utils.service";
 
 import { Broadcaster } from "../providers/broadcaster";
 import { LanguagesService } from '../providers/languages.service';
+
+import { AdminMultilangInputModule } from "../admin-multilang-input/admin-multilang-input.module";
+import { AdminMultilangInputComponent } from '../admin-multilang-input/admin-multilang-input.component';
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
@@ -40,6 +43,9 @@ export class AdminPanelComponent implements OnInit {
 
   @ViewChild("adminNotification") adminNotification : AdminNotificationComponent;
   // @Output() sendNotificationEvent = new EventEmitter<(object)>();
+
+  @ViewChildren("serviceBoxesTitleMultiInput") serviceBoxesTitleMultiInputs : QueryList<AdminMultilangInputComponent>;
+  @ViewChildren("serviceBoxesTextMultiInput") serviceBoxesTextMultiInputs : QueryList<AdminMultilangInputComponent>;
   
 
   siteDbData: any;
@@ -68,6 +74,7 @@ export class AdminPanelComponent implements OnInit {
     public element : ElementRef,
     private siteUtils : SiteUtilsService,
     private langService : LanguagesService,
+    private multilangModule : AdminMultilangInputModule
 
     // private resolver: ComponentFactoryResolver
   ) { }
@@ -120,13 +127,11 @@ export class AdminPanelComponent implements OnInit {
 
   ngOnInit() {
 
-    // this.broadcaster.on("multilangInput")
-    //   .subscribe(message => {
-    //     console.log("!!!!",message);
-    //   })
 
 
 
+
+    
     this.errorLogDiv = $(document.getElementById("errorLog"));
     this.bLoggedIn = localStorage.getItem('ODB_connected') == 'true' ? true : false;
 
@@ -176,10 +181,23 @@ export class AdminPanelComponent implements OnInit {
             console.log("got home data")
             this.homeDbData = snapshot.val()
 
-            for(let item in this.homeDbData){
-              console.log(item);
-            }
-            console.log(snapshot.exportVal())
+            console.log("---------------- INIT FUNCTION --------------")
+            console.log(this.serviceBoxesTitleMultiInputs)
+            this.serviceBoxesTitleMultiInputs.changes.subscribe((data) => {
+              // console.log(data._results[0].values)
+              // this.serviceBoxesTitleMultiInputs.forEach(input => console.log(input.element.nativeElement.id))
+
+              
+            })
+
+            // console.log(this.serviceBoxesTitleMultiInputs)
+
+
+            
+            // for(let item in this.homeDbData){
+            //   console.log(item);
+            // }
+            // console.log(snapshot.exportVal())
           })
 
       })
@@ -266,31 +284,51 @@ export class AdminPanelComponent implements OnInit {
 
   onFocusOut(event){
     event.preventDefault();
-    event.stopPropagation();
-    // console.log(event.currentTarget)
-    let currrentBox = this.serviceBoxes.nativeElement.children[event.currentTarget.id]
-    let inputNode = currrentBox.children[0].querySelector(".multilang-wrapper div label input");
+    // event.stopPropagation();
     
-    // console.log(inputNode.getAttribute("name"));
     
-    let title : object = {}; //= { fr: inputNode.value, }
-    
-    for(let lang in this.langService.languages){
-      let curLang = this.langService.languages[lang]
-      console.log(curLang)
-      let langInput = currrentBox.children[0].querySelector(".multilang-wrapper div label input[name='text_"+curLang+"'");
-      title[curLang] = langInput.value
+    if(event.target.getAttribute("type") === "text"){
+      let currrentBox = this.serviceBoxes.nativeElement.children[event.currentTarget.id]
+      let inputNode = currrentBox.children[0].querySelector(".multilang-wrapper div label input");
+
+      let title: object = {};
+
+      console.log(event.currentTarget);
+
+
+      for (let lang in this.langService.languages) {
+        let curLang = this.langService.languages[lang]
+        // console.log(curLang)
+        let langInput = currrentBox.children[0].querySelector(".multilang-wrapper div label input[name='text_" + curLang + "'");
+        title[curLang] = langInput.value
+      }
+
+      let text: object = {};
+      for (let lang in this.langService.languages) {
+        let curLang = this.langService.languages[lang]
+        let langInput = currrentBox.children[2].querySelector(".multilang-wrapper div label textarea[name='text_" + curLang + "'");
+        // console.log(currrentBox.children[2])
+
+        text[curLang] = langInput.value
+      }      
+      // console.log(text);
+
+      let titleFilter = this.serviceBoxesTitleMultiInputs.filter(input => {
+        // console.log(event);
+        return parseInt(input.element.nativeElement.id) === parseInt(event.currentTarget.id)
+      })
+ 
+       title = titleFilter[0].values
+
+      let textFilter = this.serviceBoxesTextMultiInputs.filter(input => {
+        console.log(event);
+        return parseInt(input.element.nativeElement.id) === parseInt(event.currentTarget.id)
+      })
+      console.log(textFilter);
+      text = textFilter[0].values      
+      
+      this.dataService.updateServiceBoxesItemData(event.currentTarget.id, title, text, undefined)
     }
-    
-    console.log(title);
-    let text = currrentBox.children[2].value
-    // console.log(currrentBox.children[0].getAttribute("data-value"));
-    // console.log(event.currentTarget.id);
-    // console.log($(event.target.parentNode)[0].childNodes);
-    this.dataService.updateServiceBoxesItemData(event.currentTarget.id, title, text, undefined)
-
-
-    
   }
 
 
@@ -299,17 +337,37 @@ export class AdminPanelComponent implements OnInit {
     event.preventDefault();
 
     let tag_name: string = event.currentTarget.tagName
+    // console.log("tag_name : " , tag_name)
     // event.stopPropagation();
 
-    ///// go up 3 elements to find the parentBox
+    // ///// go up 3 elements to find the parentBox
     let parentBox = event.currentTarget.parentNode.parentNode.parentNode
+    console.log("parentBox : ", parentBox)
 
-    console.log(parentBox.children[0].getAttribute("data-value"));
+    let title: object = {};
+    
+    for (let lang in this.langService.languages) {
+      let curLang = this.langService.languages[lang]
+      console.log(curLang)
+      let langInput = parentBox.children[0].querySelector(".multilang-wrapper div label input[name='text_" + curLang + "'");
+      title[curLang] = langInput.value
+    } 
+    
+    let text: object = {};
+    for (let lang in this.langService.languages) {
+      let curLang = this.langService.languages[lang]
+      let langInput = parentBox.children[2].querySelector(".multilang-wrapper div label textarea[name='text_" + curLang + "'");
+      console.log(parentBox.children[2])
 
-    let title = parentBox.children[0].getAttribute("data-value")
-    let text = parentBox.children[2].value
+      text[curLang] = langInput.value
+    }      
+    // console.log(parentBox.children[0].getAttribute("data-value"));
+    
+    // let title = parentBox.children[0].getAttribute("data-value")
+
+    // console.log("text : ", text);
  
-    // console.log(title)
+    // // console.log(title)
     this.dataService.updateServiceBoxesItemData(event.currentTarget.id, title, text, this.iconsList[iconID])
   }
 

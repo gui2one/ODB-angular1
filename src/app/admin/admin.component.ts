@@ -76,8 +76,8 @@ export class AdminComponent implements OnInit {
       this.bGotData = true;
     });
 
-    this.langService.currentLanguage = "en";
-    console.log(this.langService.currentLanguage);
+    // this.langService.currentLanguage = "en";
+    // console.log(this.langService.currentLanguage);
 
   }
 

@@ -20,7 +20,7 @@
                       
                         <div class="card-wrapper  col-xl-3 col-md-6 p-lg-3">
                           <div class="service-box-container">                
-                            <app-service-box iconStr="{{item.icon}}" text={{item.text}} title={{item.title}}></app-service-box>                
+                            <app-service-box iconStr="{{item.icon}}" text={{item.text.en}} title={{item.title[siteLangService.currentLanguage]}}></app-service-box>                
                           </div>
                         </div>
                   </ng-container>
