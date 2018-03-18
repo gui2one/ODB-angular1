@@ -137,6 +137,9 @@ $font2 : "Roboto";
     
 }
 
+#gallery_part{
+    background-color: white;
+}
 
 #contact_form_part{
     position : relative;
@@ -255,13 +258,23 @@ agm-map{
     color : hsl(0, 0%, 29%);
     transition : all 0.5;
     // border : 1px solid black;
-
+    opacity : 0;
+    animation: fadein 1s linear 1s 1 forwards;
     & img{
         display : block;
         margin : 0 auto;
         margin-bottom : 30px;
         padding : 10px;
         box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+    }
+
+    @keyframes fadein{
+        0%{
+            opacity : 0;
+        }
+        100%{
+            opacity : 1;
+        }
     }
 }
 

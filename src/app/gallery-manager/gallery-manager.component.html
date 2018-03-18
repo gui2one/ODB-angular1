@@ -8,23 +8,12 @@
     <div id="errorLog"></div>
 
 
-    <div class="admin-collapse">
-      <div class="admin-collapse-header" data-toggle="collapse" data-target="#collapseOne" id="headingOne">
-        <h5 class="mb-0">
-          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Gallery Items
 
-          </button>
-        </h5>
-      </div>
-    
-      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-        <div class="admin-collapse-body d-flex flex-column">
-    
-          <div class="admin-collapse-group">
-            <p class="admin-collapse-group-title">Home Gallery</p>
 
-          
+    
+
+
+<app-admin-collapse name="galleryItemsCollpase" label="Gallery Items">
             <button class="btn btn-success" (click)="addGalleryItem($event)"> <i class="fas fa-plus"></i> Add Slide </button>
             <div id="items-wrapper" class="items-wrapper">
               <!--(touchmove)="onTouchTap($event)" -->
@@ -41,10 +30,8 @@
             <div class="save-to-site">
                 <button class="btn btn-primary" (click)="saveToSite($event)">Save To Site</button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+</app-admin-collapse>
+
   </div>
 </div>
 

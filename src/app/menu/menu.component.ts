@@ -21,7 +21,7 @@ export class MenuComponent implements OnInit {
 
     let root = this;
 
-    $('.nav-link').click( function(){
+    $('.menu-link').click( function(){
       $('#navbarsExample04').removeClass('show');
     })
   

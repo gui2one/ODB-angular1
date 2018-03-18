@@ -14,10 +14,11 @@ export class AdminLanguageBarComponent implements OnInit {
   imgPath = "assets/img/flags/";
 
   chosenFlagID = 0;
-  flagSVGs: Array<string> = [
-    "fr.svg",
-    "gb.svg",
-  ]
+  // flagSVGs: Array<string> = [
+  //   "fr.svg",
+  //   "gb.svg",
+  //   "es.svg"
+  // ]
   @Input() name: string = "default name";
 
 
@@ -38,16 +39,13 @@ export class AdminLanguageBarComponent implements OnInit {
     // console.log($(el).attr("data-flagid"));
 
     this.chosenFlagID = parseInt(chosenID);
-    $(this.menuToggle).css({ backgroundImage: "assets/img/flags/" + this.flagSVGs[chosenID] })
+    $(this.menuToggle).css({ backgroundImage: "assets/img/flags/" + this.langService.flags[chosenID] })
 
-    if(this.chosenFlagID === 0){
 
-      this.broadcaster.broadcast("changeLanguage","fr");
-      this.langService.currentLanguage = "fr";
-    } else if (this.chosenFlagID === 1) {
-      this.broadcaster.broadcast("changeLanguage", "en");
-      this.langService.currentLanguage = "en";
-    }
+
+    this.broadcaster.broadcast("changeLanguage", this.langService.languages[chosenID]);
+    this.langService.currentLanguage = this.langService.languages[chosenID];
+
 
   }
 }

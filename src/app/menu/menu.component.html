@@ -11,27 +11,27 @@
 
       <div class="navbar-collapse collapse" id="navbarsExample04">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item ">
-            <a id="homeButton" routerLink="/" class="nav-link" href="#">Accueil
+          <li class="nav-item">
+            <a id="homeButton" routerLink="/" class="nav-link menu-link" href="#">Accueil
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a id="contactButton" routerLink="/" class="nav-link" href="#">Contact</a>
+            <a id="contactButton" routerLink="/" class="nav-link menu-link" href="#">Contact</a>
           </li>
           <li class="nav-item">
-            <a id="galleryButton" routerLink="/" class="nav-link" href="#">Photos</a>
+            <a id="galleryButton" routerLink="/" class="nav-link menu-link" href="#">Photos</a>
           </li>
-        <div id="flagsMenu" class="dropdown lang-dropdown">
+        <div id="" class="dropdown lang-dropdown">
         
-          <a class="nav-link" data-toggle="dropdown"> Langue :</a>
-          <div class="flags-menu-toggle" data-toggle="dropdown">
-            <img class="flag" src="assets/img/flags/{{flagSVGs[siteLangService.currentLanguage]}}" alt="">
+          <a class="nav-link dropdown-toggle flags-menu-toggle" data-toggle="dropdown" data-target="flagsMenu"> Langue</a>
+          <div class="flags-menu-toggle " data-toggle="dropdown">
+            <!-- <img class="flag" src="assets/img/flags/{{siteLangService.flagsObject[siteLangService.currentLanguage]}}" alt=""> -->
           </div>
-          <div class="dropdown-menu dropdown-menu-right">
+          <div id="flagsMenu" class="dropdown-menu dropdown-menu-right">
         
             <a class="dropdown-item" *ngFor="let lang of siteLangService.languages; let id = index;">
-              <img (click)="onFlagClick($event)" id="{{id}}" class="flag" src="assets/img/flags/{{flagSVGs[lang]}}">
+              <img (click)="onFlagClick($event)" id="{{id}}" class="flag" src="assets/img/flags/{{siteLangService.flagsObject[lang]}}">
             </a>
             <!-- <a class="dropdown-item">lien</a>
                     <a class="dropdown-item">lien</a> -->

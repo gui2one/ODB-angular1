@@ -1,32 +1,7 @@
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css');
-@import "./_variables.scss";
+@import "../../assets/sass/_variables.scss";
 @import "node_modules/bootstrap/scss/mixins/_breakpoints.scss";
 
-
-
-@mixin save-to-site{
-
-    .save-to-site{
-        display: inline-block;
-        .btn::after{
-            font-family: Fontawesome;
-            font-size: 1em;
-            content :" \f0c7";
-        }        
-    }
-    
-    
-    
-}
-
-@mixin multilangInput{
-    .multilangInput{
-        // background-color: blue;
-        border : 3px solid red;
-
-
-    }
-}
 @mixin admin-collapse{
 
 
@@ -75,31 +50,32 @@
 
     &.admin-collapse-group{
 
-        $paddingSize : 10px;
-        @include media-breakpoint-between(xs, sm) {
-            padding : $paddingSize / 2;
-            & .admin-collapse-group-title{
-                margin-left : (-$paddingSize + 20);
-            }
-        }        
-        @include media-breakpoint-between(sm, md) {
-            padding : $paddingSize;
-            & .admin-collapse-group-title{
-                margin-left : (-$paddingSize + 20);
-            }
-        }
-        @include media-breakpoint-between(md, lg) {   
-            padding : $paddingSize * 2;
-            & .admin-collapse-group-title{
-                margin-left : (-$paddingSize * 2) + 20;
-            }            
-        }       
-        @include media-breakpoint-between(lg, xl) {   
-            padding : $paddingSize * 3;
-            & .admin-collapse-group-title{
-                margin-left : (-$paddingSize * 3) + 20;
-            }               
-        }           
+        $paddingSize : 5px;
+        
+        // @include media-breakpoint-between(xs, sm) {
+        //     // padding : $paddingSize / 2;
+        //     & .admin-collapse-group-title{
+        //         margin-left : (-$paddingSize + 20);
+        //     }
+        // }        
+        // @include media-breakpoint-between(sm, md) {
+        //     // padding : $paddingSize;
+        //     & .admin-collapse-group-title{
+        //         margin-left : (-$paddingSize + 20);
+        //     }
+        // }
+        // @include media-breakpoint-between(md, lg) {   
+        //     // padding : $paddingSize * 2;
+        //     & .admin-collapse-group-title{
+        //         margin-left : (-$paddingSize * 2) + 20;
+        //     }            
+        // }       
+        // @include media-breakpoint-between(lg, xl) {   
+        //     // padding : $paddingSize * 3;
+        //     & .admin-collapse-group-title{
+        //         margin-left : (-$paddingSize * 3) + 20;
+        //     }               
+        // }           
         // @include save-to-site;
         position: relative;
         border-radius : $border-radius;
@@ -110,7 +86,7 @@
 
         background-color: #eee;
 
-        padding : 5px;
+        padding : $paddingSize;
         margin-top: 35px;
         padding-top : 20px;
         padding-bottom : 20px;
@@ -141,7 +117,7 @@
             background-color: #eee;
             position :absolute;
             top: 0px;
-
+            left : 15px;
             max-width : 50vw;
             font-weight : bold;
             transform : translateY(-100%);
@@ -159,6 +135,20 @@
                 white-space: pre;                
             }
         }
+
+        & .admin-collapse-group-title.collapsed{
+            &::after{
+                // position : absolute;
+                font-size: 2em;
+                line-height: 0em;
+                transform : translateY(-0.5em);
+                content : " +";
+                // white-space: pre;
+            }
+        }
+
+
     }
 }
 
+@include admin-collapse;

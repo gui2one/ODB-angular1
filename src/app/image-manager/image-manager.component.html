@@ -4,24 +4,14 @@
   <div id="top-part" class="p-sm-1 p-md-2 p-xl-4">
   <h2>Images Manager</h2>
  
-  <div class="admin-collapse">
-    <div class="admin-collapse-header " data-toggle="collapse" data-target="#collapseUploads" id="headingOne">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseUploads" aria-expanded="true" aria-controls="collapseUploads">
-          Upload Images
-        </button>
-      </h5>
-    </div>
+
+
+
   
-    <div id="collapseUploads" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="admin-collapse-body d-flex flex-column">
-  
-        <div class="admin-collapse-group">
-          <p class="admin-collapse-group-title">Upload</p>
 
+<app-admin-collapse collapsed="true" name="uploadCollapse" label="Upload Images">
 
-
-
+<app-admin-collapse-group  name="uploadCollapseGroup" label="Upload">
             <form id="uploadForm" action="" method="POST" enctype="multipart/form-data">
               <input id="fileInput" type="file" name="file">
               <button type="submit" name="submit" (click)="uploadFile($event, [])">Upload</button>
@@ -37,31 +27,18 @@
             </div>
           </form>
 
+</app-admin-collapse-group>
 
-      </div>
-      </div>
-      </div>
-      </div>
+</app-admin-collapse>
 
 
 
 
-  <div class="admin-collapse">
-    <div class="admin-collapse-header" data-toggle="collapse" data-target="#collapseImages" id="headingOne">
-      <h5 class="mb-0">
-        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseImages" aria-expanded="true" aria-controls="collapseImages">
-          Images
-        </button>
-      </h5>
-    </div>
+
+
+<app-admin-collapse name="imagesCollapse" label="Images">
   
-    <div id="collapseImages" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="admin-collapse-body d-flex flex-column">
-  
-        <div class="admin-collapse-group">
-          <!--<p class="admin-collapse-group-title">Images currently in the data base:</p>-->
-
-                      <div class="images-wrapper">
+                     <div class="images-wrapper">
                         <div *ngFor="let item of dbData | async; let i = index">
                           <div class="item-container" [style.background-image]="'url(assets/img/uploads/' + item.thumbName + ')'" (click)="onItemClick($event, item)"
                             id="{{i}}">
@@ -70,10 +47,8 @@
                           </div>
                         </div>
                       </div>
-        </div>
-      </div>
-    </div>
-  </div>
+</app-admin-collapse>
+
 
 
 

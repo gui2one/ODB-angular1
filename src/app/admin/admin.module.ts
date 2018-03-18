@@ -51,6 +51,8 @@ import { AdminMultilangInputModule } from "../admin-multilang-input/admin-multil
 import { AdminLanguageBarComponent } from '../admin-language-bar/admin-language-bar.component';
 
 import { LanguagesService } from "../providers/languages.service";
+import { AdminCollapseComponent } from '../admin-collapse/admin-collapse.component';
+import { AdminCollapseGroupComponent } from '../admin-collapse-group/admin-collapse-group.component';
 let Routes : Routes = [
   {
     path: "",
@@ -110,6 +112,9 @@ let Routes : Routes = [
     AdminPanelComponent,
     JsonEditorComponent,
     AdminLanguageBarComponent,
+    
+    AdminCollapseComponent,
+    AdminCollapseGroupComponent
     
   ],
 

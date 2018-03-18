@@ -151,7 +151,7 @@ export class AdminPanelComponent implements OnInit {
             console.log("initiated site-data")
             this.db.database.ref("/").child('site-data').on("value", (snapshot) => {
 
-              console.log(snapshot)
+              // console.log(snapshot)
               $('#toggle1')[0].checked = snapshot.val().isOnline;
               this.siteDbData = snapshot.val()
             })
@@ -178,26 +178,18 @@ export class AdminPanelComponent implements OnInit {
 
         this.db.database.ref("/").child('home-data')          
           .on("value", (snapshot) => {
-            console.log("got home data")
+            // console.log("got home data")
             this.homeDbData = snapshot.val()
 
-            console.log("---------------- INIT FUNCTION --------------")
-            console.log(this.serviceBoxesTitleMultiInputs)
+            // console.log("---------------- INIT FUNCTION --------------")
+            // console.log(this.serviceBoxesTitleMultiInputs)
             this.serviceBoxesTitleMultiInputs.changes.subscribe((data) => {
-              // console.log(data._results[0].values)
-              // this.serviceBoxesTitleMultiInputs.forEach(input => console.log(input.element.nativeElement.id))
+              
 
               
             })
 
-            // console.log(this.serviceBoxesTitleMultiInputs)
 
-
-            
-            // for(let item in this.homeDbData){
-            //   console.log(item);
-            // }
-            // console.log(snapshot.exportVal())
           })
 
       })

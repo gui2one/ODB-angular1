@@ -1,0 +1,20 @@
+<div class="admin-collapse">
+  <div #collapseHeader class="admin-collapse-header" data-toggle="collapse" [attr.data-target]="hashName" id="headingOne">
+    <h5 class="mb-0">
+      <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="hashName" aria-expanded="true" aria-controls="collapseTwo">
+        {{label}}
+      </button>
+    </h5>
+  </div>
+
+  <div id="{{name}}" #collapseContent class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+
+
+    <div class="admin-collapse-body d-flex flex-column">
+              <ng-content>
+     
+              
+              </ng-content>
+
+    </div>
+  </div>

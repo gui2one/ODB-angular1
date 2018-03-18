@@ -10,18 +10,18 @@
     </ng-container>
     <ng-container *ngIf="inputType === 'textarea'">
       <label>       
-        <ng-container *ngFor="let lang of langService.languages;">
+        <ng-container *ngFor="let lang of langService.languages;  let langID = index;">
           <textarea [hidden]="currentLanguage !== lang" [attr.data-language]="lang" name="text_{{lang}}" type="text" class="{{lang}}"
             value="{{values[lang]}}" (blur)="onBlur($event)" > {{values[lang]}}</textarea>
         </ng-container>
       </label>
     </ng-container>
    
-      <button #menuToggle id="menu-toggle" class="btn btn-sm" type="button" data-toggle="dropdown" [style.background-image]="'url(assets/img/flags/'+flagSVGs[currentLanguage]+')'">&nbsp;
+      <button #menuToggle id="menu-toggle" class="btn btn-sm" type="button" data-toggle="dropdown" [style.background-image]="'url(assets/img/flags/'+langService.flagsObject[currentLanguage]+')'">&nbsp;
         <!-- <img src="assets/img/flags/fr.svg" /> -->
       </button>
       <div class="dropdown-menu">
-        <a *ngFor="let flag of flagsArray; let id=index;"  class="dropdown-item">
+        <a *ngFor="let flag of langService.flags; let id=index;"  class="dropdown-item">
           <div class="flag" (click)="onChooseLanguage($event)" [attr.data-flagid]="id" [style.background-image]="'url(assets/img/flags/'+flag+')'">
    
           </div>
