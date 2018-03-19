@@ -5,7 +5,7 @@
 .wrapper{
     position: relative;
     left:0px;
-    height:100%;
+    // height:100%;
     /* width:100vw; */
 }
 
@@ -74,8 +74,9 @@
     overflow-y : scroll;
     overflow-x: hidden;
     // flex: 0.8;
-    height: 80vh;
+    // flex : 1;
     // padding: 15px;
+    height : 80vh;
 }
 
 .image-details{
@@ -83,7 +84,7 @@
     position:relative;
     display:block;
     padding:15px;
-    height:20vh;
+    height:19.9vh; /// hacky but it works . if 20vh if creates a double scrollbar on chrome. weird ... only chrome
     overflow-y: scroll;
     overflow-x: hidden;
     // z-index: -1;

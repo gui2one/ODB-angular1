@@ -3,7 +3,20 @@
 
   <ng-container *ngIf="bSiteIsOnline || adminLoggedIn">
         <ng-container *ngIf="!bSiteIsOnline"><div id="site_offline">Site Offline</div></ng-container> 
-        <app-header id="header_part"></app-header>
+        <app-header 
+          [title]="homeTextData.header__title[siteLangService.currentLanguage]" 
+          [subTitle]="homeTextData.header__subtitle[siteLangService.currentLanguage]" 
+          [menuTitle]="homeTextData.menu__title[siteLangService.currentLanguage]" 
+          [menuLinks]="[
+            homeTextData.menu__link_1[siteLangService.currentLanguage],
+            homeTextData.menu__link_2[siteLangService.currentLanguage],
+            homeTextData.menu__link_3[siteLangService.currentLanguage]
+            
+            ]"
+
+          [menuLanguagesLinkText]="homeTextData.menu__languages_link[siteLangService.currentLanguage]"
+
+          id="header_part"></app-header>
 
         <app-spacer height="100vh">
   

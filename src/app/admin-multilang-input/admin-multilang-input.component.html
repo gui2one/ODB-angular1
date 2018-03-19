@@ -1,33 +1,73 @@
 <div class="multilang-wrapper">
   <div class="">
+
     <ng-container *ngIf="inputType === 'text'">
-        <label >
+      <div class="d-flex flex-column">
           {{name}}    
+
+          <div class="d-flex flex-column">
           <ng-container *ngFor="let lang of langService.languages;">
-            <input [hidden]="currentLanguage !== lang" [attr.data-language]="lang" name="text_{{lang}}" type="text" class="{{lang}}" value="{{values[lang]}}" (blur)="onBlur($event)"/>
+            <input #inputNode [hidden]="currentLanguage !== lang" [attr.data-language]="lang" name="text_{{lang}}" type="text" class="{{lang}}" value="{{values[lang]}}" (blur)="onBlur($event)"/>
           </ng-container>
-        </label>
-    </ng-container>
-    <ng-container *ngIf="inputType === 'textarea'">
-      <label>       
-        <ng-container *ngFor="let lang of langService.languages;  let langID = index;">
-          <textarea [hidden]="currentLanguage !== lang" [attr.data-language]="lang" name="text_{{lang}}" type="text" class="{{lang}}"
-            value="{{values[lang]}}" (blur)="onBlur($event)" > {{values[lang]}}</textarea>
-        </ng-container>
-      </label>
-    </ng-container>
-   
-      <button #menuToggle id="menu-toggle" class="btn btn-sm" type="button" data-toggle="dropdown" [style.background-image]="'url(assets/img/flags/'+langService.flagsObject[currentLanguage]+')'">&nbsp;
-        <!-- <img src="assets/img/flags/fr.svg" /> -->
-      </button>
-      <div class="dropdown-menu">
-        <a *ngFor="let flag of langService.flags; let id=index;"  class="dropdown-item">
-          <div class="flag" (click)="onChooseLanguage($event)" [attr.data-flagid]="id" [style.background-image]="'url(assets/img/flags/'+flag+')'">
-   
+
+
+
+              <button #menuToggle id="menu-toggle" class="btn btn-sm align-self-end mr-3" type="button" data-toggle="dropdown" [style.background-image]="'url(assets/img/flags/'+langService.flagsObject[currentLanguage]+')'">&nbsp;
+                <!-- <img src="assets/img/flags/fr.svg" /> -->
+              </button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a *ngFor="let flag of langService.flags; let id=index;" class="dropdown-item">
+                  <div class="flag" (click)="onChooseLanguage($event)" [attr.data-flagid]="id" [style.background-image]="'url(assets/img/flags/'+flag+')'">
+              
+                  </div>
+                </a>
+              </div>
           </div>
-        </a>
+
       </div>
+    </ng-container>
+
+    <ng-container *ngIf="inputType === 'textarea'">     
+      <div class="d-flex flex-column">
+         {{name}}
+
+        <!--<ng-container *ngFor="let lang of langService.languages;  let langID = index;">
+          <textarea  #inputNode [hidden]="currentLanguage !== lang" [attr.data-language]="lang" name="text_{{lang}}" type="text" class="{{lang}}"
+            value="{{values[lang]}}" (blur)="onBlur($event)"  > {{values[lang]}}</textarea>
+        </ng-container>-->
+
+
+        
+          
+  <ng-container *ngFor="let lang of langService.languages;  let langID = index;">
+        <div #HTMLRender (click)="openTextEditor($event,values[lang])" [hidden]="currentLanguage !== lang" [attr.data-language]="lang" class="html-render {{lang}}" *ngIf="!bEditorOpened" [innerHTML]="values[currentLanguage]"></div>
+  </ng-container>
+        <ck-editor #CKEditor *ngIf="bEditorOpened" name="editor1" [(ngModel)]="editorValue" [config]="editorConfig" language="en"></ck-editor>
+    <button *ngIf="bEditorOpened" (click)="closeTextEditor($event,editorValue)" class="btn btn-success">Close Editor</button>
+  
+  
+
+              <button #menuToggle id="menu-toggle" class="btn btn-sm align-self-end mr-3" type="button" data-toggle="dropdown" [style.background-image]="'url(assets/img/flags/'+langService.flagsObject[currentLanguage]+')'">&nbsp;
+                <!-- <img src="assets/img/flags/fr.svg" /> -->
+              </button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a *ngFor="let flag of langService.flags; let id=index;" class="dropdown-item">
+                  <div class="flag" (click)="onChooseLanguage($event)" [attr.data-flagid]="id" [style.background-image]="'url(assets/img/flags/'+flag+')'">
+              
+                  </div>
+                </a>
+              </div>
+
+        </div>
+
+    </ng-container>
+   
+
   
   </div>
 
 </div>
+
+
+
+

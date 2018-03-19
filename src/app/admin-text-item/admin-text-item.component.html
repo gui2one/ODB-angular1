@@ -1,0 +1,15 @@
+
+<div class="f-flex flex-column admin-text-item-container">
+  <div class="checkbox-wrapper">
+  <label for="textTypeCheckbox" class="">multline text
+    <input  #textTypeCheckbox type="checkbox" name="textTypeCheckbox" id="textTypeCheckbox" (change)="onCheck($event)" [checked]="textType == 'textarea'">
+  </label>
+</div>
+  <div class="d-flex flex-row flex-wrap">
+    <div class="d-flex flex-column tag-name">
+      <span>Tag Name :</span>
+      <input class="" type="text" [value]="tagName" (focusout)="onTagNameFocusOut($event)"/>
+    </div>
+    <app-admin-multilang-input inputType="{{textType}}" (CKEditorClose)="onCKEditorClose()" class="" #inputNode name="{{name}}"></app-admin-multilang-input>
+  </div>
+</div>

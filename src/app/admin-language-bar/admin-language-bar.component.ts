@@ -24,10 +24,16 @@ export class AdminLanguageBarComponent implements OnInit {
 
   constructor(
     private broadcaster : Broadcaster,
-    private langService : LanguagesService
+    public langService : LanguagesService
   ) { }
 
   ngOnInit() {
+
+    this.broadcaster.broadcast("changeLanguage", this.langService.languages[0]);
+    this.langService.currentLanguage = this.langService.languages[0];    
+
+    console.log("____admin-language init_____");
+    
   }
 
   onChooseLanguage(event) {

@@ -48,6 +48,7 @@
     "ng2-carouselamos": "^3.2.0",
     "ngx-auth": "^2.2.0",
     "ngx-bootstrap": "^2.0.0-rc.0",
+    "ngx-ckeditor": "^0.3.1",
     "npm-run-batch": "0.0.6",
     "popper.js": "^1.12.3",
     "prerender": "^5.2.2",

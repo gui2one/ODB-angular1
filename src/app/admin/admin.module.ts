@@ -53,6 +53,11 @@ import { AdminLanguageBarComponent } from '../admin-language-bar/admin-language-
 import { LanguagesService } from "../providers/languages.service";
 import { AdminCollapseComponent } from '../admin-collapse/admin-collapse.component';
 import { AdminCollapseGroupComponent } from '../admin-collapse-group/admin-collapse-group.component';
+import { AdminTextItemComponent } from '../admin-text-item/admin-text-item.component';
+
+import { CKEditorModule, CKEditorComponent } from "ngx-ckeditor";
+
+
 let Routes : Routes = [
   {
     path: "",
@@ -85,10 +90,18 @@ let Routes : Routes = [
     ToggleModule,
     ConfirmModalModule,
     AdminNotificationModule,
-    AdminMultilangInputModule
+    AdminMultilangInputModule,
+
+    CKEditorModule
+
+
+
     
     
-  ], 
+  ],
+  exports:[
+    CKEditorComponent
+  ],
   providers: [
     // { provide : APP_BASE_HREF, useValue:'/test/'},
     { provide: LocationStrategy, useClass: HashLocationStrategy },
@@ -114,7 +127,9 @@ let Routes : Routes = [
     AdminLanguageBarComponent,
     
     AdminCollapseComponent,
-    AdminCollapseGroupComponent
+    AdminCollapseGroupComponent,
+    AdminTextItemComponent,
+
     
   ],
 

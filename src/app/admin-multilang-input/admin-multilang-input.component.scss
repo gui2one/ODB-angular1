@@ -1,19 +1,30 @@
+
+
 .multilang-wrapper{
     width : auto;
     // border : 1px solid red;
     // width : 100%;
 
+    .html-render{
+        height : 150px;
+        overflow-y : scroll;
+    }
     .fr{
         border : 2px solid rgba(blue,0.5);
     }
     .en{
         border : 2px solid rgba(red,0.5);
     }
+    .es{
+        border : 2px solid rgba(orange,0.5);
+    }    
     input{
         border : 2px solid orange;
         margin:0px;
-        padding : 0px;
+        // padding : 0px;
     }
+
+    
 
     textarea{
         display:block;
@@ -34,14 +45,19 @@
     #menu-toggle{
         // display: block;
         background-color: pink;
-        width:16px;
-        height: 16px;
+        width:20px;
+        height: 20px;
         padding : 0px;
         margin: 0px;
         background-size: contain;
         border-width: 0px;
+        border-radius: 5px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
     }
-
+    .dropdown-menu{
+        min-width: unset;
+    }
     .dropdown-item{
         padding: 0;
         display : inline;
@@ -49,8 +65,8 @@
 
     .flag{
         display: inline-block;
-        width:20px;
-        height: 20px;
+        width:32px;
+        height: 32px;
         padding : 0px;
         margin: 0px;
         background-size: contain;

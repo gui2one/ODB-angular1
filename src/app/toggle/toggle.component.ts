@@ -10,7 +10,7 @@ export class ToggleComponent implements OnInit {
   @Input() 
   toggleName : string = "default";
 
-  @Output()
+  @Input() @Output()
   state: boolean;
 
   constructor() { }

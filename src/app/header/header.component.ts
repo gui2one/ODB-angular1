@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as $ from 'jquery'
 // import { clearInterval } from 'timers';
 @Component({
@@ -11,8 +11,14 @@ export class HeaderComponent implements OnInit {
   
   backgroundImage = 'assets/img/loeuf_dubreil_FINAL_02.mp4';
   
+
+  @Input() title : string;
+  @Input() subTitle : string;
   offset = 0;
 
+  @Input() menuTitle : string = "Menu Title here";
+  @Input() menuLinks: Array<string> = ["aaa", "bbb", "ccc"];
+  @Input() menuLanguagesLinkText: string;
   checkInterval;
 
   video : any;

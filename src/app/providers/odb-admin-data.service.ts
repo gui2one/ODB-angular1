@@ -27,8 +27,7 @@ export class OdbAdminDataService {
   };
 
   constructor(private db:AngularFireDatabase,
-  private broadcaster : Broadcaster) 
-  
+  private broadcaster : Broadcaster)   
   {
     
   }
@@ -216,7 +215,7 @@ export class OdbAdminDataService {
   saveServiceBoxesDataToJSON(jsonData) {
     let formData = new FormData();
     formData.append("jsonString", jsonData);
-    let dbData = this.db.list("home-data/serviceBoxes");
+    // let dbData = this.db.list("home-data/serviceBoxes");
 
     $.ajax({
       url: "assets/php/admin/saveServiceBoxesDataToJSON.php",
@@ -254,4 +253,88 @@ export class OdbAdminDataService {
       this.getSiteDataToJSON();
     })
   }
+
+  addHomeTextItem(){
+    let obj = {
+      key: '',
+      type :'text',
+      tagName: "default_tag",
+      text: {
+        fr: "Texte Fr",
+        en: "Hello"
+      }
+    }
+    let prom = this.db.database.ref("/home-data/home-text").once('value').then((snapshot)=>{
+      let key = this.db.database.ref("/home-data/home-text").push().key
+      console.log(key);
+      obj.key = key;
+      let updates: object = {};
+      updates["/home-data/home-text/" + key] = obj;
+
+      this.db.database.ref("/").update(updates);            
+    })   
+  }
+
+  loadHomeTextFromDB() {
+    return this.db.list("/home-data/home-text")
+
+      // .map(items => items.sort((a: any, b: any) => { return a.displayID - b.displayID }));
+  }
+
+  updateHomeTextItem(type, tagName, values, key) {
+
+    console.log("-------------------updateServiceBoxesItemData-------------------")
+    let obj = {
+      type : type,
+      key: key,
+      tagName: tagName,
+      text: values
+    }
+
+    console.log(obj);
+    let child = this.db.database.ref().child("home-data/home-text/");
+    // console.log(child);
+    let updates: object = {};
+    updates["/home-data/home-text/" + obj.key] = obj;
+
+    console.log(updates)
+    this.db.database.ref("/").update(updates); 
+
+    
+  }
+
+  getHomeTextDataAsJSON() {
+
+    let data2 = this.db.database.ref("/").child("home-data/home-text").once("value")
+      .then((snapshot) => {
+        // this.galleryJsonData = 
+
+        let data = JSON.stringify(snapshot.val());
+        this.saveHomeTextDataToJSON(data);
+
+
+      })
+  }
+  saveHomeTextDataToJSON(jsonData) {
+    let formData = new FormData();
+    formData.append("jsonString", jsonData);
+    // let dbData = this.db.list("home-data/serviceBoxes");
+
+    $.ajax({
+      url: "assets/php/admin/saveHomeTextDataToJSON.php",
+      type: "POST",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: (data) => {
+        console.log(data);
+        this.broadcaster.broadcast('successNotification', 'Home Text Data saved');
+      },
+      error: (data) => {
+        // console.log(data);
+        console.log('error saving Home data');
+      },
+
+    })
+  }  
 }

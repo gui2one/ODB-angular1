@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, Output, ViewChild, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild,ViewChildren, EventEmitter, ElementRef, QueryList } from '@angular/core';
 import { style } from '@angular/animations';
 import * as $ from "jquery";
 import { Broadcaster } from '../providers/broadcaster';
 import { LanguagesService } from '../providers/languages.service';
+import { CKEditorComponent } from 'ngx-ckeditor';
 @Component({
   selector: 'app-admin-multilang-input',
   templateUrl: './admin-multilang-input.component.html',
@@ -10,19 +11,22 @@ import { LanguagesService } from '../providers/languages.service';
 })
 export class AdminMultilangInputComponent implements OnInit {
 
+  @Output() CKEditorClose : EventEmitter<(string)> = new EventEmitter<string>();
+
   @Output() multilangInputEvent = new EventEmitter<(string)>();
   @ViewChild("menuToggle") menuToggle : ElementRef;
+  @ViewChildren("inputNode") inputNodes : QueryList<ElementRef>;
   imgPath = "assets/img/flags/";
 
   // @Input() @Output() value : string= "default ...";
   @Input() @Output() values : object = {};
-  @Input() @Output() currentLanguage: string = "";
+  @Input() @Output() currentLanguage: string;
   @Input() name : string = "default name";
   @Input() inputType : string = "text";
 
   chosenFlagID = 0;
   globalLanguage = "fr";
-;
+
   
   flagSVGs : object = {
     fr : "fr.svg",
@@ -31,13 +35,26 @@ export class AdminMultilangInputComponent implements OnInit {
 
   flagsArray : Array<any> = []
   
+  @ViewChild("CKEditor") CKEditor : CKEditorComponent;
+  @ViewChild("HTMLRender") HTMLRender : HTMLElement;
+  public bEditorOpened = false;
+  public editorValue = " <b>hello</b> CK !!"
+  private editorConfig = {
+    toolbar: [
+      {
+        name: 'basicstyles',
+        items: ['Bold', 'Italic', 'Source']
+      }
+    ],
+    resize_enabled: true
+  }
 
 
 
   constructor(
     private broadcaster : Broadcaster,
     public element : ElementRef,
-    private langService : LanguagesService
+    public langService : LanguagesService
   ) { 
 
       
@@ -56,26 +73,41 @@ export class AdminMultilangInputComponent implements OnInit {
     
     this.broadcaster.on("changeLanguage")
     .subscribe(message => {
-      console.log(message);
+      // console.log(message);
       // this.currentLanguage = message.toString();
       this.currentLanguage = message.toString();
     }); 
 
-    this.currentLanguage = this.langService.currentLanguage;
 
+
+
+    ////////////   !!!!!!!!    look here is the problem !!!!!
+    // console.log("______________constructor fired______________");
     
+    this.currentLanguage = this.langService.currentLanguage;
+    // console.log(this.currentLanguage);
+
+    ///////
+    ///////
     
   }
 
   ngOnInit() {
-    $(this.menuToggle.nativeElement).css({ border: "3px solid green" })
-    // console.log("------------------- MultlilangInput INIT -------------------")
+
     
+    // console.log("------------------- MultlilangInput INIT -------------------")
+    this.editorValue = this.values[this.currentLanguage]
   }
 
   ngAfterViewInit(){
-    
-    // console.log(this.menuToggle.nativeElement);
+
+    // let myInputTest = this.inputNodes.filter((input)=>{
+    //   return $(input.nativeElement).attr('hidden') === undefined;
+    //   // console.log(id);
+    // })[0]
+    // // console.log($(myInputTest.nativeElement).position());
+    // var domRect = myInputTest.nativeElement.getBoundingClientRect();
+    // console.log(domRect);
     
   }
 
@@ -89,30 +121,31 @@ export class AdminMultilangInputComponent implements OnInit {
     let el : HTMLElement = event.currentTarget;
 
     let chosenID = $(el).attr("data-flagid");
-    // console.log(el.attributes);
+    console.log(el.attributes);
     // console.log($(el).attr("data-flagid"));
 
     this.chosenFlagID = parseInt(chosenID);
     $(this.menuToggle).css({ backgroundImage: "assets/img/flags/" + this.flagSVGs[this.globalLanguage]})
 
     this.currentLanguage = this.langService.languages[chosenID]
-    
+    this.editorValue = this.values[this.currentLanguage];
   }
 
   onBlur(event){
     event.preventDefault();
     event.stopPropagation();
-    console.log(event.currentTarget)
+    // console.log(event.currentTarget)
     // console.log(event.currentTarget.getAttribute("data-language"))
     let curLang = event.currentTarget.getAttribute("data-language")
-    console.log(curLang);
+    // console.log(curLang);
     if(this.inputType === "text"){
       this.values[curLang] = event.currentTarget.value;
     }else if(this.inputType === "textarea"){
 
-      console.log("setting input component values")
+      // console.log("setting input component values")
       this.values[curLang] = event.currentTarget.value;
-      console.log(event.currentTarget.value);
+      
+      // console.log(event.currentTarget.value);
     }
 
     // this.value = event.currentTarget.value;
@@ -121,4 +154,16 @@ export class AdminMultilangInputComponent implements OnInit {
     
   }
 
+  openTextEditor(event, editorValue : string){
+    this.editorValue = editorValue;
+    this.bEditorOpened = true;
+  }
+
+  closeTextEditor(event, content) {
+    console.log(event);
+    
+    this.bEditorOpened = false;
+    this.editorValue = content;
+    this.CKEditorClose.emit(content);
+  }  
 }

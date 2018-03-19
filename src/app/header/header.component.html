@@ -1,4 +1,4 @@
-<app-menu></app-menu>
+<app-menu title="{{menuTitle}}" [menuLinks]="menuLinks" [menuLanguagesLinkText]="menuLanguagesLinkText"></app-menu>
 <!-- <div class="jumbotron header" [defaultImage]="defaultImage" [lazyLoad]="backgroundImage" [offset]="offset"> -->
 <!-- <div class="header" [defaultImage]="defaultImage" [lazyLoad]="backgroundImage"> -->
   <!-- <div class="empty-header"></div> -->
@@ -25,8 +25,8 @@
       
   <div class="title-wrapper">
     <!-- <img src="assets/img/odb_logo_medium.png"> -->
-    <span class="title">L'Oeuf du Breil</span>
-    <span class="sub-title">Ovoproduits</span>
+    <span class="title">{{title}}</span>
+    <span class="sub-title">{{subTitle}}</span>
   </div>
 
   </div>

@@ -3,21 +3,18 @@
 
 
 
-<div id="wrapper" class="p-sm-1 p-md-2 p-xl-4" *ngIf="router.url === '/admin'">
-  <h2>Admin Panel</h2>
 
-
-
+<!--<div id="wrapper" class="p-sm-1 p-md-2 p-xl-4" *ngIf="router.url === '/admin'">-->
+  <h2>Admin Panel ?</h2>
   
 
-
-  
-<app-admin-collapse collapsed="true" name="siteDataCollapse" label="Site Data">
+  <button class="btn btn-primary" (click)="resetServiceBoxesTitleMultilangInputs()">press me</button>
+<app-admin-collapse collapsed="false" name="siteDataCollapse" label="Site Data">
 
 
       <app-admin-collapse-group name="siteOnlineCollapseGroup" label="Site online">
         <label>
-          <app-toggle toggleName="toggle1" (click)="onClickToggle1($event)"></app-toggle>
+          <app-toggle #siteOnlineToggle toggleName="toggle1" (click)="onClickToggle1($event)"></app-toggle>
           <ng-container *ngIf="siteDbData">
             <span *ngIf="bSiteOnline" class="online">online</span>
             <span *ngIf="!bSiteOnline" class="offline">offline</span>
@@ -56,8 +53,8 @@
                               </div>
                             </div>
                         
-                            <app-admin-multilang-input #serviceBoxesTextMultiInput inputType="textarea" id="{{id}}" [attr.data-value]="item.text[langService.currentLanguage]"
-                              [values]="item.text" (focusout)="onFocusOut($event)" name="Text">
+                            <app-admin-multilang-input #serviceBoxesTextMultiInput (CKEditorClose)="onCKEditorClose(item.text[langService.currentLanguage],id)"  inputType="textarea" id="{{id}}" [attr.data-value]="item.text[langService.currentLanguage]"
+                              [values]="item.text" (focusout)="onFocusOut($event)" name="Text" >
                             </app-admin-multilang-input>
                             <!-- <textarea class="text-area" id="{{id}}" (focusout)="onFocusOut($event)">{{item.text}}</textarea> -->
                           </div>
@@ -72,35 +69,50 @@
   
       
 
-<app-admin-collapse name="dataBaseToolsCollapseGroup" label="Database Tools">
+<app-admin-collapse name="dataBaseToolsCollapseGroup" label="Database Tools" >
 
-<app-admin-collapse-group name="databaseToolsSaveGroup" label="Sauvegarder la base de donnée">
+  <app-admin-collapse-group name="databaseToolsSaveGroup" label="Sauvegarder la base de donnée">
 
-                      <div class="save-to-site">
-                      
-                        <button class="btn btn-primary" (click)="backupDataBase($event)">Sauvegarder</button>
-                      </div>
-</app-admin-collapse-group>
-
-<app-admin-collapse-group name="databaseToolsLoadGroup" label="Charger une base de donnée">
-
-                    <form>
-                      <label class="custom-file-upload">
-                        <div class="btn btn-primary">Charger une Sauvegarde
-                          <i class="fas fa-download"></i>
+                        <div class="save-to-site">
+                        
+                          <button class="btn btn-primary" (click)="backupDataBase($event)">Sauvegarder</button>
                         </div>
-                        <input class="" type="file" name="load-backup-file" id="backupFile" (change)="overwriteDatabaseModal.show('Confirm overwiting data base ?! really  really ????','yes really !','', overwriteDatabase.bind(this),$event,this)">
-                      </label>
-                    </form>
-</app-admin-collapse-group>
+  </app-admin-collapse-group>
+
+  <app-admin-collapse-group name="databaseToolsLoadGroup" label="Charger une base de donnée">
+
+                      <form>
+                        <label class="custom-file-upload">
+                          <div class="btn btn-primary">Charger une Sauvegarde
+                            <i class="fas fa-download"></i>
+                          </div>
+                          <input class="" type="file" name="load-backup-file" id="backupFile" (change)="overwriteDatabaseModal.show('Confirm overwiting data base ?! really  really ????','yes really !','', overwriteDatabase.bind(this),$event,this)">
+                        </label>
+                      </form>
+  </app-admin-collapse-group>
 </app-admin-collapse>
 
 
 
+
+<app-admin-collapse name="homeTextCollapse" label="Home Page Text Elements">
+
+  <button class="btn btn-success" (click)="addHomeTextItem($event)">Add Text Item</button>
+
+  <div class="save-to-site">
+    <button class="btn btn-primary" (click)="saveHomeTextToSite($event)">Save to Site</button>
+  </div>
+  <ng-container *ngFor="let item of homeTextData | async; let id = index;">
+
+    <app-admin-text-item #homeTextItem [attr.data-currentlanguage]="currentLanguage" dbKey="{{item.key}}" textType="{{item.type}}" tagName="{{item.tagName}}" [textValues]="item.text" name="Text :" (focusout)="onHomeTextFocusOut(item.tagName, item.text, item.key)"></app-admin-text-item>
+    <!--<app-admin-multilang-input #homeTextInputs [values]="item.text"></app-admin-multilang-input>-->
+  
+  </ng-container>
+</app-admin-collapse>
  
 
 
-</div>
+<!--</div>-->
 
 
 

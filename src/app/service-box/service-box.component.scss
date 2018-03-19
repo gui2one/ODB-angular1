@@ -23,6 +23,10 @@ $iconSize : 100px;
   box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
   user-select: none;
   font-family : "Raleway", sans-serif;
+
+  .line-breaker {
+    white-space: pre-line;
+  }
   .color-pane{
     position:absolute;
     z-index : 0;
@@ -164,10 +168,13 @@ $iconSize : 100px;
   .content{
 
     margin-top:$iconSize + 30px;
+    p{
+      text-align:center;
+    }
   }
   
   .content-dark{
-    text-align : center;
+    // text-align : center;
 
     margin-top:$iconSize + 50px;
     color:orange;
@@ -180,7 +187,7 @@ $iconSize : 100px;
   }
   
   .content-light{
-    text-align : center;
+    // text-align : center;
     
     position:absolute;
     display : block;

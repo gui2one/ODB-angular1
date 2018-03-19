@@ -13,6 +13,7 @@ import * as $ from 'jquery';
 import { NgModule } from '@angular/core/src/metadata/ng_module';
 import { Promise } from 'q';
 import { LanguagesService } from '../providers/languages.service';
+// import { CKEditorComponent } from 'ngx-ckeditor';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -23,6 +24,7 @@ import { LanguagesService } from '../providers/languages.service';
 // @HostListener('window:unload', ['$event'])
 // @NgModule({imports:[]})
 export class AdminComponent implements OnInit {
+
 
   bGotData : boolean = false;
 
@@ -44,8 +46,9 @@ export class AdminComponent implements OnInit {
     private db : AngularFireDatabase, 
     private dataService : OdbAdminDataService,
     private router : Router,
-    private langService : LanguagesService
-  ) { }
+    public langService : LanguagesService,
+    // public ckEditor: CKEditorComponent
+  ) {  }
 
   galleryItemData : object = {
     key:"",
@@ -65,7 +68,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
 
-    
+    // this.ckEditor.config.toolbar = [""]
     this.authService.checkLoggedIn().subscribe((auth) =>{
       this.bLoggedIn = auth !== null;
 

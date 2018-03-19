@@ -1,5 +1,5 @@
 <label class="tgl">
-  <input id={{toggleName}} (click)="onClick($event)"  type="checkbox" />
+  <input id={{toggleName}} (click)="onClick($event)"  type="checkbox" [checked]="state"/>
   <span class="tgl_body" >
     <span class="tgl_switch"></span>
     <span class="tgl_track">

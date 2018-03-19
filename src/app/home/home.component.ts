@@ -11,6 +11,7 @@ import * as $ from 'jquery';
 import { AngularFireAuth } from 'angularfire2/auth';
 import{SiteUtilsService} from '../providers/site-utils.service'
 import { SiteLanguagesService } from '../providers/site-languages.service';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
   // authService : AuthService;
 
   galleryData : JSON;
+  homeTextData : object;
   sliderItems : Array<any> = [];
 
   serviceBoxes: any;
@@ -37,7 +39,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
   choices : Array<number>;
   constructor(  public fireAuth : AngularFireAuth, 
                 private siteUtils : SiteUtilsService,
-                private siteLangService : SiteLanguagesService         
+                public siteLangService : SiteLanguagesService         
               ) {}
 
 
@@ -61,6 +63,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
     // console.log(sub);
     this.loadGalleryData();
     this.loadSiteData();
+    this.loadHomeTextItemsData();
     this.loadServiceBoxesData();
 
     // this.adminLoggedIn = this.authService.checkLoggedIn();
@@ -79,6 +82,26 @@ export class HomeComponent implements OnInit , AfterViewInit{
         }
       });
   }
+
+  loadHomeTextItemsData(){
+
+    let textData = {}
+    $.ajax({
+      method: "GET",
+      url: "assets/data/homeTextData.json",
+      dataType: "json", /// IMPORTNANT !!!!
+      success: (data) => {
+        for(let key in data){
+          console.log(data[key]);
+          textData[data[key].tagName] = data[key].text
+        }
+      }
+
+    })
+
+    this.homeTextData = textData;
+  }
+  
   
   loadGalleryData() {
     // console.log("GalleryData Function fired");

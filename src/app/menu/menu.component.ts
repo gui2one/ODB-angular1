@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Input} from '@angular/core';
 import * as $ from 'jquery'; // into app.component.ts
 import { SiteLanguagesService } from '../providers/site-languages.service';
 @Component({
@@ -13,8 +13,12 @@ export class MenuComponent implements OnInit {
 
   flagsArray = [ 'fr.svg', 'gb.svg']
   flagSVGs = {fr : 'fr.svg', en :'gb.svg'}
+
+  @Input() title : string = "site title here"
+  @Input() menuLinks : Array<string> = ["Link 1", "Link2", "Link3"];
+  @Input() menuLanguagesLinkText : string;
   constructor(
-    private siteLangService : SiteLanguagesService
+    public siteLangService : SiteLanguagesService
   ) { }
 
   ngOnInit() {
