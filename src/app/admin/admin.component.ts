@@ -85,9 +85,7 @@ export class AdminComponent implements OnInit {
 
   }
 
-  adminPanelSaveAll(){
-    this.adminPanel.saveAllToSite();
-  }
+ 
   ngAfterViewChecked(){
     // console.log("view init");
     let content = $("#admin-content");

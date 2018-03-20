@@ -254,6 +254,13 @@ export class OdbAdminDataService {
     })
   }
 
+  saveAll(){
+    this.getGalleryDataAsJSON();
+    this.getServiceBoxesDataAsJSON();
+    this.getSiteDataToJSON();
+    this.getHomeTextDataAsJSON();
+  }
+
   addHomeTextItem(){
     let obj = {
       key: '',

@@ -3,6 +3,7 @@ import {Router, NavigationExtras} from '@angular/router'
 
 import {AuthService} from "../providers/auth.service.ts.service"
 import * as $ from "jquery"
+import { OdbAdminDataService } from '../providers/odb-admin-data.service';
 @Component({
   selector: 'app-admin-side-bar',
   templateUrl: './admin-side-bar.component.html',
@@ -11,7 +12,7 @@ import * as $ from "jquery"
 export class AdminSideBarComponent implements OnInit{
 
   
-  @Output() onSaveAll : EventEmitter<boolean> = new EventEmitter();
+ 
 
   @Input()
   bLoggedIn: boolean = false;
@@ -19,7 +20,11 @@ export class AdminSideBarComponent implements OnInit{
   @Output() onCollapse = new EventEmitter<boolean>()
   bSideBarCollapsed : boolean = false;
 
-  constructor(private router: Router, private authService: AuthService ) {}
+  constructor(
+    private router: Router, 
+    private authService: AuthService,
+    public dataService : OdbAdminDataService
+  ) {}
 
 
   ngOnInit(){
@@ -54,8 +59,8 @@ export class AdminSideBarComponent implements OnInit{
     // this.router.navigate([route],{queryParams:{collpased:true}})
   }
 
-  emitSaveAllEvent(event){
-    this.onSaveAll.emit(true);
+  saveAll(){
+    this.dataService.saveAll();
   }
 
 }
