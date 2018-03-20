@@ -96,11 +96,12 @@ export class AdminMultilangInputComponent implements OnInit {
 
     
     // console.log("------------------- MultlilangInput INIT -------------------")
-    this.editorValue = this.values[this.currentLanguage]
+    
   }
 
   ngAfterViewInit(){
 
+    this.editorValue = this.values[this.currentLanguage]
     // let myInputTest = this.inputNodes.filter((input)=>{
     //   return $(input.nativeElement).attr('hidden') === undefined;
     //   // console.log(id);

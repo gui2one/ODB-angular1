@@ -95,11 +95,13 @@ export class HomeComponent implements OnInit , AfterViewInit{
           console.log(data[key]);
           textData[data[key].tagName] = data[key].text
         }
+
+        this.homeTextData = textData;
       }
 
     })
 
-    this.homeTextData = textData;
+    
   }
   
   

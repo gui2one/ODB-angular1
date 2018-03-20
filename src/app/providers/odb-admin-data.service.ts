@@ -247,10 +247,15 @@ export class OdbAdminDataService {
   }
 
   overwriteDatabase(jsonData){
+
+    console.log("function activated for now")
+    console.log(jsonData);
+    console.log(JSON.parse(jsonData));
     this.db.database.ref("/").set(JSON.parse(jsonData)).then(()=>{
       this.getGalleryDataAsJSON();
       this.getServiceBoxesDataAsJSON();
       this.getSiteDataToJSON();
+      this.getHomeTextDataAsJSON();
     })
   }
 

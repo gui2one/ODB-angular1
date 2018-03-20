@@ -102,24 +102,24 @@ export class AdminPanelComponent implements OnInit {
   emptyHomeData : object = {
     serviceBoxes: [
       {
-        title:"box 1",
+        title:{ fr: "aaa" },
         icon:"",
-        text:""
+        text:{fr:"aaa"}
       },
       {
-        title: "box 2",
+        title: { fr: "aaa" },
         icon: "",
-        text: ""
+        text: { fr: "aaa" }
       },
       {
-        title: "box 3",
+        title: { fr: "aaa" },
         icon: "",
-        text: ""
+        text: { fr: "aaa" }
       },
       {
-        title: "box 4",
+        title: { fr: "aaa" },
         icon: "",
-        text: ""
+        text: { fr: "aaa" }
       }
     ]
   }  
@@ -190,6 +190,11 @@ export class AdminPanelComponent implements OnInit {
 
     }
 
+   
+
+  }
+
+  ngAfterViewInit(){
     let prom2 = this.dataService.loadHomeDataToDB();
     prom2.then((data) => {
       if (data.val() === null) {
@@ -224,8 +229,8 @@ export class AdminPanelComponent implements OnInit {
             // console.log(item.currentLanguage);
             textParamsSave.push(item.currentLanguage)
           })
-          
-          
+
+
           let homeTextItemsSave = [];
           this.homeTextItems.forEach((item, id) => {
             homeTextItemsSave.push({ type: item.textType, language: item.inputNode.currentLanguage })
@@ -245,13 +250,13 @@ export class AdminPanelComponent implements OnInit {
             setTimeout(() => {
               this.resetServiceBoxesMultilangInputs(titleParamsSave, textParamsSave);
               try {
-                
+
                 this.resetHomeTextItems(homeTextItemsSave);
               } catch (error) {
                 console.log(error);
                 console.log("is there a new element ?");
               }
-            }, 0);
+            }, 1000);
           }
 
 
@@ -261,7 +266,6 @@ export class AdminPanelComponent implements OnInit {
         })
 
     })        
-
   }
 
 
@@ -412,6 +416,11 @@ export class AdminPanelComponent implements OnInit {
         // console.log(event);
         return parseInt(input.element.nativeElement.id) === parseInt(event.currentTarget.id)
       })
+      for (let item in titleFilter[0].values) {
+        let textValue = titleFilter[0].values[item];
+        let converted = textValue.replace(/\n/g, "")
+        titleFilter[0].values[item] = converted;
+      }      
  
        title = titleFilter[0].values
 
@@ -419,13 +428,13 @@ export class AdminPanelComponent implements OnInit {
         // console.log(event);
         return parseInt(input.element.nativeElement.id) === parseInt(event.currentTarget.id)
       })
-      // console.log(textFilter);
-      
-      // for(let item in textFilter[0].values){
-      //   let textValue = textFilter[0].values[item];
-      //   let converted = textValue.replace("\n", "\\n")
-      //   textFilter[0].values[item] = converted;        
-      // }
+
+      for (let item in textFilter[0].values) {
+        let textValue = textFilter[0].values[item];
+        let converted = textValue.replace(/\n/g, "")
+        textFilter[0].values[item] = converted;
+      }   
+
       text = textFilter[0].values      
       
       this.dataService.updateServiceBoxesItemData(event.currentTarget.id, title, text, undefined)
@@ -439,10 +448,6 @@ export class AdminPanelComponent implements OnInit {
     for (let item in values) {
       let textValue = values[item];
       let converted = textValue.replace(/\n/g, "")
-
-      // console.log(converted);
-
-      // converted = converted.replace("\r", "")
       values[item] = converted;
     }
     
@@ -471,18 +476,18 @@ export class AdminPanelComponent implements OnInit {
     
     for (let lang in this.langService.languages) {
       let curLang = this.langService.languages[lang]
-      // console.log(curLang)
-      let langInput = parentBox.children[0].querySelector(".multilang-wrapper div label input[name='text_" + curLang + "'");
+      let langInput = parentBox.children[0].querySelector(".multilang-wrapper div div div input[name='text_" + curLang + "'");
+      
       title[curLang] = langInput.value
     } 
     
     let text: object = {};
     for (let lang in this.langService.languages) {
       let curLang = this.langService.languages[lang]
-      let langInput = parentBox.children[2].querySelector(".multilang-wrapper div label textarea[name='text_" + curLang + "'");
+      let langInput = parentBox.children[2].querySelector(".multilang-wrapper div div div");
       // console.log(parentBox.children[2])
-
-      text[curLang] = langInput.value
+      console.log(langInput)
+      text[curLang] = langInput.innerHTML
     }      
     // console.log(parentBox.children[0].getAttribute("data-value"));
     
@@ -504,10 +509,10 @@ export class AdminPanelComponent implements OnInit {
     event.preventDefault();
     let file = event.target.files[0];
     event.target.value = "";
-    // console.log(file);
+    console.log(file);
     let reader = new FileReader();
     reader.onload = (e)=>{
-      // console.log(reader.result);
+      console.log(reader.result);
 
       this.dataService.overwriteDatabase(reader.result);
     }

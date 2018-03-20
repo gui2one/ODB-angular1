@@ -26,7 +26,7 @@ import { AdminPanelComponent } from '../admin-panel/admin-panel.component';
 // @NgModule({imports:[]})
 export class AdminComponent implements OnInit {
 
-  @ViewChild("adminPanel") adminPanel : AdminPanelComponent;
+  // @ViewChild("adminPanel") adminPanel : AdminPanelComponent;
   bGotData : boolean = false;
 
   siteDbData: any;
