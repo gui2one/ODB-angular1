@@ -11,6 +11,8 @@ import * as $ from "jquery"
 export class AdminSideBarComponent implements OnInit{
 
   
+  @Output() onSaveAll : EventEmitter<boolean> = new EventEmitter();
+
   @Input()
   bLoggedIn: boolean = false;
   @Input() userEmail : string = "";
@@ -50,6 +52,10 @@ export class AdminSideBarComponent implements OnInit{
 
   navigate(route){
     // this.router.navigate([route],{queryParams:{collpased:true}})
+  }
+
+  emitSaveAllEvent(event){
+    this.onSaveAll.emit(true);
   }
 
 }

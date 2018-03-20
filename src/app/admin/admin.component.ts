@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange, OnDestroy, HostListener} from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange, OnDestroy, HostListener, ViewChild} from '@angular/core';
 //import { Output, Input } from '@angular/core/src/metadata/directives';
 import { Router, Route, NavigationExtras } from '@angular/router';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -13,6 +13,7 @@ import * as $ from 'jquery';
 import { NgModule } from '@angular/core/src/metadata/ng_module';
 import { Promise } from 'q';
 import { LanguagesService } from '../providers/languages.service';
+import { AdminPanelComponent } from '../admin-panel/admin-panel.component';
 // import { CKEditorComponent } from 'ngx-ckeditor';
 @Component({
   selector: 'app-admin',
@@ -25,7 +26,7 @@ import { LanguagesService } from '../providers/languages.service';
 // @NgModule({imports:[]})
 export class AdminComponent implements OnInit {
 
-
+  @ViewChild("adminPanel") adminPanel : AdminPanelComponent;
   bGotData : boolean = false;
 
   siteDbData: any;
@@ -84,6 +85,9 @@ export class AdminComponent implements OnInit {
 
   }
 
+  adminPanelSaveAll(){
+    this.adminPanel.saveAllToSite();
+  }
   ngAfterViewChecked(){
     // console.log("view init");
     let content = $("#admin-content");

@@ -2,11 +2,11 @@
 <ng-container *ngIf="bGotData && bLoggedIn">
 
     
-    <div id="wrapper" class="" (window:resize)="onResize($event)" >
+    <div id="wrapper" class="" (window:resize)="onResize($event)">
 
 
       <app-admin-notification #adminNotification></app-admin-notification>
-      <app-admin-side-bar bSideBarCollaped="bSideBarCollaped" [bLoggedIn]="bLoggedIn" [userEmail] = "userEmail" (onCollapse)="onCollapse($event)"></app-admin-side-bar>
+      <app-admin-side-bar (onSaveAll)="adminPanelSaveAll()" bSideBarCollaped="bSideBarCollaped" [bLoggedIn]="bLoggedIn" [userEmail] = "userEmail" (onCollapse)="onCollapse($event)"></app-admin-side-bar>
 
       <div id="admin-content">
         
@@ -14,7 +14,7 @@
           <div *ngIf="bLoggedIn" class="">
             <app-admin-language-bar></app-admin-language-bar>
             <ng-container *ngIf="router.url === '/admin'">
-            <app-admin-panel ></app-admin-panel>
+            <app-admin-panel #adminPanel></app-admin-panel>
             </ng-container>
 
             <ng-container *ngIf="router.url === '/admin/gallery_manager'">

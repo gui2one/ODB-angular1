@@ -24,7 +24,7 @@
         </app-spacer>
         <div id="about_part" class="">
           <!--<app-parallax-spacer imgUrl="assets/img/oeufs_2.jpg" height="100%" parallaxRatio="0.5"></app-parallax-spacer>-->
-          <app-header-title name="title_qui" text="Qui Sommes-nous ?"></app-header-title>
+          <app-header-title name="title_qui" text="{{homeTextData.about_part__title[siteLangService.currentLanguage]}}"></app-header-title>
 
           
           <div class="container cards-container">
@@ -56,17 +56,13 @@
 
             <div class="col-md-9 col-lg-6 no-gutters dark-bg">
             
-              <app-header-title name="title_ou" text="Où Sommes-nous ?"></app-header-title>
+              <app-header-title name="title_ou" [text]="homeTextData.contact_part__title[siteLangService.currentLanguage]"></app-header-title>
               <div class="">
                 
                 <div class="row no-gutters">
-                  <div class="address">
-                    <div class="address-box">
-                      <p>Addresse : L'oeuf du Breil <br>35780 Le Breil</p>
-                    </div>
-                    <div class="address-box">
-                      <p> Et pis d'autres infos </p>
-                    </div>
+                  <div class="address" [innerHTML]="homeTextData.contact_part__address[siteLangService.currentLanguage]">
+                     
+                    
                   </div>
                 </div>
                 <div class="row no-gutters">

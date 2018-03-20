@@ -1,5 +1,5 @@
 <div id="side-bar-wrapper" class="d-flex flex-column align-items-end">
-
+  
   <div id="toggler-button" (click)="onTogglerButtonClick($event)">
    <span class="toggler" *ngIf="!bSideBarCollapsed">&laquo;</span>
    <span class="toggler" *ngIf="bSideBarCollapsed">&raquo;</span>
@@ -13,6 +13,7 @@
     
       </ng-container>
     </div>
+
   <div class="w-100 h-100 d-flex flex-column">
  
 
@@ -36,7 +37,9 @@
     </div>
   </a>
   </div>
-
+  <div class="w-100 h-100 d-flex flex-column">
+  <button class="btn btn-danger" (click)="emitSaveAllEvent($event)">Save all to site (admin panel)</button>
+  </div>
   <div class="w-100 h-100 d-flex flex-column-reverse">
    <span style="user-select:none;">&nbsp;<br>&nbsp;</span>
   <a routerLink="/" class="side-bar-button" href="#" target="_blank">    

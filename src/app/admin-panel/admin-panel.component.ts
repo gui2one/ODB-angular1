@@ -305,6 +305,12 @@ export class AdminPanelComponent implements OnInit {
     // event.preventDefault();
     // console.log("----------->",event);
   }
+
+  public saveAllToSite(){
+    this.saveToSite(null);
+    this.saveHomeTextToSite(null);
+    this.saveServiceBoxesToSite(null);
+  }
   saveToSite(event) {
     // console.log("saveToSite function fired");
     this.dataService.getSiteDataToJSON();

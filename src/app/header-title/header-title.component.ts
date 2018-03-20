@@ -19,7 +19,7 @@ export class HeaderTitleComponent implements OnInit {
 
   ngAfterViewInit(){
     //console.log($("#" + this.name + " h1").html());
-    $("#" + this.name + " h1").html(this.text)
+    //$("#" + this.name + " h1").html(this.text)
   }
 
   ngAfterViewChecked() {
