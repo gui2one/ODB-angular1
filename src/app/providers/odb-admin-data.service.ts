@@ -202,7 +202,6 @@ export class OdbAdminDataService {
     }
   }
 
-
   getServiceBoxesDataAsJSON() {
 
     let data2 = this.db.database.ref("/").child("home-data/serviceBoxes").orderByChild("displayID").once("value")
@@ -212,9 +211,9 @@ export class OdbAdminDataService {
         let data = JSON.stringify(snapshot.val());
         this.saveServiceBoxesDataToJSON(data);
 
-
       })
   }
+
   saveServiceBoxesDataToJSON(jsonData) {
     let formData = new FormData();
     formData.append("jsonString", jsonData);
@@ -238,17 +237,6 @@ export class OdbAdminDataService {
     })
   }
 
-
-  backupDataBase(){
-    let data = this.db.database.ref("/").once("value", (snapshot)=>{
-      let jsonData = JSON.stringify(snapshot.val());
-      let formData = new FormData();
-      formData.append("jsonString", jsonData);
-      window.location.replace('assets/php/admin/downloadBackupFile.php?jsonString='+ jsonData+'');
-
-    })
-  }
-
   overwriteDatabase(jsonData){
 
     console.log("function activated for now")
@@ -262,14 +250,7 @@ export class OdbAdminDataService {
     })
   }
 
-  saveAll(){
-    this.getGalleryDataAsJSON();
-    this.getServiceBoxesDataAsJSON();
-    this.getSiteDataToJSON();
-    this.getHomeTextDataAsJSON();
-  }
-
-  generateLangEmptyData(){
+  generateEmptyLangData(){
     let items = {};
     for( let key in this.langService.languages){
       let curLang = this.langService.languages[key]
@@ -277,12 +258,13 @@ export class OdbAdminDataService {
     }
     return items
   }
+
   addHomeTextItem(){
     let obj = {
       key: '',
       type :'text',
       tagName: "default_tag",
-      text: this.generateLangEmptyData()
+      text: this.generateEmptyLangData()
     }
 
     let prom = this.db.database.ref("/home-data/home-text").once('value').then((snapshot)=>{
@@ -336,6 +318,7 @@ export class OdbAdminDataService {
 
       })
   }
+
   saveHomeTextDataToJSON(jsonData) {
     let formData = new FormData();
     formData.append("jsonString", jsonData);
@@ -358,4 +341,22 @@ export class OdbAdminDataService {
 
     })
   }  
+
+
+  backupDataBase(){
+    let data = this.db.database.ref("/").once("value", (snapshot)=>{
+      let jsonData = JSON.stringify(snapshot.val());
+      let formData = new FormData();
+      formData.append("jsonString", jsonData);
+      window.location.replace('assets/php/admin/downloadBackupFile.php?jsonString='+ jsonData+'');
+
+    })
+  }
+
+  saveAll(){
+    this.getGalleryDataAsJSON();
+    this.getServiceBoxesDataAsJSON();
+    this.getSiteDataToJSON();
+    this.getHomeTextDataAsJSON();
+  }
 }
