@@ -56,6 +56,7 @@ import { AdminCollapseGroupComponent } from '../admin-collapse-group/admin-colla
 import { AdminTextItemComponent } from '../admin-text-item/admin-text-item.component';
 
 import { CKEditorModule, CKEditorComponent } from "ngx-ckeditor";
+import { SaveStateService } from '../providers/save-state.service';
 
 
 let Routes : Routes = [
@@ -91,13 +92,7 @@ let Routes : Routes = [
     ConfirmModalModule,
     AdminNotificationModule,
     AdminMultilangInputModule,
-
     CKEditorModule
-
-
-
-    
-    
   ],
   exports:[
     CKEditorComponent
@@ -110,7 +105,8 @@ let Routes : Routes = [
     OdbAdminDataService,
     SiteUtilsService,
     Broadcaster,
-    LanguagesService
+    LanguagesService,
+    SaveStateService
   ],
   declarations: [
     AdminComponent, 

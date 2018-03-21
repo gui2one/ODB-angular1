@@ -7,7 +7,7 @@
 
           <div class="d-flex flex-column">
           <ng-container *ngFor="let lang of langService.languages;">
-            <input #inputNode [hidden]="currentLanguage !== lang" [attr.data-language]="lang" name="text_{{lang}}" type="text" class="{{lang}}" value="{{values[lang]}}" (blur)="onBlur($event)"/>
+            <input #inputNode [hidden]="currentLanguage !== lang" (keypress)="onKeyPress($event)" [attr.data-language]="lang" name="text_{{lang}}" type="text" class="{{lang}}" value="{{values[lang]}}" (blur)="onBlur($event)"/>
           </ng-container>
 
 

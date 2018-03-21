@@ -135,7 +135,8 @@ export class AdminMultilangInputComponent implements OnInit {
   onBlur(event){
     event.preventDefault();
     event.stopPropagation();
-    // console.log(event.currentTarget)
+    console.log("BLUR !!!!")
+    console.log(event.currentTarget)
     // console.log(event.currentTarget.getAttribute("data-language"))
     let curLang = event.currentTarget.getAttribute("data-language")
     // console.log(curLang);
@@ -143,15 +144,10 @@ export class AdminMultilangInputComponent implements OnInit {
       this.values[curLang] = event.currentTarget.value;
     }else if(this.inputType === "textarea"){
 
-      // console.log("setting input component values")
       this.values[curLang] = event.currentTarget.value;
-      
-      // console.log(event.currentTarget.value);
+
     }
 
-    // this.value = event.currentTarget.value;
-    
-    // this.element.nativeElement.dispatchEvent(new Event('focusout'));
     
   }
 
@@ -166,5 +162,15 @@ export class AdminMultilangInputComponent implements OnInit {
     this.bEditorOpened = false;
     this.editorValue = content;
     this.CKEditorClose.emit(content);
-  }  
+  }
+  
+  
+  onKeyPress(event){
+    console.log(event);
+
+    if(event.code === "Enter"){
+      $(event.target).blur();
+    }
+
+  }
 }

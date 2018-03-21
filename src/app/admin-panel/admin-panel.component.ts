@@ -29,6 +29,7 @@ import { ToggleComponent } from '../toggle/toggle.component';
 import { CKEditorComponent } from 'ngx-ckeditor';
 import { viewParentEl } from '@angular/core/src/view/util';
 import { AdminTextItemComponent } from '../admin-text-item/admin-text-item.component';
+import { SaveStateService } from '../providers/save-state.service';
 
 
 
@@ -89,6 +90,7 @@ export class AdminPanelComponent implements OnInit {
     private siteUtils : SiteUtilsService,
     public langService : LanguagesService,
     private multilangModule : AdminMultilangInputModule,
+    public saveStateService : SaveStateService
     
 
 
@@ -145,6 +147,8 @@ export class AdminPanelComponent implements OnInit {
 
     // console.log("------------------ Full INIT ------------------------")
     
+    this.saveStateService.saveState(this);
+
     this.homeTextData = this.dataService.loadHomeTextFromDB().valueChanges();
     
     
@@ -256,7 +260,7 @@ export class AdminPanelComponent implements OnInit {
                 console.log(error);
                 console.log("is there a new element ?");
               }
-            }, 1000);
+            }, 0);
           }
 
 

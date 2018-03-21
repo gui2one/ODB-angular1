@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, ViewChild, QueryList } from '@angular
 import { AdminMultilangInputComponent } from '../admin-multilang-input/admin-multilang-input.component';
 
 import * as $ from 'jquery'
-// import { AdminMultilangInputComponent } from "../admin-multilang-input/admin-multilang-input.component";
+
 @Component({
   selector: 'app-admin-text-item',
   templateUrl: './admin-text-item.component.html',
@@ -25,43 +25,38 @@ export class AdminTextItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
-    // this.currentLanguage = "es";
-    console.log(this.textType);
-
-
-    // this.textTypeCheckbox.dispatchEvent(new Event('click'))
     
   }
 
   ngAfterViewInit(){
-    console.log(this.textValues)
+
     this.inputNode.values = this.textValues;
     if (this.textType === "textarea") {
-      // this.textTypeCheckbox.checked = true;
-      console.log(this.inputNode.currentLanguage);
 
-      // $(this.textTypeCheckbox).attr("checked", true);
     }    
   }
 
   onCKEditorClose(){
-    console.log(this.inputNode.values[this.inputNode.currentLanguage]);
-    console.log(this.inputNode.editorValue);
+
 
     this.inputNode.values[this.inputNode.currentLanguage] = this.inputNode.editorValue;
   }
 
   onTagNameFocusOut(event){
-    console.log(event);
-    console.log(event.currentTarget.value);
+
     this.tagName = event.currentTarget.value;
+  }
+
+  onTagNameKeyPress(event)  {
+
+    if(event.code === "Enter"){
+      
+      $(event.target).blur();
+    }
   }
 
   onCheck(event){
     event.preventDefault();
-    console.log(event.target.checked);
-    console.log(event.target);
 
     if (event.target.checked){
       this.inputNode.inputType = "textarea";
