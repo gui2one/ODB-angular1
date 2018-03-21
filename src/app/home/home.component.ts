@@ -97,6 +97,12 @@ export class HomeComponent implements OnInit , AfterViewInit{
         }
 
         this.homeTextData = textData;
+
+        ///sets empty values to default language
+        for(let key in this.homeTextData){
+          let curData = this.homeTextData[key]
+          console.log(curData)
+        }
       }
 
     })

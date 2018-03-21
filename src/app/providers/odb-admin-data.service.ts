@@ -6,6 +6,8 @@ import { Promise } from 'q';
 import {Location} from '@angular/common'
 
 import { Broadcaster } from "./broadcaster";
+import { LanguagesService } from './languages.service';
+
 
 @Injectable()
 export class OdbAdminDataService {
@@ -27,7 +29,8 @@ export class OdbAdminDataService {
   };
 
   constructor(private db:AngularFireDatabase,
-  private broadcaster : Broadcaster)   
+  private broadcaster : Broadcaster,
+  public langService : LanguagesService)   
   {
     
   }
@@ -266,16 +269,22 @@ export class OdbAdminDataService {
     this.getHomeTextDataAsJSON();
   }
 
+  generateLangEmptyData(){
+    let items = {};
+    for( let key in this.langService.languages){
+      let curLang = this.langService.languages[key]
+      items[curLang] = "text_"+curLang;
+    }
+    return items
+  }
   addHomeTextItem(){
     let obj = {
       key: '',
       type :'text',
       tagName: "default_tag",
-      text: {
-        fr: "Texte Fr",
-        en: "Hello"
-      }
+      text: this.generateLangEmptyData()
     }
+
     let prom = this.db.database.ref("/home-data/home-text").once('value').then((snapshot)=>{
       let key = this.db.database.ref("/home-data/home-text").push().key
       console.log(key);
