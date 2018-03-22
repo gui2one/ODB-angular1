@@ -18,3 +18,23 @@ input[type=checkbox]{
     padding : 3px;
     margin : 3px;
 }
+
+.preview-tagname{
+    pointer-events: none;
+    user-select: none;
+
+}
+
+.collaspe-button{
+     background-color: lightblue;
+     padding : 3px;
+     margin : 2px;
+     cursor: pointer;
+    &:hover{
+        background-color: lighten(lightblue,10);
+    }
+
+    .collapsed{
+        font-weight: bold;
+    }
+}

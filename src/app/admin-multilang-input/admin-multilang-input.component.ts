@@ -12,6 +12,7 @@ import { CKEditorComponent } from 'ngx-ckeditor';
 export class AdminMultilangInputComponent implements OnInit {
 
   @Output() CKEditorClose : EventEmitter<(string)> = new EventEmitter<string>();
+  @Output() EmitValues : EventEmitter<(object)> = new EventEmitter();
 
   @Output() multilangInputEvent = new EventEmitter<(string)>();
   @ViewChild("menuToggle") menuToggle : ElementRef;
@@ -102,13 +103,7 @@ export class AdminMultilangInputComponent implements OnInit {
   ngAfterViewInit(){
 
     this.editorValue = this.values[this.currentLanguage]
-    // let myInputTest = this.inputNodes.filter((input)=>{
-    //   return $(input.nativeElement).attr('hidden') === undefined;
-    //   // console.log(id);
-    // })[0]
-    // // console.log($(myInputTest.nativeElement).position());
-    // var domRect = myInputTest.nativeElement.getBoundingClientRect();
-    // console.log(domRect);
+
     
   }
 
@@ -135,8 +130,8 @@ export class AdminMultilangInputComponent implements OnInit {
   onBlur(event){
     event.preventDefault();
     event.stopPropagation();
-    console.log("BLUR !!!!")
-    console.log(event.currentTarget)
+    // console.log("BLUR !!!!")
+    // console.log(event.currentTarget)
     // console.log(event.currentTarget.getAttribute("data-language"))
     let curLang = event.currentTarget.getAttribute("data-language")
     // console.log(curLang);
@@ -148,6 +143,8 @@ export class AdminMultilangInputComponent implements OnInit {
 
     }
 
+    this.emitValues();
+
     
   }
 
@@ -157,7 +154,7 @@ export class AdminMultilangInputComponent implements OnInit {
   }
 
   closeTextEditor(event, content) {
-    console.log(event);
+    // console.log(event);
     
     this.bEditorOpened = false;
     this.editorValue = content;
@@ -166,11 +163,18 @@ export class AdminMultilangInputComponent implements OnInit {
   
   
   onKeyPress(event){
-    console.log(event);
+    // console.log(event);
 
     if(event.code === "Enter"){
       $(event.target).blur();
     }
 
+  }
+
+  emitValues(){
+    this.EmitValues.emit( {
+      type : this.inputType,
+      text : this.values
+    })
   }
 }

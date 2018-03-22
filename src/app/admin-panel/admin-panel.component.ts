@@ -65,7 +65,7 @@ export class AdminPanelComponent implements OnInit {
   siteDbData: any;
   // homeDbData : object;
   homeDbData : DatabaseSnapshot;
-  serviceBoxesTitles : object = {};
+  // serviceBoxesTitles : object = {};
 
   bSiteOnline: boolean = false;
   dbData: Observable<any[]>;
@@ -147,7 +147,7 @@ export class AdminPanelComponent implements OnInit {
 
     // console.log("------------------ Full INIT ------------------------")
     
-    this.saveStateService.saveState(this);
+    
 
     this.homeTextData = this.dataService.loadHomeTextFromDB().valueChanges();
     
@@ -198,7 +198,20 @@ export class AdminPanelComponent implements OnInit {
 
   }
 
+  saveViewParams(){
+    this.saveStateService.save();
+  }
+  restoreViewParams(){
+    this.saveStateService.restore();
+  }
   ngAfterViewInit(){
+
+    this.saveStateService.addSaveSet(this, "serviceBoxesTitleMultiInputs", ["currentLanguage", "name"]);
+    this.saveStateService.addSaveSet(this, "serviceBoxesTextMultiInputs", ["currentLanguage", "name"]);
+    this.saveStateService.addSaveSet(this, "homeTextItems", ["currentLanguage"]);
+
+
+
     let prom2 = this.dataService.loadHomeDataToDB();
     prom2.then((data) => {
       if (data.val() === null) {
@@ -239,7 +252,7 @@ export class AdminPanelComponent implements OnInit {
           this.homeTextItems.forEach((item, id) => {
             homeTextItemsSave.push({ type: item.textType, language: item.inputNode.currentLanguage })
           })
-          console.log(homeTextItemsSave)
+          // console.log(homeTextItemsSave)
           //then and only then load the data in
           this.homeDbData = snapshot.val()
 
@@ -299,7 +312,7 @@ export class AdminPanelComponent implements OnInit {
       item.inputNode.currentLanguage = language;
       item.textType = type;
       // item.textTypeCheckbox.che = true;
-      console.log(language)
+      // console.log(language)
 
     })
 
@@ -332,6 +345,8 @@ export class AdminPanelComponent implements OnInit {
   saveHomeTextToSite(event){
     this.dataService.getHomeTextDataAsJSON();
   }
+
+
 
   onClickToggle1(event) {
     // console.log(" clicked")
@@ -446,25 +461,34 @@ export class AdminPanelComponent implements OnInit {
   }
 
   onHomeTextFocusOut(tagName, values, key){
-    // event.preventDefault();
-    // event.stopPropagation();
-    // console.log(event.currentTarget);
-    for (let item in values) {
-      let textValue = values[item];
-      let converted = textValue.replace(/\n/g, "")
-      values[item] = converted;
-    }
+
+    console.log("old function ____________________")
+    // for (let item in values) {
+    //   let textValue = values[item];
+    //   let converted = textValue.replace(/\n/g, "")
+    //   values[item] = converted;
+    // }
     
 
-    let curTextItem = this.homeTextItems.filter((item, id)=>{
-      return item.dbKey === key
-    })[0]
-    
-    console.log(curTextItem.tagName, values, key);
+    // let curTextItem = this.homeTextItems.filter((item, id)=>{
+    //   return item.dbKey === key
+    // })[0]
 
-    this.dataService.updateHomeTextItem(curTextItem.textType, curTextItem.tagName, values, key);
+
+    // this.dataService.updateHomeTextItem(curTextItem.textType, curTextItem.tagName, values, key);
     
   }
+
+  onHomeTextItemEmitValues(data) {
+    console.log(data);
+    for (let item in data.text) {
+      let textValue = data.text[item];
+      let converted = textValue.replace(/\n/g, "")
+      data.text[item] = converted;
+    }
+
+    this.dataService.updateHomeTextItem(data.type, data.tagName, data.text, data.key);
+  }  
   onChooseIcon(event, iconID){
     event.preventDefault();
 

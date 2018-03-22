@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, ViewChild, QueryList } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, QueryList, EventEmitter } from '@angular/core';
 import { AdminMultilangInputComponent } from '../admin-multilang-input/admin-multilang-input.component';
 
 import * as $ from 'jquery'
@@ -8,50 +8,49 @@ import * as $ from 'jquery'
   templateUrl: './admin-text-item.component.html',
   styleUrls: ['./admin-text-item.component.scss']
 })
-export class AdminTextItemComponent implements OnInit {
+export class AdminTextItemComponent {
 
   @ViewChild("inputNode") inputNode : AdminMultilangInputComponent;
   @ViewChild("textTypeCheckbox") textTypeCheckbox : HTMLInputElement;
-  @Input() name = "default shitty name"
-  @Input() @Output() currentLanguage;
-
+  @ViewChild("collapseButton") collapseButton : HTMLElement;
+  @Input() name = "default_shitty_name"
+  hasName : string;
   @Input() tagName ="TAG NAME";
+  @Input() @Output() currentLanguage;
   @Input() @Output() textType = "";
-
   @Output() @Input() textValues : object;
-
   @Input() dbKey : string;
-  
+  @Output() EmitValues : EventEmitter<object> = new EventEmitter();
+
+  bCollapsed : boolean = false;
   constructor() { }
 
-  ngOnInit() {
-    
-  }
 
   ngAfterViewInit(){
-
+    this.currentLanguage = this.inputNode.currentLanguage;
     this.inputNode.values = this.textValues;
-    if (this.textType === "textarea") {
-
-    }    
+    this.hasName = "#" + this.name;
+ 
   }
 
   onCKEditorClose(){
 
-
     this.inputNode.values[this.inputNode.currentLanguage] = this.inputNode.editorValue;
+    this.emitValues();
   }
 
   onTagNameFocusOut(event){
 
     this.tagName = event.currentTarget.value;
+    this.emitValues();
   }
 
   onTagNameKeyPress(event)  {
 
     if(event.code === "Enter"){
-      
+      this.tagName = event.target.value;
       $(event.target).blur();
+      this.emitValues();
     }
   }
 
@@ -65,6 +64,32 @@ export class AdminTextItemComponent implements OnInit {
       this.inputNode.inputType = "text";
       this.textType = "text"
     }
+
+    this.emitValues();
     
   }
+
+  emitValues(){
+    this.EmitValues.emit({
+      tagName : this.tagName,
+      type : this.textType,
+      text : this.textValues,
+      key : this.dbKey
+    })
+  }
+
+  onMultilangInputEmitValues(data){
+    // console.log(data);
+    this.textType = data.type
+    this.textValues = data.text
+
+    this.emitValues();
+
+  }
+
+  onCollapseClick(event){
+    this.bCollapsed = !this.bCollapsed;
+    console.log(event)
+  }
+
 }

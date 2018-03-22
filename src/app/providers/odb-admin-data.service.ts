@@ -286,7 +286,7 @@ export class OdbAdminDataService {
 
   updateHomeTextItem(type, tagName, values, key) {
 
-    console.log("-------------------updateServiceBoxesItemData-------------------")
+    // console.log("-------------------updateServiceBoxesItemData-------------------")
     let obj = {
       type : type,
       key: key,
@@ -294,13 +294,13 @@ export class OdbAdminDataService {
       text: values
     }
 
-    console.log(obj);
+    // console.log(obj);
     let child = this.db.database.ref().child("home-data/home-text/");
     // console.log(child);
     let updates: object = {};
     updates["/home-data/home-text/" + obj.key] = obj;
 
-    console.log(updates)
+    // console.log(updates)
     this.db.database.ref("/").update(updates); 
 
     

@@ -1,7 +1,8 @@
 <app-confirm-modal #testModal (onDecide)="testModalDecide($event)" display="false"></app-confirm-modal>
 <app-confirm-modal #overwriteDatabaseModal display="false"></app-confirm-modal>
 
-
+<button class="btn btn-primary" (click)="saveViewParams()">save view</button>
+<button class="btn btn-primary" (click)="restoreViewParams()">restore view</button>
 
 
 <!--<div id="wrapper" class="p-sm-1 p-md-2 p-xl-4" *ngIf="router.url === '/admin'">-->
@@ -30,7 +31,7 @@
 
 
 
-      <app-admin-collapse-group collapsed="true" name="serviceBoxesCollapseGroup" label="Service Boxes">
+      <app-admin-collapse-group collapsed="false" name="serviceBoxesCollapseGroup" label="Service Boxes">
                         <div #serviceBoxes class="row m-0" *ngIf="homeDbData">
                         
                           <div *ngFor="let item of homeDbData.serviceBoxes; let id=index;" class="box-data-container col-sm-6  col-xl-3 " id={{id}}>
@@ -104,7 +105,7 @@
   </div>
   <ng-container *ngFor="let item of homeTextData | async; let id = index;">
 
-    <app-admin-text-item #homeTextItem [attr.data-currentlanguage]="currentLanguage" dbKey="{{item.key}}" textType="{{item.type}}" tagName="{{item.tagName}}" [textValues]="item.text" name="Text :" (focusout)="onHomeTextFocusOut(item.tagName, item.text, item.key)"></app-admin-text-item>
+    <app-admin-text-item #homeTextItem [attr.data-currentlanguage]="currentLanguage" dbKey="{{item.key}}" textType="{{item.type}}" tagName="{{item.tagName}}" [textValues]="item.text" name="item_{{id}}" (EmitValues)="onHomeTextItemEmitValues($event)" ></app-admin-text-item>
     <!--<app-admin-multilang-input #homeTextInputs [values]="item.text"></app-admin-multilang-input>-->
   
   </ng-container>

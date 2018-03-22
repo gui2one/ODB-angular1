@@ -30,9 +30,12 @@
           </div>
           <div id="flagsMenu" class="dropdown-menu dropdown-menu-right">
         
-            <a class="dropdown-item" *ngFor="let lang of siteLangService.languages; let id = index;">
-              <img (click)="onFlagClick($event)" id="{{id}}" class="flag" src="assets/img/flags/{{siteLangService.flagsObject[lang]}}">
-            </a>
+            <div class="d-flex">
+              <a class="dropdown-item" *ngFor="let lang of siteLangService.languages; let id = index;">
+                <img (click)="onFlagClick($event)" id="{{id}}" class="flag p-1" src="assets/img/flags/{{siteLangService.flagsObject[lang]}}">
+              </a>
+
+            </div>
             <!-- <a class="dropdown-item">lien</a>
                     <a class="dropdown-item">lien</a> -->
         
