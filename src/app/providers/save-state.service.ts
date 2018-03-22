@@ -50,7 +50,7 @@ export class SaveStateService {
 
     for (let i = 0; i < this.saveSets.length; i++) {
 
-      console.log("----- save set " + i +" ________________________");
+      // console.log("----- save set " + i +" ________________________");
       
       let saveSet = this.saveSets[i];
       if( this.dataSets.length > 0){
@@ -65,13 +65,13 @@ export class SaveStateService {
         // console.log(dataSet);
         viewChildren.forEach((item, id)=>{
           for (let j = 0; j < params.length; j++) {
-            console.log("________________ View Child " + id + " ________________________");
+            // console.log("________________ View Child " + id + " ________________________");
 
-            console.log(this.dataSets[i][id]);
-            console.log(this.dataSets[i][id][j]);
+            // console.log(this.dataSets[i][id]);
+            // console.log(this.dataSets[i][id][j]);
             item[params[j]] = this.dataSets[i][id][j]
 
-              // console.log(item[params[j]]);
+            // console.log(item[params[j]]);
               
             }
         })

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, ViewChild,ViewChildren, EventEmitter, ElementRef, QueryList } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild,ViewChildren, EventEmitter, ElementRef, QueryList, OnChanges, SimpleChange } from '@angular/core';
 import { style } from '@angular/animations';
 import * as $ from "jquery";
 import { Broadcaster } from '../providers/broadcaster';
@@ -23,7 +23,7 @@ export class AdminMultilangInputComponent implements OnInit {
 
   // @Input() @Output() value : string= "default ...";
   @Input() @Output() values : object = {};
-  @Input() @Output() currentLanguage: string;
+  @Input() currentLanguage: string;
   @Input() name : string = "default name";
   @Input() inputType : string = "text";
 
@@ -76,9 +76,10 @@ export class AdminMultilangInputComponent implements OnInit {
     
     this.broadcaster.on("changeLanguage")
     .subscribe(message => {
-      // console.log(message);
+      console.log(message);
       // this.currentLanguage = message.toString();
       this.currentLanguage = message.toString();
+      this.changeLanguageEvent.emit(this.currentLanguage);
     }); 
 
 
@@ -95,6 +96,14 @@ export class AdminMultilangInputComponent implements OnInit {
     
   }
 
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+    for (let propName in changes) {
+      let curProp = changes[propName]
+      console.log(propName, curProp.currentValue);
+      // changes[propName] = changes.value
+
+    }
+  }
   ngOnInit() {
 
     

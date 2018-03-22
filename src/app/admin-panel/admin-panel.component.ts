@@ -198,6 +198,12 @@ export class AdminPanelComponent implements OnInit {
 
   }
 
+  // testLangParam(){
+  //   this.homeTextItems.forEach( (item, id) =>{
+  //     console.log(item, id)
+  //     item.currentLanguage = "en"
+  //   })
+  // }
   saveViewParams(){
     this.saveStateService.save();
   }
@@ -208,7 +214,7 @@ export class AdminPanelComponent implements OnInit {
 
     this.saveStateService.addSaveSet(this, "serviceBoxesTitleMultiInputs", ["currentLanguage", "name"]);
     this.saveStateService.addSaveSet(this, "serviceBoxesTextMultiInputs", ["currentLanguage", "name"]);
-    this.saveStateService.addSaveSet(this, "homeTextItems", ["currentLanguage","name"]);
+    this.saveStateService.addSaveSet(this, "homeTextItems", ["currentLanguage"]);
 
 
 

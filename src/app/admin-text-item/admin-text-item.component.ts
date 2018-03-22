@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, ViewChild, QueryList, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, QueryList, EventEmitter, OnChanges, SimpleChange } from '@angular/core';
 import { AdminMultilangInputComponent } from '../admin-multilang-input/admin-multilang-input.component';
-
+import { LanguagesService } from "../providers/languages.service";
 import * as $ from 'jquery'
 
 @Component({
@@ -8,7 +8,7 @@ import * as $ from 'jquery'
   templateUrl: './admin-text-item.component.html',
   styleUrls: ['./admin-text-item.component.scss']
 })
-export class AdminTextItemComponent {
+export class AdminTextItemComponent implements OnChanges {
 
   @ViewChild("inputNode") inputNode : AdminMultilangInputComponent;
   @ViewChild("textTypeCheckbox") textTypeCheckbox : HTMLInputElement;
@@ -16,18 +16,27 @@ export class AdminTextItemComponent {
   @Input() name = "default_shitty_name"
   hasName : string;
   @Input() tagName ="TAG NAME";
-  @Input() @Output() currentLanguage;
+  @Input() currentLanguage : string;
   @Input() @Output() textType = "";
   @Output() @Input() textValues : object;
   @Input() dbKey : string;
   @Output() EmitValues : EventEmitter<object> = new EventEmitter();
 
   bCollapsed : boolean = false;
-  constructor() { }
+  constructor( public langService : LanguagesService) { }
 
+
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+    for (let propName in changes) {
+      let curProp = changes[propName]
+      console.log("Admin TextItem OnChange fired ---->",propName, curProp.currentValue);
+      // changes[propName] = changes.value
+
+    }
+  }
 
   ngAfterViewInit(){
-    this.currentLanguage = this.inputNode.currentLanguage;
+    this.currentLanguage = this.langService.currentLanguage;
     this.inputNode.values = this.textValues;
     this.hasName = "#" + this.name;
  
@@ -94,6 +103,7 @@ export class AdminTextItemComponent {
 
   onInputChangeLanguage(lang){
     this.currentLanguage = lang;
+    // console.log(this.currentLanguage)
   }
 
 }

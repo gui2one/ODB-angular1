@@ -3,6 +3,7 @@
 
 <button class="btn btn-primary" (click)="saveViewParams()">save view</button>
 <button class="btn btn-primary" (click)="restoreViewParams()">restore view</button>
+<!-- <button class="btn btn-danger" (click)="testLangParam()">test func</button> -->
 
 
 <!--<div id="wrapper" class="p-sm-1 p-md-2 p-xl-4" *ngIf="router.url === '/admin'">-->
@@ -105,7 +106,7 @@
   </div>
   <ng-container *ngFor="let item of homeTextData | async; let id = index;">
 
-    <app-admin-text-item #homeTextItem [attr.data-currentlanguage]="currentLanguage" dbKey="{{item.key}}" textType="{{item.type}}" tagName="{{item.tagName}}" [textValues]="item.text" name="item_{{id}}" (EmitValues)="onHomeTextItemEmitValues($event)" ></app-admin-text-item>
+    <app-admin-text-item #homeTextItem [attr.data-currentlanguage]="currentLanguage"  dbKey="{{item.key}}" textType="{{item.type}}" tagName="{{item.tagName}}" [textValues]="item.text" name="item_{{id}}" (EmitValues)="onHomeTextItemEmitValues($event)" ></app-admin-text-item>
     <!--<app-admin-multilang-input #homeTextInputs [values]="item.text"></app-admin-multilang-input>-->
   
   </ng-container>
