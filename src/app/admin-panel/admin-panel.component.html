@@ -104,6 +104,10 @@
   <div class="save-to-site">
     <button class="btn btn-primary" (click)="saveHomeTextToSite($event)">Save to Site</button>
   </div>
+  <div>
+    <button class="btn btn-success" (click)="collaspeAllHomeTextItems()">collapse all</button>
+    <button class="btn btn-success" (click)="expandAllHomeTextItems()">expand all</button>
+  </div>
   <ng-container *ngFor="let item of homeTextData | async; let id = index;">
 
     <app-admin-text-item #homeTextItem [attr.data-currentlanguage]="currentLanguage"  [bCollapsed]="false" dbKey="{{item.key}}" textType="{{item.type}}" tagName="{{item.tagName}}" [textValues]="item.text" name="item_{{id}}" (EmitValues)="onHomeTextItemEmitValues($event)" ></app-admin-text-item>

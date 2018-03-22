@@ -238,49 +238,52 @@ export class AdminPanelComponent implements OnInit {
             // console.log(data);
 
           })
+                                                                            ///// OLD ATTEMPT AT SAVING STATES
+
+                                                                            // // console.log("---------------- INIT Load data FUNCTION --------------")
+
+                                                                            // let titleParamsSave = [];
+                                                                            // this.serviceBoxesTitleMultiInputs.forEach((item, id) => {
+                                                                            //   // console.log(item.currentLanguage);
+                                                                            //   titleParamsSave.push(item.currentLanguage)
+                                                                            // })
+                                                                            // let textParamsSave = [];
+                                                                            // this.serviceBoxesTextMultiInputs.forEach((item, id) => {
+                                                                            //   // console.log(item.currentLanguage);
+                                                                            //   textParamsSave.push(item.currentLanguage)
+                                                                            // })
 
 
-          // console.log("---------------- INIT Load data FUNCTION --------------")
-
-          let titleParamsSave = [];
-          this.serviceBoxesTitleMultiInputs.forEach((item, id) => {
-            // console.log(item.currentLanguage);
-            titleParamsSave.push(item.currentLanguage)
-          })
-          let textParamsSave = [];
-          this.serviceBoxesTextMultiInputs.forEach((item, id) => {
-            // console.log(item.currentLanguage);
-            textParamsSave.push(item.currentLanguage)
-          })
-
-
-          let homeTextItemsSave = [];
-          this.homeTextItems.forEach((item, id) => {
-            homeTextItemsSave.push({ type: item.textType, language: item.inputNode.currentLanguage })
-          })
-          // console.log(homeTextItemsSave)
-          //then and only then load the data in
-          this.homeDbData = snapshot.val()
+                                                                            // let homeTextItemsSave = [];
+                                                                            // this.homeTextItems.forEach((item, id) => {
+                                                                            //   homeTextItemsSave.push({ type: item.textType, language: item.inputNode.currentLanguage })
+                                                                            // })
+                                                                            // // console.log(homeTextItemsSave)
+                                                                            // //then and only then load the data in
+              this.saveStateService.save();
+              this.homeDbData = snapshot.val()
+              setTimeout(() => {
+                this.saveStateService.restore();
+              }, 0);
 
 
+                                                                            // /*
+                                                                            // * the only way I could make it work
+                                                                            // * needed to 'save' the currentLanguage param when dbData reloads
+                                                                            // */
+                                                                            // if (this.serviceBoxesTitleMultiInputs.length > 0) {
 
-          /*
-          * the only way I could make it work
-          * needed to 'save' the currentLanguage param when dbData reloads
-          */
-          if (this.serviceBoxesTitleMultiInputs.length > 0) {
+                                                                            //   setTimeout(() => {
+                                                                            //     this.resetServiceBoxesMultilangInputs(titleParamsSave, textParamsSave);
+                                                                            //     try {
 
-            setTimeout(() => {
-              this.resetServiceBoxesMultilangInputs(titleParamsSave, textParamsSave);
-              try {
-
-                this.resetHomeTextItems(homeTextItemsSave);
-              } catch (error) {
-                console.log(error);
-                console.log("is there a new element ?");
-              }
-            }, 0);
-          }
+                                                                            //       this.resetHomeTextItems(homeTextItemsSave);
+                                                                            //     } catch (error) {
+                                                                            //       console.log(error);
+                                                                            //       console.log("is there a new element ?");
+                                                                            //     }
+                                                                            //   }, 0);
+                                                                            // }
 
 
 
@@ -466,27 +469,37 @@ export class AdminPanelComponent implements OnInit {
     }
   }
 
-  onHomeTextFocusOut(tagName, values, key){
+  // onHomeTextFocusOut(tagName, values, key){
 
-    console.log("old function ____________________")
-    // for (let item in values) {
-    //   let textValue = values[item];
-    //   let converted = textValue.replace(/\n/g, "")
-    //   values[item] = converted;
-    // }
+  //   console.log("old function ____________________")
+  //   // for (let item in values) {
+  //   //   let textValue = values[item];
+  //   //   let converted = textValue.replace(/\n/g, "")
+  //   //   values[item] = converted;
+  //   // }
     
 
-    // let curTextItem = this.homeTextItems.filter((item, id)=>{
-    //   return item.dbKey === key
-    // })[0]
+  //   // let curTextItem = this.homeTextItems.filter((item, id)=>{
+  //   //   return item.dbKey === key
+  //   // })[0]
 
 
-    // this.dataService.updateHomeTextItem(curTextItem.textType, curTextItem.tagName, values, key);
+  //   // this.dataService.updateHomeTextItem(curTextItem.textType, curTextItem.tagName, values, key);
     
+  // }
+
+  collaspeAllHomeTextItems(){
+    this.homeTextItems.forEach( (item, id)=>{
+      item.bCollapsed = true
+    })
   }
-
+  expandAllHomeTextItems() {
+    this.homeTextItems.forEach((item, id) => {
+      item.bCollapsed = false
+    })
+  }  
   onHomeTextItemEmitValues(data) {
-    console.log(data);
+    // console.log(data);
     for (let item in data.text) {
       let textValue = data.text[item];
       let converted = textValue.replace(/\n/g, "")

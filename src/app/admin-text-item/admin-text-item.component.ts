@@ -29,7 +29,7 @@ export class AdminTextItemComponent implements OnChanges {
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     for (let propName in changes) {
       let curProp = changes[propName]
-      console.log("Admin TextItem OnChange fired ---->",propName, curProp.currentValue);
+      // console.log("Admin TextItem OnChange fired ---->",propName, curProp.currentValue);
       // changes[propName] = changes.value
 
     }
@@ -97,9 +97,9 @@ export class AdminTextItemComponent implements OnChanges {
   }
 
   onCollapseClick(event){
-    console.log("before : ", this.bCollapsed)
+    // console.log("before : ", this.bCollapsed)
     this.bCollapsed = !this.bCollapsed;
-    console.log("after : ", this.bCollapsed)
+    // console.log("after : ", this.bCollapsed)
   }
 
   onInputChangeLanguage(lang){

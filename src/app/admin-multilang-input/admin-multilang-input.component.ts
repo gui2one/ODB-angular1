@@ -99,7 +99,7 @@ export class AdminMultilangInputComponent implements OnInit {
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     for (let propName in changes) {
       let curProp = changes[propName]
-      console.log(propName, curProp.currentValue);
+      // console.log(propName, curProp.currentValue);
       // changes[propName] = changes.value
 
     }
@@ -167,11 +167,13 @@ export class AdminMultilangInputComponent implements OnInit {
   }
 
   closeTextEditor(event, content) {
-    // console.log(event);
+    console.log(event);
     
     this.bEditorOpened = false;
     this.editorValue = content;
     this.CKEditorClose.emit(content);
+    this.values[this.currentLanguage]=content;
+    this.emitValues();
   }
   
   
