@@ -57,6 +57,7 @@ export class OdbAdminDataService {
       })
 
   }
+
   saveSiteDataToJSON(){
 
     let formData = new FormData();
@@ -78,7 +79,6 @@ export class OdbAdminDataService {
 
     })
   }
-
   
   loadGalleryDataFromDB() {
     // return this.db.list("gallery").valueChanges();
@@ -161,7 +161,6 @@ export class OdbAdminDataService {
     this.db.database.ref('gallery').child(key).remove();
 
   }
-
 
   loadUploadsDataFromDB(){
     return this.db.list("uploads")
