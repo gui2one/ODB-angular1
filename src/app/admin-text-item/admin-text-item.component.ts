@@ -22,7 +22,7 @@ export class AdminTextItemComponent implements OnChanges {
   @Input() dbKey : string;
   @Output() EmitValues : EventEmitter<object> = new EventEmitter();
 
-  bCollapsed : boolean = false;
+  @Input() bCollapsed : boolean = false;
   constructor( public langService : LanguagesService) { }
 
 
@@ -97,8 +97,9 @@ export class AdminTextItemComponent implements OnChanges {
   }
 
   onCollapseClick(event){
+    console.log("before : ", this.bCollapsed)
     this.bCollapsed = !this.bCollapsed;
-    console.log(event)
+    console.log("after : ", this.bCollapsed)
   }
 
   onInputChangeLanguage(lang){

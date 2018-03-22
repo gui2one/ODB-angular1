@@ -6,6 +6,11 @@ app-admin-multilang-input{
     flex : 1;
 }
 
+.group-collapsed {
+    visibility: hidden;
+    position : absolute;
+}
+
 input[type=checkbox]{
     height: auto;
 }

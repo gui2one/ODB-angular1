@@ -1,9 +1,9 @@
 
-<div #collapseButton class="collaspe-button" data-toggle="collapse" (click)="onCollapseClick($event)" [attr.data-target]="hasName">
+<div #collapseButton class="collaspe-button" data-toggle="collapse" (click)="onCollapseClick($event)" >
   <strong>-</strong> 
   <span class="preview-tagname" [class]="[bCollapsed ? 'collapsed' : 'opened']">{{tagName}}</span>
 </div>
-<div id="{{name}}" class="collapse show collapse-group">
+<div id="{{name}}" class="{{[bCollapsed ? 'group-collapsed' : 'show']}} collapse-group">
     <div class="f-flex flex-column admin-text-item-container">
       <div class="checkbox-wrapper">
       <label for="textTypeCheckbox" class="">multline text

@@ -106,7 +106,7 @@
   </div>
   <ng-container *ngFor="let item of homeTextData | async; let id = index;">
 
-    <app-admin-text-item #homeTextItem [attr.data-currentlanguage]="currentLanguage"  dbKey="{{item.key}}" textType="{{item.type}}" tagName="{{item.tagName}}" [textValues]="item.text" name="item_{{id}}" (EmitValues)="onHomeTextItemEmitValues($event)" ></app-admin-text-item>
+    <app-admin-text-item #homeTextItem [attr.data-currentlanguage]="currentLanguage"  [bCollapsed]="false" dbKey="{{item.key}}" textType="{{item.type}}" tagName="{{item.tagName}}" [textValues]="item.text" name="item_{{id}}" (EmitValues)="onHomeTextItemEmitValues($event)" ></app-admin-text-item>
     <!--<app-admin-multilang-input #homeTextInputs [values]="item.text"></app-admin-multilang-input>-->
   
   </ng-container>
