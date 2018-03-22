@@ -15,6 +15,8 @@ export class AdminMultilangInputComponent implements OnInit {
   @Output() EmitValues : EventEmitter<(object)> = new EventEmitter();
 
   @Output() multilangInputEvent = new EventEmitter<(string)>();
+  @Output() changeLanguageEvent :EventEmitter<string> = new EventEmitter();
+
   @ViewChild("menuToggle") menuToggle : ElementRef;
   @ViewChildren("inputNode") inputNodes : QueryList<ElementRef>;
   imgPath = "assets/img/flags/";
@@ -125,6 +127,8 @@ export class AdminMultilangInputComponent implements OnInit {
 
     this.currentLanguage = this.langService.languages[chosenID]
     this.editorValue = this.values[this.currentLanguage];
+
+    this.changeLanguageEvent.emit(this.currentLanguage);
   }
 
   onBlur(event){

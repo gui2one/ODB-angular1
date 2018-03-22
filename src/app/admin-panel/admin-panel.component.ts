@@ -208,7 +208,7 @@ export class AdminPanelComponent implements OnInit {
 
     this.saveStateService.addSaveSet(this, "serviceBoxesTitleMultiInputs", ["currentLanguage", "name"]);
     this.saveStateService.addSaveSet(this, "serviceBoxesTextMultiInputs", ["currentLanguage", "name"]);
-    this.saveStateService.addSaveSet(this, "homeTextItems", ["currentLanguage"]);
+    this.saveStateService.addSaveSet(this, "homeTextItems", ["currentLanguage","name"]);
 
 
 

@@ -69,7 +69,6 @@ export class SaveStateService {
 
             console.log(this.dataSets[i][id]);
             console.log(this.dataSets[i][id][j]);
-            console.log(this.dataSets[i][j]);
             item[params[j]] = this.dataSets[i][id][j]
 
               // console.log(item[params[j]]);

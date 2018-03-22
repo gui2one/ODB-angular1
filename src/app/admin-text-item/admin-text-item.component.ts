@@ -92,4 +92,8 @@ export class AdminTextItemComponent {
     console.log(event)
   }
 
+  onInputChangeLanguage(lang){
+    this.currentLanguage = lang;
+  }
+
 }

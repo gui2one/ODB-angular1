@@ -15,7 +15,7 @@
           <span>Tag Name :</span>
           <input class="" type="text" [value]="tagName" (keypress)="onTagNameKeyPress($event)" (focusout)="onTagNameFocusOut($event)"/>
         </div>
-        <app-admin-multilang-input inputType="{{textType}}" (EmitValues)="onMultilangInputEmitValues($event)" class="" #inputNode name="{{name}}"></app-admin-multilang-input>
+        <app-admin-multilang-input inputType="{{textType}}" (changeLanguageEvent)="onInputChangeLanguage($event)" (EmitValues)="onMultilangInputEmitValues($event)" class="" #inputNode name="{{name}}"></app-admin-multilang-input>
       </div>
     </div>
 
