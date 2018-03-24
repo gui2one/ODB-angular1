@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange, OnDestroy, HostListener, ViewChild} from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange, OnDestroy, HostListener, ViewChild, ElementRef} from '@angular/core';
 //import { Output, Input } from '@angular/core/src/metadata/directives';
 import { Router, Route, NavigationExtras } from '@angular/router';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -14,6 +14,7 @@ import { NgModule } from '@angular/core/src/metadata/ng_module';
 import { Promise } from 'q';
 import { LanguagesService } from '../providers/languages.service';
 import { AdminPanelComponent } from '../admin-panel/admin-panel.component';
+import { AdminSideBarComponent } from '../admin-side-bar/admin-side-bar.component';
 // import { CKEditorComponent } from 'ngx-ckeditor';
 @Component({
   selector: 'app-admin',
@@ -26,7 +27,8 @@ import { AdminPanelComponent } from '../admin-panel/admin-panel.component';
 // @NgModule({imports:[]})
 export class AdminComponent implements OnInit {
 
-  // @ViewChild("adminPanel") adminPanel : AdminPanelComponent;
+  @ViewChild("adminContent") adminContent : HTMLElement;
+  @ViewChild("sideBarComponent") sideBarComponent : AdminSideBarComponent;
   bGotData : boolean = false;
 
   siteDbData: any;
@@ -85,14 +87,16 @@ export class AdminComponent implements OnInit {
 
   }
 
+
  
   ngAfterViewChecked(){
-    // console.log("view init");
-    let content = $("#admin-content");
-    content.css({ marginLeft: $("#side-bar-wrapper").width() })
-
-    $("#edit-dialog").css({  marginLeft: $("#side-bar-wrapper").width() });
-    $("#uploads-dialog").css({  marginLeft: $("#side-bar-wrapper").width() });
+    if (this.sideBarComponent) {
+      
+      let adminContent = $("#admin-content");
+      
+      adminContent.css({ marginLeft: $("#side-bar-wrapper").width() })
+      
+    }
   }
 
   notify(event){

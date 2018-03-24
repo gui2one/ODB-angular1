@@ -1,9 +1,9 @@
 <app-confirm-modal #testModal (onDecide)="testModalDecide($event)" display="false"></app-confirm-modal>
 <app-confirm-modal #overwriteDatabaseModal display="false"></app-confirm-modal>
 
-<button class="btn btn-primary" (click)="saveViewParams()">save view</button>
-<button class="btn btn-primary" (click)="restoreViewParams()">restore view</button>
-<!-- <button class="btn btn-danger" (click)="testLangParam()">test func</button> -->
+<!-- <button class="btn btn-primary" (click)="saveViewParams()">save view</button>
+<button class="btn btn-primary" (click)="restoreViewParams()">restore view</button> -->
+<button class="btn btn-danger" (click)="testJsonSave()">test json save</button>
 
 
 <!--<div id="wrapper" class="p-sm-1 p-md-2 p-xl-4" *ngIf="router.url === '/admin'">-->
@@ -31,8 +31,18 @@
       </app-admin-collapse-group>
 
 
+      <app-admin-collapse-group name="presentationTextCollapseGroup" label="Présentation">
+        <ng-container *ngIf="presentationText">
+          <!-- {{presentationText.fr}} -->
+          <app-admin-multilang-input (EmitValues)="onPresentationTextEmitValues($event)" [values]="presentationText" inputType="textarea" name="Text : "></app-admin-multilang-input>
+        </ng-container>
+
+        
+      </app-admin-collapse-group>
 
       <app-admin-collapse-group collapsed="false" name="serviceBoxesCollapseGroup" label="Service Boxes">
+                  
+
                         <div #serviceBoxes class="row m-0" *ngIf="homeDbData">
                         
                           <div *ngFor="let item of homeDbData.serviceBoxes; let id=index;" class="box-data-container col-sm-6  col-xl-3 " id={{id}}>
@@ -67,6 +77,7 @@
                         </div>
       
       </app-admin-collapse-group>
+
 </app-admin-collapse>
   
       

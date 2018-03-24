@@ -23,7 +23,9 @@ export class AdminTextItemComponent implements OnChanges {
   @Output() EmitValues : EventEmitter<object> = new EventEmitter();
 
   @Input() bCollapsed : boolean = false;
+  @Input() bShowAllLang : boolean = false;
   constructor( public langService : LanguagesService) { }
+
 
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
@@ -105,6 +107,10 @@ export class AdminTextItemComponent implements OnChanges {
   onInputChangeLanguage(lang){
     this.currentLanguage = lang;
     // console.log(this.currentLanguage)
+  }
+
+  onShowAllLangChange(bool){
+    this.bShowAllLang = bool
   }
 
 }

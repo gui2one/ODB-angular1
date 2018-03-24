@@ -13,6 +13,7 @@ export class AdminMultilangInputComponent implements OnInit {
 
   @Output() CKEditorClose : EventEmitter<(string)> = new EventEmitter<string>();
   @Output() EmitValues : EventEmitter<(object)> = new EventEmitter();
+  @Output() ShowAllLangChangeEvent : EventEmitter<(boolean)> = new EventEmitter();
 
   @Output() multilangInputEvent = new EventEmitter<(string)>();
   @Output() changeLanguageEvent :EventEmitter<string> = new EventEmitter();
@@ -26,17 +27,15 @@ export class AdminMultilangInputComponent implements OnInit {
   @Input() currentLanguage: string;
   @Input() name : string = "default name";
   @Input() inputType : string = "text";
+  @Input() bShowAllLang : boolean = false;
 
   chosenFlagID = 0;
   globalLanguage = "fr";
 
   
-  flagSVGs : object = {
-    fr : "fr.svg",
-    en : "gb.svg"
-  }
 
-  flagsArray : Array<any> = []
+
+
   
   @ViewChild("CKEditor") CKEditor : CKEditorComponent;
   @ViewChild("HTMLRender") HTMLRender : HTMLElement;
@@ -46,9 +45,10 @@ export class AdminMultilangInputComponent implements OnInit {
     toolbar: [
       {
         name: 'basicstyles',
-        items: ['Bold', 'Italic', 'Source']
+        items: ['Bold', 'Italic', 'Source','ShowBlocks']
       }
     ],
+    tabSpaces : 4,
     resize_enabled: true
   }
 
@@ -61,9 +61,7 @@ export class AdminMultilangInputComponent implements OnInit {
   ) { 
 
       
-      for(let item in this.flagSVGs){
-        this.flagsArray.push(this.flagSVGs[item]);
-      }
+
 
       // init values array
       for(let lang in langService.languages){
@@ -76,7 +74,7 @@ export class AdminMultilangInputComponent implements OnInit {
     
     this.broadcaster.on("changeLanguage")
     .subscribe(message => {
-      console.log(message);
+      // console.log(message);
       // this.currentLanguage = message.toString();
       this.currentLanguage = message.toString();
       this.changeLanguageEvent.emit(this.currentLanguage);
@@ -128,11 +126,11 @@ export class AdminMultilangInputComponent implements OnInit {
     let el : HTMLElement = event.currentTarget;
 
     let chosenID = $(el).attr("data-flagid");
-    console.log(el.attributes);
+    // console.log(el.attributes);
     // console.log($(el).attr("data-flagid"));
 
     this.chosenFlagID = parseInt(chosenID);
-    $(this.menuToggle).css({ backgroundImage: "assets/img/flags/" + this.flagSVGs[this.globalLanguage]})
+    // $(this.menuToggle).css({ backgroundImage: "assets/img/flags/" + this.langService.flags[this.globalLanguage]})
 
     this.currentLanguage = this.langService.languages[chosenID]
     this.editorValue = this.values[this.currentLanguage];
@@ -191,5 +189,15 @@ export class AdminMultilangInputComponent implements OnInit {
       type : this.inputType,
       text : this.values
     })
+  }
+
+  onShowAllLangClick(event){
+    event.target.setAttribute("checked", "false");
+    
+    this.bShowAllLang = event.target.checked;
+    console.log(this.bShowAllLang);
+
+    this.ShowAllLangChangeEvent.emit( this.bShowAllLang);
+    
   }
 }

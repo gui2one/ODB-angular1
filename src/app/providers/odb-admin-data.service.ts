@@ -12,7 +12,7 @@ import { LanguagesService } from './languages.service';
 @Injectable()
 export class OdbAdminDataService {
 
-  // @Output() sendNotificationEvent : EventEmitter<any> = new EventEmitter<(any)>()
+  @Output() backupFileSavedEventEmitter : EventEmitter<string> = new EventEmitter<(string)>()
 
   galleryDBData : Observable<any[]>;
   galleryJsonData : any;
@@ -21,8 +21,7 @@ export class OdbAdminDataService {
   galleryItemData: object = {
     key: "",
     displayID: 0,
-    title_fr: "title fr",
-    title_en: "title en",
+    title: {},
     width: 400,
     height: 500,
     imageUrl: ""
@@ -35,12 +34,101 @@ export class OdbAdminDataService {
     
   }
 
-  onInit(){
-    this.broadcaster.broadcast('globalCountUpdate', 'I am your friend!');
+
+  // myFunc(){
+  //   console.log("my function !!!!");
+  // }
+
+
+  deleteBreakLines(data : any){
+    console.log(typeof data);
+    if(typeof data === "object"){
+      
+      for (let item in data) {
+        
+        let textValue = data[item];
+        let converted = textValue.replace(/\n/g, "")
+        data[item] = converted;
+      }  
+    }else if (typeof data === "string"){
+      data = data.replace(/\n/g, "")
+    }
+    
+    return data;
   }
 
-  myFunc(){
-    console.log("my function !!!!");
+  convertTabsToSpaces(data: any) {
+    console.log(typeof data);
+    if (typeof data === "object") {
+
+      for (let item in data) {
+        let textValue = data[item];
+        console.log(textValue);
+        let converted = textValue.replace(/\t/g, "")
+        data[item] = converted;
+      }
+    } else if (typeof data === "string") {
+      data = data.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;")
+    }
+
+    return data;
+  }
+
+  saveFirebaseDataToJSON( fileName: string, dataPath : string, orderByChild: string = undefined, downloadFile : boolean = false){
+    let promise : any;
+    if( orderByChild === undefined){
+
+      // console.log("not ordered by child ", orderByChild);
+      promise = this.db.database.ref("/").child(dataPath).once("value")
+    }else{
+      console.log("order by child ", orderByChild);
+      
+      promise = this.db.database.ref("/").child(dataPath).orderByChild(orderByChild).once("value")
+      // console.log(promise);
+    }
+
+    promise.then((snapshot) => {
+        // this.galleryJsonData = 
+        // console.log(snapshot.val());
+        
+        let data = JSON.stringify(snapshot.val());
+        
+        // console.log("_______data to save_______");
+        let formData = new FormData();
+        formData.append("jsonString" , data)
+        formData.append("fileName" , fileName)
+        // console.log(data)
+
+          $.ajax({
+            url: "assets/php/admin/saveFirebaseDataToJSON.php",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            dataType: 'json',
+            processData: false,
+            success: (phpResponse) => {
+              // console.log(phpResponse);
+              if(phpResponse.type === "success"){
+                this.broadcaster.broadcast("successNotification", phpResponse.message)
+
+                if(downloadFile){
+                  let ev = new CustomEvent("backupFileSavedEvent", { detail: phpResponse.message  });
+                  window.dispatchEvent(ev)
+                }
+                // window.dispatchEvent( new Event("backupFileSavedEvent", {bubbles:true}))
+
+              } else if (phpResponse.type === "error"){
+                this.broadcaster.broadcast("errorNotification", "An error occured")
+              }
+              // console.log('data successfully saved');
+            },
+            error: (data) => {
+              console.log(data);
+              // console.log('data successfully saved');
+            },
+
+          })        
+      })
   }
 
   loadSiteDataFromDB(){
@@ -71,9 +159,8 @@ export class OdbAdminDataService {
       processData: false,
       success: (data) => {
         // console.log("data saved success");
-        console.log(data);
-        // this.sendNotificationEvent.emit(data)
-        // this.broadcaster.broadcast('globalCountUpdate', 'admin notif !!!!');
+        // console.log(data);
+        // this.sendNotificationEvent.emit(data)        
         this.broadcaster.broadcast('successNotification', 'Data Saved');
       },
 
@@ -101,7 +188,7 @@ export class OdbAdminDataService {
       contentType: false,
       processData:false,
       success:(data) =>{
-        console.log(data);
+        // console.log(data);
         this.broadcaster.broadcast("successNotification", "Gallery Items Saved")
         // console.log('data successfully saved');
       },
@@ -127,7 +214,17 @@ export class OdbAdminDataService {
   }
   
   addGalleryItem(event) {
-
+    let emptyTextObject = ( () =>{
+      let temp = { 
+        type : "text", 
+        text :{}
+      }
+      for(let lang in this.langService.languages){
+        let curLang = this.langService.languages[lang]
+        temp.text[curLang] = "title_"+curLang+""
+      }
+      return temp
+    })()
     event.preventDefault();
     this.db.database.ref("/").child('gallery').once("value", (snapshot)=>{
       console.log(snapshot.numChildren());
@@ -138,6 +235,7 @@ export class OdbAdminDataService {
 
       let updates: object = {};
       this.galleryItemData["key"] = key;
+      this.galleryItemData["title"] = emptyTextObject
       this.galleryItemData["displayID"] = snapshot.numChildren();
       updates["/gallery/" + key] = this.galleryItemData;
 
@@ -343,13 +441,49 @@ export class OdbAdminDataService {
 
 
   backupDataBase(){
+
+    let padZeros = (num : number, data : any) : string =>{
+      let str = data.toString();
+      let returnStr = "";
+      if( str.length < num){
+        for (let i = 0; i < num - str.length; i++) {
+          
+          returnStr += "0"
+          
+        }
+
+
+      }
+
+      returnStr += str;
+      return returnStr
+    }
+
+    console.log(padZeros(4,12));
+    
     let data = this.db.database.ref("/").once("value", (snapshot)=>{
       let jsonData = JSON.stringify(snapshot.val());
       let formData = new FormData();
-      formData.append("jsonString", jsonData);
-      window.location.replace('assets/php/admin/downloadBackupFile.php?jsonString='+ jsonData+'');
+      let date = new Date();
+
+      let backupFileName = 
+        "backup_database__" + 
+        padZeros(4,date.getFullYear()) + "_" + 
+        padZeros(2,date.getMonth()) +"_"+
+        padZeros(2,date.getDate()) +"__"+
+        padZeros(2,date.getHours()) +"h_"+
+        padZeros(2,date.getMinutes()) +"m_"+
+        padZeros(2,date.getSeconds())+"s.json"
+      console.log(backupFileName)
+
+      this.saveFirebaseDataToJSON("backup/"+backupFileName,"/", undefined, true);
+      
 
     })
+  }
+
+  downloadDataBasBackup(fileName){
+    window.location.replace('assets/php/admin/downloadBackupFile.php?fileName='+fileName+'');
   }
 
   saveAll(){
@@ -357,5 +491,21 @@ export class OdbAdminDataService {
     this.getServiceBoxesDataAsJSON();
     this.getSiteDataToJSON();
     this.getHomeTextDataAsJSON();
+    this.saveFullHomeDataToJSON();
   }
+
+  saveFullHomeDataToJSON(){
+    this.saveFirebaseDataToJSON("homeFullData.json","home-data");
+  }
+
+  loadPresentationTextFromDB(){ 
+    return this.db.database.ref("/home-data/presentationText/text").once('value')
+  }
+  savePresentationTextToDB(textData){
+    this.deleteBreakLines(textData.text);
+    this.convertTabsToSpaces(textData.text);
+    this.db.database.ref("/home-data").child("presentationText").set(textData)
+  }
+
+
 }

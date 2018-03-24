@@ -8,6 +8,7 @@
     .html-render{
         height : 150px;
         overflow-y : scroll;
+        cursor: pointer;
     }
     .fr{
         border : 2px solid rgba(blue,0.5);
@@ -24,7 +25,14 @@
         // padding : 0px;
     }
 
-    
+    .show_all_lang_checkbox{
+        display: inline;
+        cursor: pointer;
+        user-select: none;
+        & input{
+            cursor: pointer;
+        }
+    }
 
     textarea{
         display:block;
@@ -35,7 +43,7 @@
     }
 
     label{
-        width : 100%;
+        // width : 100%;
     }
 
     #flag-menu{
@@ -50,10 +58,16 @@
         padding : 0px;
         margin: 0px;
         background-size: contain;
-        border-width: 0px;
+        // background-repeat: no-repeat;
+        border-width: 2px;        
         border-radius: 5px;
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
+        
+        border-color : white;
+        &:hover{
+            border-color : orange;
+        }
     }
     .dropdown-menu{
         min-width: unset;

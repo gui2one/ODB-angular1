@@ -101,7 +101,28 @@ export class AdminPanelComponent implements OnInit {
     isOnline : false
   };
 
+
+  emptyTextObject: object = 
+    {
+      type : "textarea",
+      text : ( () =>{
+        let obj = {};
+        for(let lang in this.langService.languages){
+          let curLang = this.langService.languages[lang];
+          obj[curLang] = "text_"+curLang;
+        } 
+        return obj
+      })()
+    }
+
+
+  
+  
+
+  presentationText : Q.Promise<any>;
+
   emptyHomeData : object = {
+    presentationText: this.emptyTextObject,
     serviceBoxes: [
       {
         title:{ fr: "aaa" },
@@ -147,22 +168,25 @@ export class AdminPanelComponent implements OnInit {
 
     // console.log("------------------ Full INIT ------------------------")
     
-    
+    window.addEventListener("backupFileSavedEvent", (e) => {
+      console.log("event occured");
+      console.log(e['detail']);
+      this.onDataBaseSaved(e['detail']);
 
-    this.homeTextData = this.dataService.loadHomeTextFromDB().valueChanges();
-    
-    
-    // this.homeTextData.forEach(val =>{
-    //   console.log(val);
-    // });
-    
-    
+    })  
+
     this.errorLogDiv = $(document.getElementById("errorLog"));
     this.bLoggedIn = localStorage.getItem('ODB_connected') == 'true' ? true : false;
 
     if (this.bLoggedIn) {
 
       // this.dbData = this.getGalleryData();
+
+      this.homeTextData = this.dataService.loadHomeTextFromDB().valueChanges();
+      let presentationPromise = this.dataService.loadPresentationTextFromDB().then((snapshot) => {
+        // console.log(snapshot.val())
+        this.presentationText = snapshot.val();
+      })
 
       let prom = this.dataService.loadSiteDataFromDB();
       prom.then((data) => {
@@ -212,9 +236,9 @@ export class AdminPanelComponent implements OnInit {
   }
   ngAfterViewInit(){
 
-    this.saveStateService.addSaveSet(this, "serviceBoxesTitleMultiInputs", ["currentLanguage", "name"]);
+    this.saveStateService.addSaveSet(this, "serviceBoxesTitleMultiInputs", ["currentLanguage", "name", "bShowAllLang"]);
     this.saveStateService.addSaveSet(this, "serviceBoxesTextMultiInputs", ["currentLanguage", "name"]);
-    this.saveStateService.addSaveSet(this, "homeTextItems", ["currentLanguage","bCollapsed"]);
+    this.saveStateService.addSaveSet(this, "homeTextItems", ["currentLanguage", "bCollapsed", "bShowAllLang"]);
 
 
 
@@ -238,56 +262,24 @@ export class AdminPanelComponent implements OnInit {
             // console.log(data);
 
           })
-                                                                            ///// OLD ATTEMPT AT SAVING STATES
 
-                                                                            // // console.log("---------------- INIT Load data FUNCTION --------------")
-
-                                                                            // let titleParamsSave = [];
-                                                                            // this.serviceBoxesTitleMultiInputs.forEach((item, id) => {
-                                                                            //   // console.log(item.currentLanguage);
-                                                                            //   titleParamsSave.push(item.currentLanguage)
-                                                                            // })
-                                                                            // let textParamsSave = [];
-                                                                            // this.serviceBoxesTextMultiInputs.forEach((item, id) => {
-                                                                            //   // console.log(item.currentLanguage);
-                                                                            //   textParamsSave.push(item.currentLanguage)
-                                                                            // })
-
-
-                                                                            // let homeTextItemsSave = [];
-                                                                            // this.homeTextItems.forEach((item, id) => {
-                                                                            //   homeTextItemsSave.push({ type: item.textType, language: item.inputNode.currentLanguage })
-                                                                            // })
-                                                                            // // console.log(homeTextItemsSave)
-                                                                            // //then and only then load the data in
-              this.saveStateService.save();
-              this.homeDbData = snapshot.val()
-              setTimeout(() => {
-                this.saveStateService.restore();
-              }, 0);
-
-
-                                                                            // /*
-                                                                            // * the only way I could make it work
-                                                                            // * needed to 'save' the currentLanguage param when dbData reloads
-                                                                            // */
-                                                                            // if (this.serviceBoxesTitleMultiInputs.length > 0) {
-
-                                                                            //   setTimeout(() => {
-                                                                            //     this.resetServiceBoxesMultilangInputs(titleParamsSave, textParamsSave);
-                                                                            //     try {
-
-                                                                            //       this.resetHomeTextItems(homeTextItemsSave);
-                                                                            //     } catch (error) {
-                                                                            //       console.log(error);
-                                                                            //       console.log("is there a new element ?");
-                                                                            //     }
-                                                                            //   }, 0);
-                                                                            // }
-
-
-
-
+          //////////////////
+          //// SAVE STATE
+          //////////////////
+          this.saveStateService.save();
+          this.homeDbData = snapshot.val()
+          this.presentationText = this.homeDbData["presentationText"].text;
+          
+          // console.log(this.presentationText);
+          
+          // this.presentationText = this.homeDbData
+          setTimeout(() => {
+            this.saveStateService.restore();
+          }, 0);
+          //////////////////
+          //// END SAVE STATE
+          //////////////////
+          
 
         })
 
@@ -552,6 +544,11 @@ export class AdminPanelComponent implements OnInit {
     this.dataService.backupDataBase();
   }
 
+  onDataBaseSaved(fileName){
+    console.log("try and download the file named :", fileName);
+    this.dataService.downloadDataBasBackup(fileName)
+  }
+
   overwriteDatabase(event,fileData){
     event.preventDefault();
     let file = event.target.files[0];
@@ -597,6 +594,14 @@ export class AdminPanelComponent implements OnInit {
     this.dataService.addHomeTextItem()
   }
 
+  testJsonSave(){
+    this.dataService.saveFirebaseDataToJSON("test_data.json", "/home-data");
+  }
 
+  
+  onPresentationTextEmitValues(data){
+    console.log(data);
+    this.dataService.savePresentationTextToDB(data)
+  }
 
 }

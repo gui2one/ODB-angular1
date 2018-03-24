@@ -6,9 +6,9 @@
 
 
       <app-admin-notification #adminNotification></app-admin-notification>
-      <app-admin-side-bar bSideBarCollaped="bSideBarCollaped" [bLoggedIn]="bLoggedIn" [userEmail] = "userEmail" (onCollapse)="onCollapse($event)"></app-admin-side-bar>
+      <app-admin-side-bar #sideBarComponent bSideBarCollaped="bSideBarCollaped" [bLoggedIn]="bLoggedIn" [userEmail] = "userEmail" (onCollapse)="onCollapse($event)"></app-admin-side-bar>
 
-      <div id="admin-content">
+      <div #adminContent id="admin-content">
         
         <!-- <app-admin-header [bLoggedIn]="bLoggedIn" [userEmail] = "userEmail" ></app-admin-header>      -->
           <div *ngIf="bLoggedIn" class="">

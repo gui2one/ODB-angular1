@@ -54,6 +54,7 @@ import { ParallaxBackgroundComponent } from './parallax-background/parallax-back
 
 import{SiteUtilsService} from './providers/site-utils.service'
 import { SiteLanguagesService } from './providers/site-languages.service';
+import { ClientsComponent } from './clients/clients.component';
 const ngStaticSiteGeneratorModuleOptions: ModuleOptions = {
   openExternalLinksInNewTab: false // Automatically add target="_blank" to external links. Default false.
 };
@@ -109,6 +110,7 @@ let Routes : Routes = [
     ParallaxSpacerComponent,
     SpacerComponent,
     ParallaxBackgroundComponent,
+    ClientsComponent,
     
 
   ],

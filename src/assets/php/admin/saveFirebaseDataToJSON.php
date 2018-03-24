@@ -1,4 +1,5 @@
 <?php
+
     ///////////////
     /// needed to get same behaviour locally and online
     ///////////////
@@ -20,28 +21,34 @@
     ////////////////////
     /////
     ////////////////////
-
-    require_once "../variables.php";
-    require_once "../Message.php";
+    require_once("../variables.php");
+    require_once("../Message.php");
     $docRoot = $_SERVER["DOCUMENT_ROOT"];
 
+    // $subFloder = "/test";
+    // print_r("Save Gallery Data to JSON ___ PHP script\n");
     
+    $jsonString = stripslashes($_POST["jsonString"]);
+    $fileName = stripslashes($_POST["fileName"]);
+    // print_r($jsonString."\n");
+    $dataFilePath = $docRoot.''.$SUB_FOLDER.'/assets/data/'.$fileName.'';
     
+    $fp = fopen( $dataFilePath, 'w');
+    fwrite($fp, $jsonString);
+    fclose($fp);    
+
+    if(!file_exists($dataFilePath)){
+        // die("no file was created");
+        $msg = new Message("error","no file was created");
+    }else{
+         $msg = new Message("success",$fileName);
+    }
+
     
 
-    //$data = $_GET["jsonString"];
-    $backupFileName = $_GET["fileName"];
-    $dataFilePath = $docRoot.''.$SUB_FOLDER.'/assets/data/'.$backupFileName.'';
+   
 
-    $fp = fopen($dataFilePath, "r");
-    $data = fread($fp, filesize($dataFilePath));
-    fclose($fp);
-
-
-    header("Content-Description: File Transfer");    
-    header('Content-type: text/json');
-    header('Content-disposition: attachment;filename='.basename($dataFilePath));
-    echo $data;
+    print_r(json_encode($msg));
 
 
 ?>

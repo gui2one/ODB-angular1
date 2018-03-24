@@ -20,6 +20,10 @@ import { NgModule } from '@angular/core/src/metadata/ng_module';
 export class SliderComponent implements OnInit{
 
   @ViewChild('slidesContainer') slidesContainer: ElementRef;
+  @ViewChild('arrowPrev') arrowPrev : ElementRef;
+  @ViewChild('arrowNext') arrowNext: ElementRef;
+  @ViewChild('sliderWrapper') sliderWrapper: ElementRef;
+
 
   @Input()
   items : Array<object> = [];
@@ -27,11 +31,10 @@ export class SliderComponent implements OnInit{
   @Input()
   bBackgroundContain : boolean = false;
   
-  @Input()
-  sliderHeight : string = "60vh";
+  @Input() sliderHeight : string = "60vh";
+  @Input() backgroundColor : string = "orange";
 
-  @Input()
-  bDisplayNavigation : boolean = true;
+  @Input() bDisplayNavigation : boolean = true;
   
   @Input()
   showNumImage : number = 1;
@@ -41,10 +44,11 @@ export class SliderComponent implements OnInit{
 
   @Input()
   autoPlayDelay : number = 15; //seconds
-  prevArrowEl: object;
-  nextArrowEl: object;
+
+
 
   @Input() bIsDraggable : boolean = false;
+  @Input() bShowScaleButton : boolean = false;
 
   topComponent : object;
   currentId : number = 0;
@@ -62,20 +66,25 @@ export class SliderComponent implements OnInit{
   accuX : number = 0.0;
   sliderPositionX : number;
 
+  
   container : any;
-
+  
   root : any;
   animationPlayer; 
-
+  
   bDataFound : boolean = false;
-
+  
   autoplayInterval : number;
   autoPlayReverse : boolean = false;
-
-
+  
+  
   //trying to use dragging and arrows at the same time so creating some booleans to test for arrow press
   bArrowPrevPressed : boolean = false;
   bArrowNextPressed: boolean = false;
+
+  bHideArrowPrev : boolean = false;
+  bHideArrowNext : boolean = false;
+
   constructor(private el: ElementRef) {
 
     // console.log(this.items);
@@ -84,6 +93,7 @@ export class SliderComponent implements OnInit{
       this.items = [
         { url: "assets/img/oeufs_1.jpg" },
         { url: "assets/img/oeufs_2.jpg" },
+        { url: "assets/img/oeufs_1.jpg" },
         // { url: "assets/img/oeufs_1.jpg" },
         // { url: "assets/img/oeufs_1.jpg" },
       ]; 
@@ -103,35 +113,33 @@ export class SliderComponent implements OnInit{
   ngOnInit()
   {
     
-    this.container = this.el.nativeElement.children[0];
 
-    
-    $(this.container).css({ height:this.sliderHeight});
+  }
+
+  ngAfterViewInit(){
+    this.arrowPrev = this.arrowPrev.nativeElement;
+    this.arrowNext = this.arrowNext.nativeElement;
+    this.container = this.sliderWrapper.nativeElement;
+
+
+    $(this.container).css({ height: this.sliderHeight, backgroundColor:this.backgroundColor });
     // console.log($(this.container));
     // console.log($(this.container).height());
     this.initSize();
 
-    this.root = $(this.el.nativeElement.children[0].children[0]);   
-    
-    if(this.autoPlay){
+    this.root = $(this.el.nativeElement.children[0].children[0]);
+
+    if (this.autoPlay) {
       this.autoPlaySlider();
     }
 
-    this.prevArrowEl = document.getElementById("sliderArrowPrev");
-    this.nextArrowEl = document.getElementById("sliderArrowNext");
-    
-    if(this.currentId === 0){
-      $(this.prevArrowEl).css({ visibility:'hidden'});
-    }
-    if(this.currentId === this.items.length - this.showNumImage){
-      $(this.nextArrowEl).css({ visibility: 'hidden' });
-    }
-  }
 
-  ngAfterViewInit(){
-    // $('#scaleGalleryIcon').css({
-    //   opacity : 0.2
-    // })
+    if (this.currentId === 0) {
+      $(this.arrowPrev).css({ visibility: 'hidden' });
+    }
+    if (this.currentId === this.items.length - this.showNumImage) {
+      $(this.arrowNext).css({ visibility: 'hidden' });
+    }
   }
 
   initSize()
@@ -268,10 +276,7 @@ export class SliderComponent implements OnInit{
     this.animateSlider(this.currentId);
     this.isMouseDown = false;
     this.accuX = 0.0;
-    // $('#scaleGalleryIcon').css({
-    //   opacity: 0.2
-    // })
-    // console.log("mouse leave");
+
   } 
   
   onMouseEnter(event) {
@@ -343,19 +348,27 @@ export class SliderComponent implements OnInit{
 
   animateSlider(id : number){
 
+    // console.log(this.currentId);
+    // console.log(this.arrowPrev);
+    
     this.sliderPositionX = -this.containerWidth * id;
 
     this.root.css({ transform: 'translate3d(' + this.sliderPositionX +'px,0,0) rotate(0.001deg)'});
 
-    if (this.currentId === 0) {
-      $(this.prevArrowEl).css({ visibility: 'hidden' });
+    if (this.currentId <= 0) {
+      this.bHideArrowPrev= true;
+      // $(this.arrowPrev).css({ visibility: 'hidden' });
     }else{
-      $(this.prevArrowEl).css({ visibility: 'visible' });
+      this.bHideArrowPrev = false;
+      // $(this.arrowPrev).css({ visibility: 'visible' });
     }
-    if (this.currentId === this.items.length - this.showNumImage) {
-      $(this.nextArrowEl).css({ visibility: 'hidden' });
+    if (this.currentId+ this.showNumImage-1  >= this.items.length-1) {
+
+      this.bHideArrowNext = true;
+      // $(this.arrowNext).css({ visibility: 'hidden' });
     }else{
-      $(this.nextArrowEl).css({ visibility: 'visible' });
+      this.bHideArrowNext = false;
+      // $(this.arrowNext).css({ visibility: 'visible' });
     }
   }
 
@@ -381,7 +394,7 @@ export class SliderComponent implements OnInit{
   autoPlayFunction(){
     this.root.addClass('auto-play-transition');
     this.root.removeClass('no-transition');
-    if(this.currentId === this.items.length-1){
+    if(this.currentId === this.items.length - this.showNumImage){
       this.autoPlayReverse = true;
     }else if(this.currentId === 0){
       this.autoPlayReverse = false;

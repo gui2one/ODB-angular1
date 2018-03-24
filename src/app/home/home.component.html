@@ -26,6 +26,7 @@
           <!--<app-parallax-spacer imgUrl="assets/img/oeufs_2.jpg" height="100%" parallaxRatio="0.5"></app-parallax-spacer>-->
           <app-header-title name="title_qui" text="{{homeTextData.about_part__title[siteLangService.currentLanguage]}}"></app-header-title>
 
+          <div *ngIf="homeFullData" class="presentation-text" [innerHTML]="homeFullData.presentationText.text[siteLangService.currentLanguage]" ></div>
           
           <div class="container cards-container">
             <div class="row no-gutters">
@@ -46,7 +47,8 @@
         
           <app-parallax-background imgUrl="assets/img/oeufs_1.jpg" height="100%" parallaxRatio=0.6></app-parallax-background>
         </app-spacer>
-        
+
+        <app-clients></app-clients>
         <div id="contact_part" class="">
 
           <div class="row no-gutters ">
@@ -79,12 +81,6 @@
           </div>
         </div>
 
-      <!-- <div class="map-div">
-        <agm-map [latitude]="48.225762" [longitude]="-1.707568" [zoom]=17>
-          <agm-marker [latitude]="48.225762" [longitude]="-1.707568" [label]="{text:'Oeuf du Breil'}"></agm-marker>
-        </agm-map>
-      </div> -->
-        <!-- <app-image-loader [imgSrc]="'/assets/img/oeufs_2.jpg'"></app-image-loader> -->
 
 
               <app-spacer height="50vh">

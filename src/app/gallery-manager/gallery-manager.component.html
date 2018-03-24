@@ -66,8 +66,8 @@
         <p>Edit Gallery Item</p>
       </div>  
       
-      
-      <form id="edit-form" action="" method="POST" (keypress)="onKeyPress($event)">
+      <app-admin-multilang-input name="Title : " (EmitValues)="onEditItemTitleEmitValues($event)" [values]="tempEditTitleTextData.text"></app-admin-multilang-input>
+      <!-- <form id="edit-form" action="" method="POST" (keypress)="onKeyPress($event)">
         <label for="item-title-fr">Titre (fr): 
         <input type="text" value={{editItemData.title_fr}} id="item-title-fr">
         </label>
@@ -75,10 +75,10 @@
           <input type="text" value={{editItemData.title_en}} id="item-title-en">
         </label>
         <input type="hidden" value={{editItemData.key}} id="item-key" >
-      </form>
+      </form> -->
       <div class="edit-item-image-container d-flex flex-column">
         <button type="button" class="btn btn-warning" (click)="openUploadsDialog($event)">Select Image</button>
-        <img src="assets/img/uploads/{{editItemData.imageUrl}}">
+        <img class="edit-dialog-image" src="assets/img/uploads/{{editItemData.imageUrl}}">
       </div>
         <div>
           <button type="button" class="btn btn-success" (click)="confirmEdit($event)">Save</button> 

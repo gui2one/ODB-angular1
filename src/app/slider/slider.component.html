@@ -1,5 +1,5 @@
 
-<div class="slider-wrapper" 
+<div #sliderWrapper class="slider-wrapper" 
                 (touchstart)="onTouchStart($event)"
                 (mousedown)="onMouseDown($event)" 
                 (click)="onClick($event)"
@@ -26,24 +26,24 @@
     </div>
 
   </div>
-  <div id="arrow-prev-container" class="w-25 h-100 d-flex flex-col justify-items-center"
+  <div *ngIf="!bHideArrowPrev" id="arrow-prev-container" class="w-25 h-100 d-flex flex-col justify-items-center"
    
             (click)="prevSlide()"
             (mousedown)="onArrowDown($event)"
             (touchend)="prevSlide()">
-    <img id="sliderArrowPrev" src="assets/img/slider_next.png" class="arrow arrow-prev align-self-center">
+    <img #arrowPrev id="sliderArrowPrev" src="assets/img/slider_next.png" class="arrow arrow-prev align-self-center">
 
   </div>  
 
-  <div id="arrow-next-container" class="w-25 h-100 d-flex flex-col justify-items-center justify-content-end"
+  <div *ngIf="!bHideArrowNext" id="arrow-next-container" class="w-25 h-100 d-flex flex-col justify-items-center justify-content-end"
                 
             (click)="nextSlide()"
             (mousedown)="onArrowDown($event)"
             (touchend)="nextSlide()">
-    <img id="sliderArrowNext" src="assets/img/slider_next.png" class="arrow float-right align-self-center">
+    <img #arrowNext id="sliderArrowNext" src="assets/img/slider_next.png" class="arrow float-right align-self-center">
   </div>
 
-  <div id="scaleGalleryIcon" (click)="scaleGalleryIcon($event)" (touchend)="scaleGalleryIcon($event)">
+  <div *ngIf="bShowScaleButton" id="scaleGalleryIcon" (click)="scaleGalleryIcon($event)" (touchend)="scaleGalleryIcon($event)">
     <img *ngIf="bBackgroundContain" src="assets/img/scale_gallery_image_icon.png" alt="scale gallery image button">
     <img *ngIf="!bBackgroundContain" src="assets/img/scale_gallery_image_icon_2.png" alt="scale gallery image button">
   </div>

@@ -17,8 +17,14 @@
     "gui2one_sync-ODB-cyberdev": ".\\gui2one_sync_ODB_cyberdev.bat",
     "build_prod": "npm run build && npm run minify",
     "build-dev": "ng build && npm run gui2one_sync",
+
     "build-test-dev": "ng build --watch --base-href /test/ --deploy-url /test/ --output-path ./dist/test",
     "build-test-prod": "ng build --prod --aot --build-optimizer --base-href /test/ --deploy-url /test/ --output-path ./dist/test",
+    
+    "build-no-test-dev": "ng build --watch --base-href / --deploy-url / --output-path ./dist",
+
+
+    
     "prestart": "ng build --prod  && ngc",
     "start": "ts-node src/server.ts"
   },

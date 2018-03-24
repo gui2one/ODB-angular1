@@ -39,6 +39,8 @@ export class GalleryManagerComponent implements OnInit{
 
   selectedImageUrl : string = '';
 
+  tempEditTitleTextData : object = {};
+
   @ViewChild('template')
   templateRef: TemplateRef<any>;
 
@@ -68,9 +70,7 @@ export class GalleryManagerComponent implements OnInit{
     private db: AngularFireDatabase, 
     private OdbAdminData : OdbAdminDataService,
     private modalService : BsModalService,
-    private vcRef: ViewContainerRef,
-    // private sortable : sortable
-    // public sortable : sortable
+    private vcRef: ViewContainerRef
   ) 
   { 
 
@@ -82,17 +82,8 @@ export class GalleryManagerComponent implements OnInit{
     
     this.bLoggedIn = localStorage.getItem('ODB_connected') == 'true' ? true : false;
 
-    this.galleryDBData = this.OdbAdminData.loadGalleryDataFromDB();
-    
-    // this.OdbAdminData.loadGalleryDataFromDB().then( (snapshot) =>{
-    //   this.galleryDBData = snapshot.toJSON();
+    this.galleryDBData = this.OdbAdminData.loadGalleryDataFromDB();    
 
-    //   for( let item in this.galleryDBData){
-    //     this.galleryItems.push( this.galleryDBData[item] )
-    //   }
-
-    //   console.log(this.galleryItems);
-    // });
 
   }
   
@@ -100,11 +91,7 @@ export class GalleryManagerComponent implements OnInit{
     
     let dummy_variable = sortable; /// VERY STRANGE !! dont remove this line or the sortable jquery-ui function won't work ....
     // let dummy_variable2 = draggable; /// VERY STRANGE !! dont remove this line or the sortable jquery-ui function won't work ....
-    // console.log($("#items-wrapper"))
 
-    // $(".gallery-item").each( (item)=>{
-    //   item.draggable();
-    // });
 
     $("#items-wrapper").sortable({
       start:function(event,ui){
@@ -172,6 +159,7 @@ export class GalleryManagerComponent implements OnInit{
     prom.then( (snapshot) =>{
       // console.log(snapshot.toJSON());
       this.editItemData = snapshot.toJSON();
+      this.tempEditTitleTextData = this.editItemData["title"];
       this.bDisplayEditDialog = true;   
 
       $('#main-wrapper').addClass('blur');
@@ -219,9 +207,12 @@ export class GalleryManagerComponent implements OnInit{
     // this.modalRef.hide();
     // console.log("editing item -->"+ this.editCandidateKey);
     // console.log($('#edit-form')[0]['item-title'].value);
-    this.editItemData['title_fr'] = $('#edit-form')[0]['item-title-fr'].value;
-    this.editItemData['title_en'] = $('#edit-form')[0]['item-title-en'].value;
 
+    // this.editItemData['title_fr'] = $('#edit-form')[0]['item-title-fr'].value;
+    // this.editItemData['title_en'] = $('#edit-form')[0]['item-title-en'].value;
+
+    this.editItemData["title"] = this.tempEditTitleTextData;
+    
     if(this.selectedImageUrl !== ""){
 
       this.editItemData['imageUrl'] = this.selectedImageUrl;
@@ -324,5 +315,9 @@ export class GalleryManagerComponent implements OnInit{
     this.OdbAdminData.getGalleryDataAsJSON();
   }
 
-
+  onEditItemTitleEmitValues(textData){
+    console.log(textData);
+    this.tempEditTitleTextData = textData;
+    
+  }
 }

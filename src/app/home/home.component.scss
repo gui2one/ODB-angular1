@@ -62,6 +62,14 @@ div{
 #contact_part{
     min-height: 500px;
 }
+
+.presentation-text{
+    max-width : 800px;
+    margin : 0 auto;
+    padding-left : 20px;
+    border-left : 10px solid orange;
+    color : orange;
+}
 .row{
     height:100%;
 }
@@ -174,6 +182,7 @@ $font2 : "Roboto";
     justify-content: center;
     flex-direction: column;
     width: 100%;
+    padding-left: 20px;
 
     p{
         margin-top : auto;

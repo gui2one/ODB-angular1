@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
 
   galleryData : JSON;
   homeTextData : object;
+  homeFullData : object;
   sliderItems : Array<any> = [];
 
   serviceBoxes: any;
@@ -65,6 +66,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
     this.loadSiteData();
     this.loadHomeTextItemsData();
     this.loadServiceBoxesData();
+    this.loadFullHomeData();
 
     // this.adminLoggedIn = this.authService.checkLoggedIn();
   }
@@ -81,6 +83,20 @@ export class HomeComponent implements OnInit , AfterViewInit{
           // console.log("Site is online  ???: "+this.bSiteIsOnline);          
         }
       });
+  }
+
+  loadFullHomeData(){
+    $.ajax({
+      method: "GET",
+      url: "assets/data/homeFullData.json",
+      dataType: "json", /// IMPORTNANT !!!!
+      success: (data) => {
+        // console.log(data);          
+        this.homeFullData = data;
+        console.log("fullHomeData -->: ");          
+        console.log(this.homeFullData);          
+      }
+    });
   }
 
   loadHomeTextItemsData(){
@@ -138,6 +154,8 @@ export class HomeComponent implements OnInit , AfterViewInit{
 
  
         }
+
+        ///sorting by displayID
 
         this.sliderItems =  this.sliderItems.sort((a:any, b:any) => { return a.displayID - b.displayID });
 
