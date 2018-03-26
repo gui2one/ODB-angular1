@@ -9,7 +9,7 @@ import * as $  from "jquery";
 export class ConfirmModalComponent implements OnInit {
 
   @Output() onDecide = new EventEmitter<(boolean)>();
-  @Input() display : any;
+  @Input() display : boolean = false;
 
 
   @Input() message : string = "default message (change it) : ";
@@ -38,7 +38,7 @@ export class ConfirmModalComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    if (this.display === "false") {
+    if (!this.display) {
 
       $(this.wrapper).css({ 
         visibility: "hidden",

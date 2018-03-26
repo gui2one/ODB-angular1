@@ -11,12 +11,13 @@
     background-color: rgb(250,250,250);
     // margin:0px;
     // padding: 15px;
+    height: 100vh;
 }
 
-#wrapper{
+.wrapper{
     position:relative;
     width:100%;
-    height:100vh;
+    // min-height : 99vh;
 }
 
 #admin-content{

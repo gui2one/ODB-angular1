@@ -260,15 +260,17 @@ export class OdbAdminDataService {
 
   }
 
-
-  loadSlidersDataFromDB(){
-    
-    let prom = this.db.database.ref("/sliders").once('value')
-    
-    return prom
-    
-    
+  loadSlidersFromDB(){
+    return this.db.list("/sliders").valueChanges();
   }
+  loadSliderDataFromDB(sliderKey : string) {
+    
+    let data = this.db.database.ref("/sliders").child(sliderKey).once('value')
+    let slides = this.db.list("/sliders/"+sliderKey+"/slides").valueChanges()
+    .map( item => { return item.sort( (a : any ,b : any)=> { return a.displayID-b.displayID})})
+    return [data, slides]
+  }
+  
   addSlider(){
     let emptySliderData = {
       name : "default_name",
@@ -299,6 +301,12 @@ export class OdbAdminDataService {
       // console.log(key);   
 
     })
+  }
+  deleteSliderSlide(sliderKey : string , slideKey : string){
+      console.log(sliderKey, slideKey);
+
+      this.db.database.ref("/sliders/").child(sliderKey).child("slides").child(slideKey).remove()
+      
   }
 
   updateSliderSlideData(sliderKey, slideKey, slideData){

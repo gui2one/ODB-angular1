@@ -1,7 +1,7 @@
 <!-- <div id="scroller"> -->
   <div id="site-wrapper">
 
-  <ng-container *ngIf="bSiteIsOnline || adminLoggedIn">
+  <ng-container *ngIf="(bSiteIsOnline || adminLoggedIn) && homeTextData">
         <ng-container *ngIf="!bSiteIsOnline"><div id="site_offline">Site Offline</div></ng-container> 
         <app-header 
           [title]="homeTextData.header__title[siteLangService.currentLanguage]" 

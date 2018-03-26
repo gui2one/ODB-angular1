@@ -1,5 +1,5 @@
-<app-confirm-modal #testModal (onDecide)="testModalDecide($event)" display="false"></app-confirm-modal>
-<app-confirm-modal #overwriteDatabaseModal (onDecide)="overwriteDataBaseModalDecide($event)" display="false"></app-confirm-modal>
+<!--<app-confirm-modal #testModal (onDecide)="testModalDecide($event)" display="false"></app-confirm-modal>-->
+<app-confirm-modal #overwriteDatabaseModal (onDecide)="overwriteDataBaseModalDecide($event)" [display]=false></app-confirm-modal>
 
 <!-- <button class="btn btn-primary" (click)="saveViewParams()">save view</button>
 <button class="btn btn-primary" (click)="restoreViewParams()">restore view</button> -->
@@ -40,7 +40,7 @@
         
       </app-admin-collapse-group>
 
-      <app-admin-collapse-group collapsed="false" name="serviceBoxesCollapseGroup" label="Service Boxes">
+      <app-admin-collapse-group name="serviceBoxesCollapseGroup" label="Service Boxes">
                   
 
                         <div #serviceBoxes class="row m-0" *ngIf="homeDbData">

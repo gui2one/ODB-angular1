@@ -28,7 +28,7 @@
   </div>
   <div *ngIf="!bHideArrowPrev" id="arrow-prev-container" class="w-25 h-100 d-flex flex-col justify-items-center"
    
-            (click)="prevSlide()"
+            (click)="prevSlide($event)"
             (mousedown)="onArrowDown($event)"
             (touchend)="prevSlide()">
     <img #arrowPrev id="sliderArrowPrev" src="assets/img/slider_next.png" class="arrow arrow-prev align-self-center">
@@ -37,7 +37,7 @@
 
   <div *ngIf="!bHideArrowNext" id="arrow-next-container" class="w-25 h-100 d-flex flex-col justify-items-center justify-content-end"
                 
-            (click)="nextSlide()"
+            (click)="nextSlide($event)"
             (mousedown)="onArrowDown($event)"
             (touchend)="nextSlide()">
     <img #arrowNext id="sliderArrowNext" src="assets/img/slider_next.png" class="arrow float-right align-self-center">

@@ -4,7 +4,7 @@
 
 @mixin admin-collapse{
 
-
+    
     $border-radius : 3px;
 
     & .admin-collapse-header{
@@ -41,6 +41,8 @@
         border-top-width: 0;
 
         padding:5px;
+
+        
         &:hover{
             border-color: orange;
         }
@@ -48,6 +50,21 @@
       
     }
 
+    & .content{
+        transition : all 0.3s;
+        overflow: hidden;
+    }
+    & .content-show{
+        // color : red;
+        height : calc(auto);
+    }
+
+    & .content-collapsed{
+        // color : green;
+        
+        height : 0px;
+        // position: absolute;
+    }
     &.admin-collapse-group{
 
         $paddingSize : 5px;
@@ -113,6 +130,7 @@
             overflow : hidden;
             text-overflow: ellipsis;   
             user-select: none;
+            cursor: pointer;
 
             background-color: #eee;
             position :absolute;
@@ -136,6 +154,8 @@
             }
         }
 
+    
+
         & .admin-collapse-group-title.collapsed{
             &::after{
                 // position : absolute;
@@ -147,6 +167,10 @@
             }
         }
 
+        & .admin-collapse-group-body{
+            // transition: all 0.3s;
+            overflow : hidden;
+        }
 
     }
 }

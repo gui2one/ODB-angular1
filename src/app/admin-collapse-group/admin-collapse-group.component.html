@@ -1,5 +1,7 @@
+<!--[attr.data-target]="hashName" -->
+
 <div  class="admin-collapse-group">
-  <p #collapseHeader class="admin-collapse-group-title" data-toggle="collapse" [attr.data-target]="hashName">{{label}}</p>
+  <p #collapseHeader (click)="onClickToggle($event)" class="admin-collapse-group-title" data-toggle="collapse" >{{label}}</p>
   <div #collapseContent class="collapse show admin-collapse-group-body" id="{{name}}">
     <ng-content>
 

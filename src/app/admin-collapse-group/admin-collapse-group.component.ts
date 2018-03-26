@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import * as $ from 'jquery'
 @Component({
   selector: 'app-admin-collapse-group',
@@ -9,11 +9,12 @@ import * as $ from 'jquery'
 })
 export class AdminCollapseGroupComponent implements OnInit {
 
+  @Output() collapseEvent : EventEmitter<any> = new EventEmitter();
   @Input() name : string = "defaultName";
   @Input() label : string = "default label";
   hashName :string = "#"+this.name+"";
 
-  @Input() collapsed : string;
+  @Input() collapsed : boolean = false;
 
   @ViewChild('collapseHeader') collapseHeader: ElementRef;
   @ViewChild('collapseContent') collapseContent: ElementRef;
@@ -26,12 +27,52 @@ export class AdminCollapseGroupComponent implements OnInit {
     this.hashName = "#" + this.name + "";
     // console.log(this.hashName);
   }
-  ngAfterViewInit() {
-    if (this.collapsed === "true") {
 
-      $(this.collapseHeader.nativeElement).addClass('collapsed')
-      $(this.collapseContent.nativeElement).removeClass('show')
+  // calculateContentHeight(element, depth : number = 0, counter : number = 0){
 
+  //   let childs= element.children;    
+
+  //   for (let i=0; i< childs.length; i++){
+      
+  //     let curChild = childs[i];
+      
+  //     counter += $(curChild).height();
+  //     depth += 1;
+  //     // console.log(counter);
+  //     this.calculateContentHeight(curChild, depth, counter)
+  //   }
+    
+  //   return counter;
+  // }
+  // ngAfterContentCheched() {
+  //   if (this.collapsed) {
+  //     $(this.collapseContent.nativeElement).css({ height: 0 })
+  //     // $(this.collapseContent.nativeElement).css({ height: 'auto' })
+
+
+  //   } else {
+  //     let contentHeight = this.calculateContentHeight(this.collapseContent.nativeElement)
+  //     $(this.collapseContent.nativeElement).css({ height: contentHeight })
+  //     // $(this.collapseContent.nativeElement).css({ height: 'auto' })
+  //   }
+
+    
+  // }
+
+  onClickToggle(event) {
+    // let contentHeight = this.calculateContentHeight(this.collapseContent.nativeElement)
+    // console.log(contentHeight);
+    
+    this.collapsed = !this.collapsed;
+    // let contentHeight = $(this.collapseContent.nativeElement).height() 
+    // console.log(contentHeight);
+    if (this.collapsed) {
+      $(this.collapseContent.nativeElement).css({ height: 0 })
+    } else {
+      
+      // let contentHeight = $(this.collapseContent.nativeElement).height() 
+      // $(this.collapseContent.nativeElement).css({ height: contentHeight })
+      $(this.collapseContent.nativeElement).css({ height: 'auto' })
     }
   }
 

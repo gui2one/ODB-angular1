@@ -1,3 +1,5 @@
+<app-confirm-modal #testModal (onDecide)="onModalDecide($event)" [display]="false"></app-confirm-modal>
+
 <div id="main-wrapper" class="mr-auto p-sm-1 p-md-2 p-xl-4">
 
   <h2>Gallery Manager</h2>
@@ -10,13 +12,49 @@
 
 
 
-    
+<div class="dropdown">
+<button class="btn dropdown-toggle" data-toggle="dropdown" data-target="#addSliderMenu">Choose Slider</button>
+<div class="dropdown-menu">
+  <div *ngFor="let slider of slidersDBData | async;" (click)="onChooseSlider(slider.key)">{{slider.name}}</div>
+  <button class="btn btn-success btn-sm" (click)="onAddSliderClick($event)">New Slider</button>
+</div>
+</div>
 
-<button class="btn btn-success" (click)="onAddSliderClick($event)" >Add Slider</button>
+<ng-container *ngIf="currentSliderData2">
+  current slider  : {{currentSliderData2.name}} <i class="far fa-edit"></i><br />
+  <button class="btn btn-success" (click)="onAddSlideClick(currentSliderData2.key)">Add Slide</button>
+  <div #slidesWrapper class="d-flex flex-wrap">
+  <div draggable=true (click)="onSlideClickEdit($event, slide, currentSliderData2.key)" *ngFor="let slide of currentSlides | async;"
+  [attr.data-slider-key]="currentSliderData2.key" data-id={{slide.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + slide.imageUrl + ')'"> 
 
-<ng-container *ngFor="let slider of slidersArray; let id = index;">
+    <button class="btn btn-danger btn-delete" (click)="onDeleteClick($event,currentSliderData2.key ,slide.key)" id={{slide.key}}>X</button>
+                                    <div class="spacer"></div>
+                                    <div class="item-title">
+                                      <span> {{slide.title.text[langService.currentLanguage]}}</span>
+                                    </div> 
+      <!--
+                            <div id="items-wrapper" class="items-wrapper">
+                            
+                              <div draggable=true (click)="onClickEdit($event,item.key)" *ngFor="let item of galleryDBData | async" (keypress)="onKeyPress($event)"
+                                data-id={ {item.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + item.imageUrl + ')'">
+                                <button class="btn btn-danger btn-delete" (click)="onClick($event,item.key)" id={ {item.key}}>X</button>
+                                <div class="spacer"></div>
+                                <div class="item-title">
+                                  
+                                </div>
+                              </div>
+                            
+                            </div>
+                          -->      
+  </div>
+</div>
+</ng-container>
 
-    <app-admin-collapse name="{{slider.name}}_collapse" label="{{slider.name}}">
+
+
+<ng-container *ngFor="let slider of slidersArray ; let id = index;">
+
+    <app-admin-collapse #sliderCollapse collapsed={{false}} name="{{slider.name}}_collapse" label="{{slider.name}}">
       <button class="btn btn-success" (click)="onAddSlideClick(slider.key)" >Add Slide</button>
 
 

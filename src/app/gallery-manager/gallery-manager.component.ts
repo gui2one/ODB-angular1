@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ViewContainerRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ViewContainerRef, ViewChildren, QueryList, ElementRef } from '@angular/core';
 
 import { trigger, state, style, transition, animate, AnimationBuilder } from '@angular/animations';
 
@@ -14,8 +14,11 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import * as $ from 'jquery';
 import {sortable, draggable} from 'jquery-ui/ui/widgets/sortable';
-import { ElementRef } from '@angular/core/src/linker/element_ref';
+// import { ElementRef } from '@angular/core/src/linker/element_ref';
 import { LanguagesService } from '../providers/languages.service';
+import { SaveStateService } from '../providers/save-state.service';
+import { AdminCollapseComponent } from '../admin-collapse/admin-collapse.component';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 @Component({
   selector: 'app-gallery-manager',
   templateUrl: './gallery-manager.component.html',
@@ -29,8 +32,13 @@ export class GalleryManagerComponent implements OnInit{
 
   galleryDBData : Observable<any>;
 
-  slidersDBData: Observable<any[]>;
-  
+  slidersDBData: Observable<{}[]>;
+
+  currentSliderData : object;
+  currentSliderData2  : Observable<any[]>;
+  currentSlides : Observable<any[]>;
+
+
   slidersArray: Array<any> = [];
   slidesArray: Array<any> = [];
 
@@ -59,7 +67,10 @@ export class GalleryManagerComponent implements OnInit{
   @ViewChild('uploadsDialogTemplate')
   uploadsDialogTemplate: TemplateRef<any>;
 
-  @ViewChildren("sliderWrapper") sliderWrappers : QueryList<HTMLElement>;
+  @ViewChild("slidesWrapper") slidesWrapper : ElementRef;
+  @ViewChildren("sliderCollapse") sliderCollapses : QueryList<AdminCollapseComponent>;
+
+  @ViewChild("testModal") testModal: ConfirmModalComponent;
 
   deleteCandidate: string;
   deleteCandidateKey: string;
@@ -81,7 +92,9 @@ export class GalleryManagerComponent implements OnInit{
     private db: AngularFireDatabase, 
     private dataService : OdbAdminDataService,
     private modalService : BsModalService,
-    private langService : LanguagesService
+    private langService : LanguagesService,
+    private saveState : SaveStateService,
+    // private comfirmModal : ConfirmModalComponent
     // private vcRef: ViewContainerRef
   ) 
   { 
@@ -95,69 +108,66 @@ export class GalleryManagerComponent implements OnInit{
     this.bLoggedIn = localStorage.getItem('ODB_connected') == 'true' ? true : false;
 
     this.galleryDBData = this.dataService.loadGalleryDataFromDB("gallery");  
-
-    this.dataService.loadSlidersDataFromDB().then((snapshot)=>{
-      let sliders = snapshot.val();
-      // console.log(sliders);
-      
-      for(let key in sliders){
-        let curSlider = sliders[key]
-        let slides = [];
-        for(let key2 in curSlider.slides){
-          let curSlide = curSlider.slides[key2];
-          slides.push(curSlide);
-          // console.log(curSlide);
-          
-        }
-        curSlider.slides = slides.sort((a, b)=>{
-          return a.displayID - b.displayID
-        });
-        this.slidersArray.push(curSlider)
-      }
-      this.slidersDBData = snapshot;
-
-      console.log(this.sliderWrappers);
-      
-      // this.sliderWrappers.forEach( ( item, id) =>{
-      //   console.log(item);
-        
-      // })
-
-      this.sliderWrappers.changes.subscribe((list) => {
-        console.log(list);
-        list.forEach((item ,id)=>{
-          console.log(item, id);
-          $(item.nativeElement).sortable( { 
-            start : function(event){
-              console.log('start');
-              
-            }, stop: function (event) {
-              console.log('stop');
-              event.target.querySelectorAll(".gallery-item").forEach((galleryItem, id2)=>{
-                let sliderKey = galleryItem.getAttribute("data-slider-key");
-                let slideKey = galleryItem.getAttribute("id");
-                console.log(sliderKey, id2);
-                console.log(galleryItem);
-                this.db.database.ref("/sliders/" + sliderKey + "/slides/").child(slideKey).update({ displayID: id2 })
-              })
-            }.bind(this)
-          })
-        })
-
-      })
-    });
-
-
-
+    this.reloadSlidersData();
 
     
+    this.saveState.addSaveSet(this, 'sliderCollapses',['collapsed']);
+
     
-    // this.slidersDBData.scan( (array, value, id)=>{
-    //   console.log(value)
-    // })
+
   }
   
+  reloadSlidersData(){
 
+    
+    this.slidersArray = [];
+    this.slidersDBData = this.dataService.loadSlidersFromDB();
+    // this.dataService.loadSliderDataFromDB("fff").then((snapshot) => {
+    //   let sliders = snapshot.val();
+
+
+    //   for (let key in sliders) {
+    //     let curSlider = sliders[key]
+    //     let slides = [];
+    //     for (let key2 in curSlider.slides) {
+    //       let curSlide = curSlider.slides[key2];
+    //       slides.push(curSlide);
+    //       // console.log(curSlide);
+
+    //     }
+    //     curSlider.slides = slides.sort((a, b) => {
+    //       return a.displayID - b.displayID
+    //     });
+    //     this.slidersArray.push(curSlider)
+    //   }
+    //   //this.slidersDBData = snapshot;
+
+
+
+    //   this.sliderWrappers.changes.subscribe((list) => {
+    //     console.log(list);
+    //     list.forEach((item, id) => {
+    //       // console.log(item, id);
+    //       $(item.nativeElement).sortable({
+    //         start: function (event) {
+    //           // console.log('start');
+
+    //         }, stop: function (event) {
+    //           // console.log('stop');
+    //           event.target.querySelectorAll(".gallery-item").forEach((galleryItem, id2) => {
+    //             let sliderKey = galleryItem.getAttribute("data-slider-key");
+    //             let slideKey = galleryItem.getAttribute("id");
+    //             // console.log(sliderKey, id2);
+    //             // console.log(galleryItem);
+    //             this.db.database.ref("/sliders/" + sliderKey + "/slides/").child(slideKey).update({ displayID: id2 })
+    //           })
+    //         }.bind(this)
+    //       })
+    //     })
+
+    //   })
+    // });
+  }
   getKeys(obj : object) : Array<string>{
 
     let keys : Array<string> = [];
@@ -174,30 +184,7 @@ export class GalleryManagerComponent implements OnInit{
     // let dummy_variable2 = draggable; /// VERY STRANGE !! dont remove this line or the sortable jquery-ui function won't work ....
 
     
-    // this.sliderWrappers.changes.subscribe( (list)=>{
-    //   console.log(list);
-    //   // this.sliderWrappers.setDirty()
-    //   console.log(this.sliderWrappers.dirty);
-    //   list.forEach((item, id) => {
-    //     // console.log(item, id)
-    //     $(item.nativeElement).sortable({
-    //       start : function(event){
-    //         // console.log(event);
-            
-    //       },stop : function(event){
-    //         event.target.querySelectorAll(".gallery-item").forEach((galleryItem, id2)=>{
-    //           let sliderKey = galleryItem.getAttribute("slider-key");
-    //           let slideKey = galleryItem.getAttribute("id");
-    //           console.log(sliderKey);
-    //           console.log(galleryItem);
-    //           // this.db.database.ref("/sliders/" + sliderKey + "/slides/").child(slideKey).update({ displayID: id2 })
-              
-    //         });
-            
-    //       }.bind(this)
-    //     })
-    //   })
-    // });
+
 
 
 
@@ -256,10 +243,10 @@ export class GalleryManagerComponent implements OnInit{
   
   onSlideClickEdit(event, slideData = undefined, sliderKey = undefined){
     
-    console.log("gggg",event);
+    // console.log("gggg",event);
     
-    console.log(slideData)
-    console.log(sliderKey)
+    // console.log(slideData)
+    // console.log(sliderKey)
 
     this.editCandidateKey = slideData.key;
     this.editItemData = slideData;
@@ -317,15 +304,80 @@ export class GalleryManagerComponent implements OnInit{
 
 
   onAddSliderClick($event){
+    this.saveState.save();
     this.dataService.addSlider();
+    // this.reloadSlidersData();
+    // setTimeout(() => {
+    //   console.log(this.saveState)
+    //   this.saveState.restore();
+    // }, 500);
   }
 
+  onChooseSlider(sliderKey : string){
+    console.log(sliderKey);
+    let loadedVal : Array<any> = this.dataService.loadSliderDataFromDB(sliderKey)
+    console.log(loadedVal[0]);
+    loadedVal[0].then((snapshot)=>{
+      this.currentSliderData2 = snapshot.toJSON()
+    });
+    
+    this.currentSlides = loadedVal[1]
+
+    this.currentSlides.forEach((val)=>{
+
+      console.log(this.slidesWrapper)
+      $(this.slidesWrapper.nativeElement).sortable({
+        start : function(event){
+          console.log(event);
+          
+        },stop : function(event){
+          // console.log(event);
+          // console.log(event.target.children);
+              event.target.querySelectorAll(".gallery-item").forEach((galleryItem, id2) => {
+                let sliderKey = galleryItem.getAttribute("data-slider-key");
+                let slideKey = galleryItem.getAttribute("id");
+                console.log(sliderKey, id2);
+                console.log(galleryItem);
+                this.db.database.ref("/sliders/" + sliderKey + "/slides/").child(slideKey).update({ displayID: id2 })
+              })
+        }.bind(this)
+      })
+    })
+    
+    
+    
+
+
+    
+    
+    // this.dataService.loadSliderDataFromDB(sliderKey).then((snapshot)=>{
+
+    //   this.currentSliderData = snapshot.toJSON();
+    //   console.log(snapshot.toJSON());
+      
+    // });
+  }
+
+  onModalDecide(event){
+    console.log(event);
+    
+  }
+
+  
   onAddSlideClick(sliderKey){
-    // console.log(sliderKey);
+    console.log(sliderKey);
+    
     if(sliderKey !== undefined){
 
       this.dataService.addSlideToSlider(sliderKey);
+      this.reloadSlidersData();
     }
+
+    
+  }
+  newSlideClick(){
+    console.log("ggggggggggggggggg");
+    
   }
 
   getSlides(slidesObject) : Array<any>{
@@ -406,6 +458,11 @@ export class GalleryManagerComponent implements OnInit{
     this.openModal(this.templateRef);
     //this.removeFile(event.target.src);
   }  
+
+  onDeleteClick(event, sliderKey, slideKey){
+    event.stopPropagation();
+    this.testModal.show("Confirm Delete ?", "yes", "no", this.dataService.deleteSliderSlide.bind(this), sliderKey, slideKey)
+  }
   
   onTouchTap(event){
     // location.reload();

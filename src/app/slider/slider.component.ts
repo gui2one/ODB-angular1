@@ -121,11 +121,11 @@ export class SliderComponent implements OnInit{
     this.arrowNext = this.arrowNext.nativeElement;
     this.container = this.sliderWrapper.nativeElement;
 
+    this.initSize();
 
     $(this.container).css({ height: this.sliderHeight, backgroundColor:this.backgroundColor });
     // console.log($(this.container));
     // console.log($(this.container).height());
-    this.initSize();
 
     this.root = $(this.el.nativeElement.children[0].children[0]);
 
@@ -134,11 +134,14 @@ export class SliderComponent implements OnInit{
     }
 
 
+    // console.log(this.currentId)
     if (this.currentId === 0) {
-      $(this.arrowPrev).css({ visibility: 'hidden' });
+      // $(this.arrowPrev).css({ visibility: 'hidden' });
+      this.bHideArrowPrev = true;
     }
     if (this.currentId === this.items.length - this.showNumImage) {
-      $(this.arrowNext).css({ visibility: 'hidden' });
+      // $(this.arrowNext).css({ visibility: 'hidden' });
+      this.bHideArrowNext = true;
     }
   }
 
@@ -147,20 +150,27 @@ export class SliderComponent implements OnInit{
     this.containerWidth = this.container.offsetWidth / this.showNumImage;   
   }
 
-  nextSlide()
+  nextSlide(event = undefined)
   {
-
+    if (event) {
+      event.stopPropagation();
+    }
+    
+    
     if (this.currentId < this.items.length-1)
     {
       this.currentId++;
     } 
-   
+    // console.log(this.currentId);
     this.animateSlider(this.currentId);
   }
 
-  prevSlide()
+  prevSlide(event = undefined)
   {
+    if(event){
 
+      event.stopPropagation();
+    }
     if (this.currentId > 0) {
       this.currentId--;
     } 
@@ -352,17 +362,18 @@ export class SliderComponent implements OnInit{
     // console.log(this.arrowPrev);
     
     this.sliderPositionX = -this.containerWidth * id;
+    
+    this.root.css({ transform: 'translateX(' + this.sliderPositionX +'px) rotate(0.001deg)'});
 
-    this.root.css({ transform: 'translate3d(' + this.sliderPositionX +'px,0,0) rotate(0.001deg)'});
-
-    if (this.currentId <= 0) {
+    if (id <= 0) {
       this.bHideArrowPrev= true;
       // $(this.arrowPrev).css({ visibility: 'hidden' });
-    }else{
+    }else{      
+      // console.log("show !!!!!");
       this.bHideArrowPrev = false;
       // $(this.arrowPrev).css({ visibility: 'visible' });
     }
-    if (this.currentId+ this.showNumImage-1  >= this.items.length-1) {
+    if (id + this.showNumImage-1  >= this.items.length-1) {
 
       this.bHideArrowNext = true;
       // $(this.arrowNext).css({ visibility: 'hidden' });

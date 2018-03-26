@@ -1,16 +1,18 @@
+<!--[attr.data-target]="hashName" -->
+
 <div class="admin-collapse">
-  <div #collapseHeader class="admin-collapse-header" data-toggle="collapse" [attr.data-target]="hashName" id="headingOne">
+  <div #collapseHeader (click)="onClickToggle($event)" class="admin-collapse-header" data-toggle="collapse"  id="headingOne">
     <h5 class="mb-0">
-      <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="hashName" aria-expanded="true" aria-controls="collapseTwo">
+      <button class="btn btn-link" data-toggle="collapse" aria-expanded="true" aria-controls="collapseTwo">
         {{label}}
       </button>
     </h5>
   </div>
 
-  <div id="{{name}}" #collapseContent class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+  <div id="{{name}}" #collapseContent class="content" aria-labelledby="headingOne" data-parent="#accordion">
 
 
-    <div class="admin-collapse-body d-flex flex-column">
+    <div #collapseBody class="admin-collapse-body d-flex flex-column">
               <ng-content>
      
               
