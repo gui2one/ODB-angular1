@@ -17,6 +17,19 @@ export class OdbAdminDataService {
   galleryDBData : Observable<any[]>;
   galleryJsonData : any;
   siteJsonData :any;
+  
+  
+  emptyTextObject = (() => {
+    let temp = {
+      type: "text",
+      text: {}
+    }
+    for (let lang in this.langService.languages) {
+      let curLang = this.langService.languages[lang]
+      temp.text[curLang] = "title_" + curLang + ""
+    }
+    return temp
+  })()
 
   galleryItemData: object = {
     key: "",
@@ -167,10 +180,10 @@ export class OdbAdminDataService {
     })
   }
   
-  loadGalleryDataFromDB() {
+  loadGalleryDataFromDB(dataPath) {
     // return this.db.list("gallery").valueChanges();
     // return this.db.database.ref("gallery").orderByChild("displayID").once('value');
-    return this.db.list("gallery")
+    return this.db.list(dataPath)
       .valueChanges()
       .map(items => items.sort((a: any, b: any) => { return a.displayID - b.displayID}));
     
@@ -214,28 +227,15 @@ export class OdbAdminDataService {
   }
   
   addGalleryItem(event) {
-    let emptyTextObject = ( () =>{
-      let temp = { 
-        type : "text", 
-        text :{}
-      }
-      for(let lang in this.langService.languages){
-        let curLang = this.langService.languages[lang]
-        temp.text[curLang] = "title_"+curLang+""
-      }
-      return temp
-    })()
+
     event.preventDefault();
     this.db.database.ref("/").child('gallery').once("value", (snapshot)=>{
-      console.log(snapshot.numChildren());
-    
-
-     
+      console.log(snapshot.numChildren());     
       let key = this.db.database.ref("/").child('gallery').push().key;
 
       let updates: object = {};
       this.galleryItemData["key"] = key;
-      this.galleryItemData["title"] = emptyTextObject
+      this.galleryItemData["title"] = this.emptyTextObject
       this.galleryItemData["displayID"] = snapshot.numChildren();
       updates["/gallery/" + key] = this.galleryItemData;
 
@@ -260,16 +260,73 @@ export class OdbAdminDataService {
 
   }
 
+
+  loadSlidersDataFromDB(){
+    
+    let prom = this.db.database.ref("/sliders").once('value')
+    
+    return prom
+    
+    
+  }
+  addSlider(){
+    let emptySliderData = {
+      name : "default_name",
+      slides : []
+    }
+    let ref = this.db.database.ref("/sliders").push(emptySliderData)
+
+    let update = emptySliderData
+    update["key"] = ref.key;
+    ref.update(update);
+
+    console.log(ref);
+  }
+
+  addSlideToSlider(sliderKey : string){
+    event.preventDefault();
+    this.db.database.ref("/").child('sliders/'+sliderKey).once("value", (snapshot) => {
+      console.log(snapshot.numChildren());
+      let key = this.db.database.ref("/").child('sliders/' + sliderKey).push().key;
+
+      let updates: object = {};
+      this.galleryItemData["key"] = key;
+      this.galleryItemData["title"] = this.emptyTextObject
+      this.galleryItemData["displayID"] = snapshot.numChildren();
+      updates['sliders/' + sliderKey+"/slides/"+key] = this.galleryItemData;
+
+      this.db.database.ref("/").update(updates);
+      // console.log(key);   
+
+    })
+  }
+
+  updateSliderSlideData(sliderKey, slideKey, slideData){
+
+    console.log("updating :", sliderKey);
+    console.log("with :", slideData);
+    
+    this.db.database.ref("/sliders/"+sliderKey+"/slides/"+slideKey+"").update(slideData);
+  }
+
   loadUploadsDataFromDB(){
     return this.db.list("uploads")
       .valueChanges()
       .map(items => items.sort((a: any, b: any) => { return a.unix_time - b.unix_time }));
   }
 
-  loadHomeDataToDB(){
+  loadHomeDataFromDB(){
     let prom = this.db.database.ref().child('/home-data').once('value');
     return prom;
   }
+
+  loadHomeDataFromDB2(){
+    let homeData = this.db.list("/home-data")
+    
+    return homeData.valueChanges()
+      //.map(items => items.sort((a: any, b: any) => { return a.displayID - b.displayID }));
+  }
+
 
   updateServiceBoxesItemData(id:number, title:object, text:object, icon: any = undefined){
 

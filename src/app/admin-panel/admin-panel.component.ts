@@ -240,9 +240,14 @@ export class AdminPanelComponent implements OnInit {
     this.saveStateService.addSaveSet(this, "serviceBoxesTextMultiInputs", ["currentLanguage", "name"]);
     this.saveStateService.addSaveSet(this, "homeTextItems", ["currentLanguage", "bCollapsed", "bShowAllLang"]);
 
+    let loadTest = this.dataService.loadHomeDataFromDB2();
+    // console.log(loadTest.forEach( (item, id)=>{
+    //   return 
+    // }));
 
+    
 
-    let prom2 = this.dataService.loadHomeDataToDB();
+    let prom2 = this.dataService.loadHomeDataFromDB();
     prom2.then((data) => {
       if (data.val() === null) {
         console.log("no home-data");
@@ -562,6 +567,19 @@ export class AdminPanelComponent implements OnInit {
     }
     reader.readAsText(file);
 
+  }
+
+  onOverwriteDatabaseClick(event){
+  
+    //reset input value to nothing 
+    let input = $(event.target).parent().children()[1];
+    $(input).val("")
+    
+     
+    
+  }
+  overwriteDataBaseModalDecide(event){
+    console.log(event);
   }
 
 

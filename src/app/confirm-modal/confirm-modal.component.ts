@@ -59,7 +59,7 @@ export class ConfirmModalComponent implements OnInit {
       this.callbackFunction(...this.callbackFunctionArgs);
     }
 
-    // console.log(this.callbackFunction)
+    console.log(bool)
     this.hide();
   }
 

@@ -1,5 +1,5 @@
 <app-confirm-modal #testModal (onDecide)="testModalDecide($event)" display="false"></app-confirm-modal>
-<app-confirm-modal #overwriteDatabaseModal display="false"></app-confirm-modal>
+<app-confirm-modal #overwriteDatabaseModal (onDecide)="overwriteDataBaseModalDecide($event)" display="false"></app-confirm-modal>
 
 <!-- <button class="btn btn-primary" (click)="saveViewParams()">save view</button>
 <button class="btn btn-primary" (click)="restoreViewParams()">restore view</button> -->
@@ -96,10 +96,11 @@
 
                       <form>
                         <label class="custom-file-upload">
-                          <div class="btn btn-primary">Charger une Sauvegarde
+                          <div class="btn btn-primary" (click)="onOverwriteDatabaseClick($event)">Charger une Sauvegarde
                             <i class="fas fa-download"></i>
                           </div>
-                          <input class="" type="file" name="load-backup-file" id="backupFile" (change)="overwriteDatabaseModal.show('Confirm overwiting data base ?! really  really ????','yes really !','', overwriteDatabase.bind(this),$event,this)">
+                          <input class="" type="file" name="load-backup-file" id="backupFile" [value]="" (change)="overwriteDatabaseModal.show('Confirm overwiting data base ?! really  really ????','yes really !','', overwriteDatabase.bind(this),$event,this)">
+                          <!--<input class="" type="file" name="load-backup-file" id="backupFile" (change)="onOverwriteDatabaseClick($event)">-->
                         </label>
                       </form>
   </app-admin-collapse-group>

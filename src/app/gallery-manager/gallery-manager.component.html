@@ -12,17 +12,42 @@
 
     
 
+<button class="btn btn-success" (click)="onAddSliderClick($event)" >Add Slider</button>
 
+<ng-container *ngFor="let slider of slidersArray; let id = index;">
+
+    <app-admin-collapse name="{{slider.name}}_collapse" label="{{slider.name}}">
+      <button class="btn btn-success" (click)="onAddSlideClick(slider.key)" >Add Slide</button>
+
+
+            <div #sliderWrapper id="items-wrapper" class="items-wrapper">
+
+
+              <!--<button class="btn btn-primary" (click)="onSlideClickEdit()">{{slider.name}}</button>-->
+              <div  *ngFor="let slideObj of slider.slides">
+                  <div draggable="true" (click)="onSlideClickEdit($event, slideObj, slider.key)" [attr.data-slider-key]="slider.key" data-id={{slideObj.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + slideObj.imageUrl + ')'">
+                    <div>{{slideObj.title.text[langService.currentLanguage]}}</div>
+
+                  </div>
+            </div>
+            </div>
+
+
+
+  </app-admin-collapse>
+</ng-container>
+
+<!--
 <app-admin-collapse name="galleryItemsCollpase" label="Gallery Items">
             <button class="btn btn-success" (click)="addGalleryItem($event)"> <i class="fas fa-plus"></i> Add Slide </button>
             <div id="items-wrapper" class="items-wrapper">
-              <!--(touchmove)="onTouchTap($event)" -->
+             
                 <div draggable=true (click)="onClickEdit($event,item.key)" *ngFor="let item of galleryDBData | async"
                 (keypress)="onKeyPress($event)"
                 data-id= {{item.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + item.imageUrl + ')'">
                   <button class="btn btn-danger btn-delete" (click)="onClick($event,item.key)" id= {{item.key}}>X</button>
                   <div class="spacer"></div>
-                  <div  class="item-title"><span> {{item.title_fr}}</span></div>
+                  <div  class="item-title"><span> {{item.title.text.fr}}</span></div>
               </div>
 
             </div>
@@ -31,7 +56,7 @@
                 <button class="btn btn-primary" (click)="saveToSite($event)">Save To Site</button>
             </div>
 </app-admin-collapse>
-
+-->
   </div>
 </div>
 
