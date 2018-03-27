@@ -3,7 +3,7 @@
 
     <ng-container *ngIf="inputType === 'text'">
       <div class="d-flex flex-column">
-          {{name}} :     
+          Text :     
         
           <div class="d-flex flex-column">
           <ng-container *ngFor="let lang of langService.languages;">
@@ -32,7 +32,7 @@
 
     <ng-container *ngIf="inputType === 'textarea'">     
       <div class="d-flex flex-column">
-         {{name}}
+         Text :
 
         <!--<ng-container *ngFor="let lang of langService.languages;  let langID = index;">
           <textarea  #inputNode [hidden]="currentLanguage !== lang" [attr.data-language]="lang" name="text_{{lang}}" type="text" class="{{lang}}"

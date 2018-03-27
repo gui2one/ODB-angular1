@@ -105,7 +105,7 @@ export class GalleryManagerComponent implements OnInit{
   ngOnInit() {
 
     
-    this.bLoggedIn = localStorage.getItem('ODB_connected') == 'true' ? true : false;
+    // this.bLoggedIn = localStorage.getItem('ODB_connected') == 'true' ? true : false;
 
     this.galleryDBData = this.dataService.loadGalleryDataFromDB("gallery");  
     this.reloadSlidersData();
@@ -378,6 +378,42 @@ export class GalleryManagerComponent implements OnInit{
   newSlideClick(){
     console.log("ggggggggggggggggg");
     
+  }
+
+  onEditSliderNameClick(event){
+    console.log(event);
+    
+    $("#slider_title_field").attr("contenteditable","true")
+    $("#slider_title_field").addClass("title-editing")  
+  }
+
+  validateSliderTitle(event, sliderKey){
+    if(event.type === "keypress"){
+      if(event.code === "Enter"){
+
+        event.stopPropagation();
+        console.log(sliderKey);
+        console.log(event.type);
+        let sliderName = event.target.innerHTML;
+        event.target.setAttribute("contenteditable", "false");
+        event.target.classList.remove("title-editing"); 
+
+        //// keep only alpha numeric characters and underscores
+        sliderName = sliderName.replace(/([^A-Za-z0-9_])( *)/g ,"_")
+        this.dataService.updateSliderName(sliderKey, sliderName)
+
+
+        let loadedVal: Array<any> = this.dataService.loadSliderDataFromDB(sliderKey)
+        console.log(loadedVal[0]);
+        loadedVal[0].then((snapshot) => {
+          this.currentSliderData2 = snapshot.toJSON()
+        });
+        console.log(event);
+      }
+    }
+
+    
+ 
   }
 
   getSlides(slidesObject) : Array<any>{

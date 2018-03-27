@@ -1,6 +1,6 @@
 
 <div id="errorLog"></div>
-<div class="wrapper d-flex flex-column"  *ngIf="bLoggedIn">
+<div class="wrapper d-flex flex-column">
   <div id="top-part" class="p-sm-1 p-md-2 p-xl-4">
   <h2>Images Manager</h2>
  
@@ -48,7 +48,7 @@
                             </div>
                           </div>
                         </ng-container>
-                        <ng-container *ngIf="dbData.length === 0"> Loading</ng-container>
+                        <ng-container *ngIf="!dbData"> Loading</ng-container>
                         </div>
 </app-admin-collapse>
 

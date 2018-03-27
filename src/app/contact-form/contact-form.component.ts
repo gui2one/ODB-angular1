@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { SliderComponent } from '../slider/slider.component'
 import { NgModule } from '@angular/core/src/metadata/ng_module';
 import { CommonModule } from '@angular/common';
@@ -22,6 +22,7 @@ export class ContactFormComponent implements OnInit {
   constructor(private element : ElementRef) { 
   }
 
+  @Input() text : string;
   ngOnInit() {
     // $(this.element.nativeElement.querySelector("#messageSuccess")).css({ opacity: 1.0 })
     // $(this.element.nativeElement.querySelector("#messageSuccess")).text("SUCCESS")

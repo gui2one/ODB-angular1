@@ -1,8 +1,13 @@
 
-<div #collapseButton class="collaspe-button" data-toggle="collapse" (click)="onCollapseClick($event)" >
-  <strong>-</strong> 
-  <span class="preview-tagname" [class]="[bCollapsed ? 'collapsed' : 'opened']">{{tagName}}</span>
+<div draggable="true" #collapseButton class="collaspe-button d-flex flex-row" data-toggle="collapse" (click)="onCollapseClick($event)" >
+  <div>
+    <strong>-</strong> 
+    <span class="preview-tagname" [class]="[bCollapsed ? 'collapsed' : 'opened']">{{tagName}}</span>
+  </div>
+  
 </div>
+
+
 <div id="{{name}}" class="{{[bCollapsed ? 'group-collapsed' : 'show']}} collapse-group">
     <div class="f-flex flex-column admin-text-item-container">
       <div class="checkbox-wrapper">

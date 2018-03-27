@@ -12,7 +12,7 @@ export class AdminUploadsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.bLoggedIn = localStorage.getItem('ODB_connected') == 'true' ? true : false;
+    // this.bLoggedIn = localStorage.getItem('ODB_connected') == 'true' ? true : false;
   }
 
     receiveMessage(event) {

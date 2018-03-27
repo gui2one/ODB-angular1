@@ -24,6 +24,8 @@ export class AdminTextItemComponent implements OnChanges {
 
   @Input() bCollapsed : boolean = false;
   @Input() bShowAllLang : boolean = false;
+
+  
   constructor( public langService : LanguagesService) { }
 
 

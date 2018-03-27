@@ -48,7 +48,7 @@
           <app-parallax-background imgUrl="assets/img/oeufs_1.jpg" height="100%" parallaxRatio=0.6></app-parallax-background>
         </app-spacer>
 
-        <app-clients></app-clients>
+        <app-clients title={{homeTextData.clients_part__title[siteLangService.currentLanguage]}}></app-clients>
         <div id="contact_part" class="">
 
           <div class="row no-gutters ">
@@ -99,8 +99,8 @@
       </div>
 
       <div id="contact_form_part">
-        <app-header-title name="title_contact" text="Nous Contacter."></app-header-title>
-        <app-contact-form></app-contact-form>
+        <app-header-title name="title_contact" [text]="homeTextData.contact_form_part__title[siteLangService.currentLanguage]"></app-header-title>
+        <app-contact-form [text]="homeTextData.contact_form_part__text[siteLangService.currentLanguage]"></app-contact-form>
       </div>
         <app-footer></app-footer>
 

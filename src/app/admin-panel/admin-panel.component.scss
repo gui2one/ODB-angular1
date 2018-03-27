@@ -9,6 +9,14 @@
 #wrapper{
     // padding : 15px;
 }
+.sortable-highlight {
+    border: 1px solid red;
+    font-weight: bold;
+    font-size: 45px;
+    height : 50px;
+    width : 200px;
+    background-color: lightblue;
+}
 .ckeditor-dialog{
     position:fixed;
     top:0px;
@@ -88,9 +96,15 @@ input[type="file"]> button {
     font-size:0.9em;
 }
 
-// .text-edit::before{  
-//     content :"";  
-//     background-image:  url("/assets/img/oeufs_1.jpg");    
+.delete-home-text-button{
+    position : absolute;
+    // left : 100%;
+    right: 0%;
+    transform : translateX(-200%);
+    z-index : 100;
+    cursor: pointer;
 
-//     // display:block;
-// }
+    &:hover{
+        background-color: white;
+    }
+}

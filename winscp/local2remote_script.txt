@@ -2,4 +2,7 @@ open angular_test
 
 synchronize remote D:\CODE\web_playground\angular\myApp\dist\test\ /var/www/html/test/
 
+chmod 777 /var/www/html/test/assets/data
+chmod 777 /var/www/html/test/assets/data/backup
+chmod 777 /var/www/html/test/assets/img/uploads
 exit

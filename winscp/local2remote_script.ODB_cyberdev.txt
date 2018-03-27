@@ -4,6 +4,7 @@ synchronize remote D:\CODE\web_playground\angular\myApp\dist\test\ /httpdocs/tes
 
 
 chmod 777 /httpdocs/test/assets/data
+chmod 777 /httpdocs/test/assets/data/backup
 chmod 777 /httpdocs/test/assets/img/uploads
 
 exit

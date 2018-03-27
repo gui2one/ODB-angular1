@@ -61,6 +61,8 @@ export class AdminPanelComponent implements OnInit {
   @ViewChild("CKEditor") CKEditor: CKEditorComponent;
   @ViewChild("CKEditorDialog") CKEditorDialog: HTMLElement;
 
+  @ViewChild("homeTextItemsContainer") homeTextItemsContainer : ElementRef;
+
 
   siteDbData: any;
   // homeDbData : object;
@@ -102,18 +104,18 @@ export class AdminPanelComponent implements OnInit {
   };
 
 
-  emptyTextObject: object = 
-    {
-      type : "textarea",
-      text : ( () =>{
-        let obj = {};
-        for(let lang in this.langService.languages){
-          let curLang = this.langService.languages[lang];
-          obj[curLang] = "text_"+curLang;
-        } 
-        return obj
-      })()
-    }
+  // emptyTextObject: object = 
+  //   {
+  //     type : "textarea",
+  //     text : ( () =>{
+  //       let obj = {};
+  //       for(let lang in this.langService.languages){
+  //         let curLang = this.langService.languages[lang];
+  //         obj[curLang] = "text_"+curLang;
+  //       } 
+  //       return obj
+  //     })()
+  //   }
 
 
   
@@ -122,7 +124,7 @@ export class AdminPanelComponent implements OnInit {
   presentationText : Q.Promise<any>;
 
   emptyHomeData : object = {
-    presentationText: this.emptyTextObject,
+    presentationText: this.dataService.emptyTextObject,
     serviceBoxes: [
       {
         title:{ fr: "aaa" },
@@ -176,13 +178,52 @@ export class AdminPanelComponent implements OnInit {
     })  
 
     this.errorLogDiv = $(document.getElementById("errorLog"));
-    this.bLoggedIn = localStorage.getItem('ODB_connected') == 'true' ? true : false;
+    // this.bLoggedIn = localStorage.getItem('ODB_connected') == 'true' ? true : false;
+    this.bLoggedIn = this.authService.loggedIn
 
-    if (this.bLoggedIn) {
+  
+
+    // if (this.bLoggedIn) {
 
       // this.dbData = this.getGalleryData();
 
-      this.homeTextData = this.dataService.loadHomeTextFromDB().valueChanges();
+      this.homeTextData = this.dataService.loadHomeTextFromDB()
+      console.log(this.homeTextItemsContainer)
+      $(this.homeTextItemsContainer.nativeElement).sortable({
+        axis: 'y',
+        placeholder: "sortable-highlight",
+        start : function(event){
+          console.log(event);
+          
+        }, stop : function(event){
+          console.log(event.target.children);
+
+          for (let i = 0; i < event.target.children.length; i++){
+            let curItem = event.target.children[i];
+            
+            let displayID = $(curItem).attr('data-display-id')
+            // console.log(displayID);
+            
+            let itemKey = $(curItem).attr('data-item-key')
+            this.db.database.ref("/home-data/home-text/" + itemKey).update({ displayID: i })
+            
+          }
+
+    //           event.target.querySelectorAll(".gallery-item").forEach((galleryItem, id2) => {
+    //             let sliderKey = galleryItem.getAttribute("data-slider-key");
+    //             let slideKey = galleryItem.getAttribute("id");
+    //             // console.log(sliderKey, id2);
+    //             // console.log(galleryItem);
+    //             this.db.database.ref("/sliders/" + sliderKey + "/slides/").child(slideKey).update({ displayID: id2 })
+    //           })
+          
+        }.bind(this)
+      })
+
+
+      this.homeTextData.forEach((item)=>{
+        console.log(item);        
+      })
       let presentationPromise = this.dataService.loadPresentationTextFromDB().then((snapshot) => {
         // console.log(snapshot.val())
         this.presentationText = snapshot.val();
@@ -216,7 +257,7 @@ export class AdminPanelComponent implements OnInit {
       });
 
 
-    }
+    // }
 
    
 
@@ -495,7 +536,7 @@ export class AdminPanelComponent implements OnInit {
       item.bCollapsed = false
     })
   }  
-  onHomeTextItemEmitValues(data) {
+  onHomeTextItemEmitValues(data, displayID) {
     // console.log(data);
     for (let item in data.text) {
       let textValue = data.text[item];
@@ -503,8 +544,20 @@ export class AdminPanelComponent implements OnInit {
       data.text[item] = converted;
     }
 
-    this.dataService.updateHomeTextItem(data.type, data.tagName, data.text, data.key);
+    this.dataService.updateHomeTextItem(data.type, data.tagName, data.text, data.key, displayID);
   }  
+
+  onHomeTextItemDeleteClick(event, itemKey){
+    event.stopPropagation();
+    console.log(event.target);
+    
+    this.testModal.show(" confirm Detlete text item !","yes", "no", this.deleteHomeTextItem.bind(this), itemKey)
+  }
+
+  deleteHomeTextItem(itemKey){
+    // console.log(itemKey)
+    this.dataService.deleteHomeTextItem(itemKey);
+  }
   onChooseIcon(event, iconID){
     event.preventDefault();
 

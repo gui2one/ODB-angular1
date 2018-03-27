@@ -35,9 +35,9 @@ export class AdminCollapseComponent implements OnInit {
 
   }
   calculateContentHeight(element, depth: number = 0, counter: number = 0) {
-
+    
     let childs = element.children;
-
+    // console.log(childs.length);
     for (let i = 0; i < childs.length; i++) {
 
       let curChild = childs[i];
@@ -45,14 +45,14 @@ export class AdminCollapseComponent implements OnInit {
       counter += $(curChild).height();
       depth += 1;
       // console.log(counter);
-      this.calculateContentHeight(curChild, depth, counter)
+      //this.calculateContentHeight(curChild, depth, counter)
     }
 
     return counter;
   }
 
 
-  ngAfterContentChecked(){
+  ngAfterViewChecked(){
     if (this.collapsed) {
       $(this.collapseContent.nativeElement).css({ height: 0 })
       // $(this.collapseContent.nativeElement).css({ height: 'auto' })

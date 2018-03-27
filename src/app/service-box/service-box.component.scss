@@ -3,7 +3,9 @@
 
 
 
-$iconSize : 100px;
+$iconSize : 80px;
+$padding : 20px;
+
 
 // html, body{
 //   height:100%;
@@ -18,12 +20,16 @@ $iconSize : 100px;
   text-align:center;
   // text-justify:middle;
   position:relative;
-  padding:20px;
+  padding:$padding;
   margin : 0px;
   box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
   user-select: none;
   font-family : "Raleway", sans-serif;
 
+  // svg{
+  //   width : $iconSize;
+  //   height: $iconSize;
+  // }
   .line-breaker {
     white-space: pre-line;
   }
@@ -45,9 +51,11 @@ $iconSize : 100px;
   
   .icon{   
     margin-top: 10px;
+    display: inline-block;
+    left : 0x;
     z-index:5;
     font-size: $iconSize;   
-
+    transform: translateX(-$padding);
   }
 
   & .title{
@@ -113,7 +121,7 @@ $iconSize : 100px;
     width:100%;
 
     margin-top:10px;
-;
+
 
     color:orange;    
     transition:all 0.5s;
@@ -141,7 +149,7 @@ $iconSize : 100px;
     -ms-transition-delay:0.1s;    
     position:absolute;   
     margin: 0 auto;
-    margin-left: - $iconSize/4;
+    // margin-left: - $iconSize/4;
     text-align : center;
   }
   .light{
@@ -155,8 +163,9 @@ $iconSize : 100px;
     transition-delay:0.1s;    
     -ms-transition-delay:0.1s;    
     position:absolute;   
+    left : 0px;
     margin: 0 auto;
-    margin-left: - $iconSize/4;
+    // margin-left: - $iconSize/4;
     opacity : 0;
     transform : translateX(50%) rotateZ(0deg);
     text-align : center;
@@ -196,8 +205,8 @@ $iconSize : 100px;
     width:100%;
     margin:0 auto;
     margin-top:$iconSize + 100px ;
-    padding: 5px 20px 10px 20px;
-;
+    padding: 5px $padding 10px $padding;
+
     color:white;
     
     transition:all 0.5s;
@@ -226,7 +235,7 @@ $iconSize : 100px;
   
   .dark{
     opacity : 0.0;
-    transform : translateX(-10%) rotateZ(0deg);
+    transform : translateX(0%) rotateZ(0deg);
   }
   .light{
     opacity : 1.0;
@@ -243,7 +252,7 @@ $iconSize : 100px;
   }   
   .content-dark{
     opacity : 0.0;
-    transform : translateX(-10%) rotateZ(0deg);
+    transform : translateX(0%) rotateZ(0deg);
   }
   .content-light{
     opacity : 1.0;

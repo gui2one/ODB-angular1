@@ -309,6 +309,9 @@ export class OdbAdminDataService {
       
   }
 
+  updateSliderName(sliderKey, sliderName){
+    this.db.database.ref("/sliders").child(sliderKey).update({ name: sliderName});
+  }
   updateSliderSlideData(sliderKey, slideKey, slideData){
 
     console.log("updating :", sliderKey);
@@ -424,6 +427,7 @@ export class OdbAdminDataService {
   addHomeTextItem(){
     let obj = {
       key: '',
+      displayID : 0,
       type :'text',
       tagName: "default_tag",
       text: this.generateEmptyLangData()
@@ -433,6 +437,7 @@ export class OdbAdminDataService {
       let key = this.db.database.ref("/home-data/home-text").push().key
       console.log(key);
       obj.key = key;
+      obj.displayID = snapshot.numChildren()
       let updates: object = {};
       updates["/home-data/home-text/" + key] = obj;
 
@@ -442,15 +447,27 @@ export class OdbAdminDataService {
 
   loadHomeTextFromDB() {
     return this.db.list("/home-data/home-text")
+    .valueChanges()
+    .map(item => {
+       item.sort((a : any, b :any )=>{
+         return a.displayID - b.displayID
+       }) 
+       
+       return item
+    });
 
       // .map(items => items.sort((a: any, b: any) => { return a.displayID - b.displayID }));
   }
 
-  updateHomeTextItem(type, tagName, values, key) {
+  updateHomeTextItem(type, tagName, values, key, displayID) {
 
+    // if(displayID === undefined){
+    //   displayID = -1
+    // }
     // console.log("-------------------updateServiceBoxesItemData-------------------")
     let obj = {
       type : type,
+      displayID: displayID,
       key: key,
       tagName: tagName,
       text: values
@@ -468,6 +485,10 @@ export class OdbAdminDataService {
     
   }
 
+  deleteHomeTextItem(itemKey){
+
+    this.db.database.ref("/home-data/home-text").child(itemKey).remove()
+  }
   getHomeTextDataAsJSON() {
 
     let data2 = this.db.database.ref("/").child("home-data/home-text").once("value")

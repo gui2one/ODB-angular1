@@ -1,4 +1,4 @@
-<!--<app-confirm-modal #testModal (onDecide)="testModalDecide($event)" display="false"></app-confirm-modal>-->
+<app-confirm-modal #testModal [display]=false></app-confirm-modal>
 <app-confirm-modal #overwriteDatabaseModal (onDecide)="overwriteDataBaseModalDecide($event)" [display]=false></app-confirm-modal>
 
 <!-- <button class="btn btn-primary" (click)="saveViewParams()">save view</button>
@@ -120,12 +120,15 @@
     <button class="btn btn-success" (click)="collaspeAllHomeTextItems()">collapse all</button>
     <button class="btn btn-success" (click)="expandAllHomeTextItems()">expand all</button>
   </div>
-  <ng-container *ngFor="let item of homeTextData | async; let id = index;">
 
-    <app-admin-text-item #homeTextItem [attr.data-currentlanguage]="currentLanguage"  [bCollapsed]="false" dbKey="{{item.key}}" textType="{{item.type}}" tagName="{{item.tagName}}" [textValues]="item.text" name="item_{{id}}" (EmitValues)="onHomeTextItemEmitValues($event)" ></app-admin-text-item>
-    <!--<app-admin-multilang-input #homeTextInputs [values]="item.text"></app-admin-multilang-input>-->
+  <div #homeTextItemsContainer>
+  <div [attr.data-display-id]="item.displayID" [attr.data-item-key]="item.key" *ngFor="let item of homeTextData | async; let id = index;">
+
+    <div class="delete-home-text-button align-self-end ml-auto" (click)="onHomeTextItemDeleteClick($event, item.key)">X</div>
+    <app-admin-text-item #homeTextItem [attr.data-currentlanguage]="currentLanguage"  [bCollapsed]="false" dbKey="{{item.key}}" textType="{{item.type}}" tagName="{{item.tagName}}" [textValues]="item.text" name="item_{{id}}" (EmitValues)="onHomeTextItemEmitValues($event,item.displayID)" ></app-admin-text-item>
   
-  </ng-container>
+  </div>
+</div>
 </app-admin-collapse>
  
 

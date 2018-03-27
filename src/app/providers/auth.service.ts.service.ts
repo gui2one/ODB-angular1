@@ -19,7 +19,13 @@ export class AuthService implements OnInit{
   }
 
   checkLoggedIn(){
-    return this.afAuth.authState;
+    this.afAuth.authState.forEach((item)=>{
+      console.log(item);
+      
+    });
+    
+    // return this.afAuth.authState["email"] !== undefined;
+    return this.afAuth.authState
   }
 
 
@@ -27,8 +33,8 @@ export class AuthService implements OnInit{
     // console.log("login !!!!")
     let prom = this.afAuth.auth.signInWithEmailAndPassword(email, password).then(()=>{
 
-        localStorage.setItem("ODB_user",email);
-        localStorage.setItem("ODB_connected",'true');
+        // localStorage.setItem("ODB_user",email);
+        // localStorage.setItem("ODB_connected",'true');
         this.loggedIn = true;
     });
     return prom 
