@@ -110,63 +110,19 @@ export class GalleryManagerComponent implements OnInit{
     this.galleryDBData = this.dataService.loadGalleryDataFromDB("gallery");  
     this.reloadSlidersData();
 
-    
-    this.saveState.addSaveSet(this, 'sliderCollapses',['collapsed']);
+    console.log(this.galleryDBData);
+
+    // this.saveState.addSaveSet(this, 'sliderCollapses',['collapsed']);
 
     
 
   }
   
   reloadSlidersData(){
-
     
     this.slidersArray = [];
     this.slidersDBData = this.dataService.loadSlidersFromDB();
-    // this.dataService.loadSliderDataFromDB("fff").then((snapshot) => {
-    //   let sliders = snapshot.val();
-
-
-    //   for (let key in sliders) {
-    //     let curSlider = sliders[key]
-    //     let slides = [];
-    //     for (let key2 in curSlider.slides) {
-    //       let curSlide = curSlider.slides[key2];
-    //       slides.push(curSlide);
-    //       // console.log(curSlide);
-
-    //     }
-    //     curSlider.slides = slides.sort((a, b) => {
-    //       return a.displayID - b.displayID
-    //     });
-    //     this.slidersArray.push(curSlider)
-    //   }
-    //   //this.slidersDBData = snapshot;
-
-
-
-    //   this.sliderWrappers.changes.subscribe((list) => {
-    //     console.log(list);
-    //     list.forEach((item, id) => {
-    //       // console.log(item, id);
-    //       $(item.nativeElement).sortable({
-    //         start: function (event) {
-    //           // console.log('start');
-
-    //         }, stop: function (event) {
-    //           // console.log('stop');
-    //           event.target.querySelectorAll(".gallery-item").forEach((galleryItem, id2) => {
-    //             let sliderKey = galleryItem.getAttribute("data-slider-key");
-    //             let slideKey = galleryItem.getAttribute("id");
-    //             // console.log(sliderKey, id2);
-    //             // console.log(galleryItem);
-    //             this.db.database.ref("/sliders/" + sliderKey + "/slides/").child(slideKey).update({ displayID: id2 })
-    //           })
-    //         }.bind(this)
-    //       })
-    //     })
-
-    //   })
-    // });
+  
   }
   getKeys(obj : object) : Array<string>{
 
@@ -179,33 +135,19 @@ export class GalleryManagerComponent implements OnInit{
     return keys
   }
   ngAfterViewInit(){    
-    // console.log(this.slidersDBData.length);
+    
     let dummy_variable = sortable; /// VERY STRANGE !! dont remove this line or the sortable jquery-ui function won't work ....
     // let dummy_variable2 = draggable; /// VERY STRANGE !! dont remove this line or the sortable jquery-ui function won't work ....
 
     
-
-
-
-
-    // $("#items-wrapper").sortable({
-    //   start:function(event,ui){
-    //     console.log(event);
-    //   },
-    //   stop: function(event, ui){
-    //     let keysArray = [];
-    //     console.log(event);
-    //     $("#items-wrapper .gallery-item").each( function(i,el){
-    //       keysArray.push(el.id);
-    //       // console.log(el.id);
-    //     })
-
-    //     keysArray.forEach((element, index) => {
-    //       // console.log(this.db);
-    //       this.db.database.ref("/gallery").child(element).update({displayID:index})
-    //     });
-    //   }.bind(this)
-    // });
+    this.slidersDBData.forEach((item) => {
+    
+      item.forEach(( item2 , id)=>{
+        if(id === 0){    
+          this.onChooseSlider(item2["key"])
+        }        
+      })
+    })    
   }
 
   receiveMessage(event) {
@@ -325,14 +267,13 @@ export class GalleryManagerComponent implements OnInit{
 
     this.currentSlides.forEach((val)=>{
 
-      console.log(this.slidesWrapper)
+      // console.log(this.slidesWrapper)
       $(this.slidesWrapper.nativeElement).sortable({
         start : function(event){
           console.log(event);
           
         },stop : function(event){
-          // console.log(event);
-          // console.log(event.target.children);
+
               event.target.querySelectorAll(".gallery-item").forEach((galleryItem, id2) => {
                 let sliderKey = galleryItem.getAttribute("data-slider-key");
                 let slideKey = galleryItem.getAttribute("id");

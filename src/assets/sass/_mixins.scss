@@ -13,10 +13,19 @@
             font-size: 1em;
             content :" \f0c7";
         }        
-    }
-    
-    
-    
+    }   
+}
+
+@mixin btn-icon-add{
+
+    .btn-icon-add{
+        display: inline-block;
+        .btn::after{
+            font-family: Fontawesome;
+            font-size: 1em;
+            content :" \f067";
+        }        
+    }   
 }
 
 @mixin multilangInput{

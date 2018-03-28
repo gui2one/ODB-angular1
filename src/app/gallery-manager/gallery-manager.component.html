@@ -16,7 +16,7 @@
 <button class="btn dropdown-toggle" data-toggle="dropdown" data-target="#addSliderMenu">Choose Slider</button>
 <div class="dropdown-menu">
   <div *ngFor="let slider of slidersDBData | async;" (click)="onChooseSlider(slider.key)">{{slider.name}}</div>
-  <button class="btn btn-success btn-sm" (click)="onAddSliderClick($event)">New Slider</button>
+  <div class="btn-icon-add"><button class="btn btn-success btn-sm" (click)="onAddSliderClick($event)">New Slider</button></div>
 </div>
 </div>
 
@@ -24,7 +24,9 @@
 
 <div *ngIf="currentSliderData2">
   <span>current slider  : </span><span contenteditable="false" id="slider_title_field" (focusout)="validateSliderTitle($event, currentSliderData2.key)" (keypress)="validateSliderTitle($event, currentSliderData2.key)" class="">{{currentSliderData2.name}}</span> <button class="btn" (click)="onEditSliderNameClick($event)"><i class="far fa-edit"></i></button><br />
-  <button class="btn btn-success" (click)="onAddSlideClick(currentSliderData2.key)">Add Slide</button>
+<div class="btn-icon-add">
+    <button class="btn btn-success" (click)="onAddSlideClick(currentSliderData2.key)">Add Slide</button>
+</div>
   <div #slidesWrapper class="d-flex flex-wrap">
   <div draggable=true (click)="onSlideClickEdit($event, slide, currentSliderData2.key)" *ngFor="let slide of currentSlides | async;"
   [attr.data-slider-key]="currentSliderData2.key" data-id={{slide.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + slide.imageUrl + ')'"> 
