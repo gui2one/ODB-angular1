@@ -1,4 +1,6 @@
 
+
+
 <div id="wrapper" class="p-sm-1 p-md-3 p-lg-5 pt-xs-5">
   <div class="container ">
   <div class="row">
@@ -31,8 +33,11 @@
             </div> -->
           <input class="form-control" type="text" ngModel name="company" #company="ngModel" (change)="log(company)" placeholder="Entreprise"/>
           <textarea required type="text" class="form-control" ngModel name="message" #message="ngModel" (blur)="checkMessage(message)" placeholder="Message" rows="5"></textarea>
+
+          <img [src]="captchaImgPath" alt="">
+          <input #captchaInput (change)="onCaptchaInputChange($event)" type="text" placeholder="entrez le code ci-dessus">
           <br>
-          <button [disabled]="email.errors || firstName.errors || lastName.errors || message.errors" class="btn btn-sm" type="submit" (click)="submitContactForm($event)">Envoyer</button>
+          <button [disabled]="email.errors || firstName.errors || lastName.errors || message.errors" class="btn btn-sm" type="submit" (click)="verifCaptcha()">Envoyer</button>
         </form>
       </div>
     </div>

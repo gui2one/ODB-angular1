@@ -17,14 +17,9 @@
     "gui2one_sync-ODB-cyberdev": ".\\gui2one_sync_ODB_cyberdev.bat",
     "build_prod": "npm run build && npm run minify",
     "build-dev": "ng build && npm run gui2one_sync",
-
     "build-test-dev": "ng build --watch --base-href /test/ --deploy-url /test/ --output-path ./dist/test",
     "build-test-prod": "ng build --prod --aot --build-optimizer --base-href /test/ --deploy-url /test/ --output-path ./dist/test",
-    
     "build-no-test-dev": "ng build --watch --base-href / --deploy-url / --output-path ./dist",
-
-
-    
     "prestart": "ng build --prod  && ngc",
     "start": "ts-node src/server.ts"
   },
@@ -44,6 +39,7 @@
     "angular2-lightbox": "^1.3.0",
     "angularfire2": "^5.0.0-rc.5-next",
     "bootstrap": "4.0.0-beta.2",
+    "classlist.js": "^1.1.20150312",
     "compass-mixins": "^0.12.10",
     "core-js": "^2.4.1",
     "firebase": "4.8.0",

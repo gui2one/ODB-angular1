@@ -17,8 +17,9 @@ import * as $ from "jquery"
 // })
 export class ContactFormComponent implements OnInit {
 
+  @ViewChild("captchaInput") captchaInput : ElementRef;
   infosInterval : number;
-
+  captchaImgPath : string;
   constructor(private element : ElementRef) { 
   }
 
@@ -26,8 +27,51 @@ export class ContactFormComponent implements OnInit {
   ngOnInit() {
     // $(this.element.nativeElement.querySelector("#messageSuccess")).css({ opacity: 1.0 })
     // $(this.element.nativeElement.querySelector("#messageSuccess")).text("SUCCESS")
+    this.loadCaptcha();
+    
+
+
   }
 
+  loadCaptcha(){
+    $.ajax( {
+      method : "POST",
+      url:"assets/php/simple-php-captcha/myCaptcha.php",
+      contentType: false,
+      processData: false,
+      success : (event)=>{
+        console.log(event)
+        this.captchaImgPath = event
+      }, error : (err)=>{
+        console.log(err)
+      }
+      
+    });
+  }
+
+  verifCaptcha(){
+    let formData = new FormData();
+    formData.append("typed_code", this.captchaInput.nativeElement.value);
+    $.ajax( {
+      method : "POST",
+      data : formData,
+      url:"assets/php/simple-php-captcha/myVerifCaptcha.php",
+      processData: false,
+      contentType: false,
+      dataType : "text",
+
+      success : (response)=>{
+        if(response === "good code"){
+          this.submitContactForm(undefined);
+        }
+        console.log("",response)
+        
+      }, error : (err)=>{
+        console.log(err)
+      }
+      
+    });
+  }
   resetFields(){
     // console.log(this.element.nativeElement.querySelector("input[name='firstName']").value);
     this.element.nativeElement.querySelector("input[name='firstName']").value = "";
@@ -42,8 +86,11 @@ export class ContactFormComponent implements OnInit {
   
   }
   submitContactForm(event){
-    event.preventDefault();
-    event.stopPropagation();
+
+    
+    // console.log(this.captchaInput.nativeElement.value);
+    // event.preventDefault();
+    // event.stopPropagation();
 
     let formData = $('form').serializeArray()
     
@@ -125,5 +172,8 @@ export class ContactFormComponent implements OnInit {
     console.log(data)
   }
 
+  onCaptchaInputChange(event){
+    console.log(event)
+  }
 
 }
