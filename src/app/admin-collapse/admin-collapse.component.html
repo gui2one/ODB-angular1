@@ -3,7 +3,7 @@
 <div class="admin-collapse">
   <div #collapseHeader (click)="onClickToggle($event)" class="admin-collapse-header" data-toggle="collapse"  id="headingOne">
     <h5 class="mb-0">
-      <button class="btn btn-link" data-toggle="collapse" aria-expanded="true" aria-controls="collapseTwo">
+      <button #headerButton class="btn btn-link" data-toggle="collapse" aria-expanded="true" aria-controls="collapseTwo">
         {{label}}
       </button>
     </h5>

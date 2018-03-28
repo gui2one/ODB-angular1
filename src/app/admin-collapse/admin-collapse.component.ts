@@ -12,29 +12,31 @@ export class AdminCollapseComponent implements OnInit {
   @Input() label: string = "default label";
 
   @ViewChild('collapseHeader') collapseHeader : ElementRef;
+  @ViewChild('headerButton') headerButton : ElementRef;
+
   @ViewChild('collapseContent') collapseContent : ElementRef;
   @ViewChild('collapseBody') collapseBody : ElementRef;
   hashName :string = "#"+this.name+"";
   
   @Input() collapsed : boolean = false;
+
   constructor() {
 
    }
 
+  
   ngOnInit() {
     this.hashName = "#" + this.name + "";
-    // console.log(this.collapsed === "true");
-    // if (this.collapsed) {
-    //   $(this.collapseContent.nativeElement).css({ height: 0 })
+    if (this.collapsed) {
+      $(this.headerButton.nativeElement).addClass('collapsed')
 
-
-    // } else {
-    //   let contentHeight = $(this.collapseBody.nativeElement).height() + 12
-    //   $(this.collapseContent.nativeElement).css({ height: contentHeight })
-    // }
-
+    } else {
+      $(this.headerButton.nativeElement).removeClass('collapsed')
+      // $(this.collapseContent.nativeElement).css({ height: 'auto' })
+    }
   }
-  calculateContentHeight(element, depth: number = 0, counter: number = 0) {
+  
+  calculateContentHeight(element, depth: number = 0, heightCounter: number = 0) {
     
     let childs = element.children;
     // console.log(childs.length);
@@ -42,15 +44,16 @@ export class AdminCollapseComponent implements OnInit {
 
       let curChild = childs[i];
 
-      counter += $(curChild).height();
+      heightCounter += $(curChild).height();
       depth += 1;
-      // console.log(counter);
-      //this.calculateContentHeight(curChild, depth, counter)
+      
+
+      //// no recursion neeeded you dummy
+      //this.calculateContentHeight(curChild, depth, heightCounter)
     }
 
-    return counter;
+    return heightCounter;
   }
-
 
   ngAfterViewChecked(){
     if (this.collapsed) {
@@ -65,17 +68,18 @@ export class AdminCollapseComponent implements OnInit {
     }
   }
 
-
-
   onClickToggle(event){
     this.collapsed = !this.collapsed;
 
     // console.log(contentHeight);
     if(this.collapsed){
-      $(this.collapseContent.nativeElement).css({ height: 0 })
+      $(this.collapseContent.nativeElement).css({ height: 0 });
+      $(this.headerButton.nativeElement).addClass('collapsed')
+
     }else{
       let contentHeight = this.calculateContentHeight(this.collapseBody.nativeElement) + 32
       $(this.collapseContent.nativeElement).css({ height: contentHeight })
+      $(this.headerButton.nativeElement).removeClass('collapsed')
       // $(this.collapseContent.nativeElement).css({ height: 'auto' })
     }
   }

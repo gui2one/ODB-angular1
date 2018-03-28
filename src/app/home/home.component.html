@@ -4,17 +4,14 @@
   <ng-container *ngIf="(bSiteIsOnline || adminLoggedIn) && homeTextData">
         <ng-container *ngIf="!bSiteIsOnline"><div id="site_offline">Site Offline</div></ng-container> 
         <app-header 
-          [title]="homeTextData.header__title[siteLangService.currentLanguage]" 
-          [subTitle]="homeTextData.header__subtitle[siteLangService.currentLanguage]" 
-          [menuTitle]="homeTextData.menu__title[siteLangService.currentLanguage]" 
-          [menuLinks]="[
-            homeTextData.menu__link_1[siteLangService.currentLanguage],
-            homeTextData.menu__link_2[siteLangService.currentLanguage],
-            homeTextData.menu__link_3[siteLangService.currentLanguage]
-            
-            ]"
+          [title]="homeTextData['header__title'][siteLangService.currentLanguage]" 
+          [subTitle]="homeTextData['header__subtitle'][siteLangService.currentLanguage]" 
+          [menuTitle]="homeTextData['menu__title'][siteLangService.currentLanguage]" 
+          [menuLinks]="[  homeTextData['menu__link_1'][siteLangService.currentLanguage],
+                          homeTextData['menu__link_2'][siteLangService.currentLanguage],
+                          homeTextData['menu__link_3'][siteLangService.currentLanguage]]"
 
-          [menuLanguagesLinkText]="homeTextData.menu__languages_link[siteLangService.currentLanguage]"
+          [menuLanguagesLinkText]="homeTextData['menu__languages_link'][siteLangService.currentLanguage]"
 
           id="header_part"></app-header>
 
@@ -24,9 +21,9 @@
         </app-spacer>
         <div id="about_part" class="">
           <!--<app-parallax-spacer imgUrl="assets/img/oeufs_2.jpg" height="100%" parallaxRatio="0.5"></app-parallax-spacer>-->
-          <app-header-title name="title_qui" text="{{homeTextData.about_part__title[siteLangService.currentLanguage]}}"></app-header-title>
+          <app-header-title name="title_qui" text="{{homeTextData['about_part__title'][siteLangService.currentLanguage]}}"></app-header-title>
 
-          <div *ngIf="homeFullData" class="presentation-text" [innerHTML]="homeFullData.presentationText.text[siteLangService.currentLanguage]" ></div>
+          <div *ngIf="homeFullData" class="presentation-text" [innerHTML]="homeFullData['presentationText'].text[siteLangService.currentLanguage]" ></div>
           
           <div class="container cards-container">
             <div class="row no-gutters">
@@ -48,7 +45,7 @@
           <app-parallax-background imgUrl="assets/img/oeufs_1.jpg" height="100%" parallaxRatio=0.6></app-parallax-background>
         </app-spacer>
 
-        <app-clients title={{homeTextData.clients_part__title[siteLangService.currentLanguage]}}></app-clients>
+        <app-clients [title]="homeTextData['clients_part__title'][siteLangService.currentLanguage]"></app-clients>
         <div id="contact_part" class="">
 
           <div class="row no-gutters ">
@@ -58,11 +55,11 @@
 
             <div class="col-md-9 col-lg-6 no-gutters dark-bg">
             
-              <app-header-title name="title_ou" [text]="homeTextData.contact_part__title[siteLangService.currentLanguage]"></app-header-title>
+              <app-header-title name="title_ou" [text]="homeTextData['contact_part__title'][siteLangService.currentLanguage]"></app-header-title>
               <div class="">
                 
                 <div class="row no-gutters">
-                  <div class="address" [innerHTML]="homeTextData.contact_part__address[siteLangService.currentLanguage]">
+                  <div class="address" [innerHTML]="homeTextData['contact_part__address'][siteLangService.currentLanguage]">
                      
                     
                   </div>
@@ -99,8 +96,8 @@
       </div>
 
       <div id="contact_form_part">
-        <app-header-title name="title_contact" [text]="homeTextData.contact_form_part__title[siteLangService.currentLanguage]"></app-header-title>
-        <app-contact-form [text]="homeTextData.contact_form_part__text[siteLangService.currentLanguage]"></app-contact-form>
+        <app-header-title name="title_contact" [text]="homeTextData['contact_form_part__title'][siteLangService.currentLanguage]"></app-header-title>
+        <app-contact-form [text]="homeTextData['contact_form_part__text'][siteLangService.currentLanguage]"></app-contact-form>
       </div>
         <app-footer></app-footer>
 
