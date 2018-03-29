@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
   choices : Array<number>;
   constructor(  public fireAuth : AngularFireAuth, 
                 private siteUtils : SiteUtilsService,
-                public siteLangService : SiteLanguagesService         
+                public siteLangService : SiteLanguagesService 
               ) {}
 
 
