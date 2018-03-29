@@ -15,7 +15,7 @@
 <div class="dropdown">
 <button class="btn dropdown-toggle" data-toggle="dropdown" data-target="#addSliderMenu">Choose Slider</button>
 <div class="dropdown-menu">
-  <div *ngFor="let slider of slidersDBData | async; let id = index;" (click)="onChooseSlider(slider['key'], id)">{{slider['name']}}</div>
+  <div *ngFor="let slider of slidersDBData | async; let id = index;" (click)="onChooseSlider(slider['key'], id)" [class]="[currentSliderID === id ? 'current': 'not-current']">{{slider['name']}}</div>
   <div class="btn-icon-add"><button class="btn btn-success btn-sm" (click)="onAddSliderClick($event)">New Slider</button></div>
 </div>
 </div>
