@@ -15,7 +15,6 @@ import { Promise } from 'q';
 import { LanguagesService } from '../providers/languages.service';
 import { AdminPanelComponent } from '../admin-panel/admin-panel.component';
 import { AdminSideBarComponent } from '../admin-side-bar/admin-side-bar.component';
-// import { CKEditorComponent } from 'ngx-ckeditor';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',

@@ -45,7 +45,7 @@ export class AdminMultilangInputComponent implements OnInit {
     toolbar: [
       {
         name: 'basicstyles',
-        items: ['Bold', 'Italic', 'Source','ShowBlocks']
+        items: ['Bold', 'Italic', 'Source','ShowBlocks',"Link"]
       }
     ],
     tabSpaces : 4,
