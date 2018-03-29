@@ -448,6 +448,11 @@ export class GalleryManagerComponent implements OnInit{
     event.stopPropagation();
     this.testModal.show("Confirm Delete ?", "yes", "no", this.dataService.deleteSliderSlide.bind(this), sliderKey, slideKey)
   }
+  onDeleteSliderClick(sliderKey){
+    this.testModal.show("Confirm delete Slider ?","yes", "no", this.dataService.deleteSlider.bind(this),sliderKey);
+    console.log(sliderKey);
+    
+  }
   
   onTouchTap(event){
     // location.reload();

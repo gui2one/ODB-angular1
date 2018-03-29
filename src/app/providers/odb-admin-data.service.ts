@@ -285,6 +285,9 @@ export class OdbAdminDataService {
     console.log(ref);
   }
 
+  deleteSlider(sliderKey){
+    this.db.database.ref("/sliders").child(sliderKey).remove()
+  }
   addSlideToSlider(sliderKey : string){
     event.preventDefault();
     this.db.database.ref("/").child('sliders/'+sliderKey).once("value", (snapshot) => {

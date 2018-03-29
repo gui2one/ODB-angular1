@@ -22,24 +22,27 @@
 
 <app-admin-collapse name="slider_content" label="slider content">
 
-<div *ngIf="currentSliderData2">
-  <span>current slider  : </span><span contenteditable="false" id="slider_title_field" (focusout)="validateSliderTitle($event, currentSliderData2['key'])" (keypress)="validateSliderTitle($event, currentSliderData2['key'])" class="">{{currentSliderData2['name']}}</span> <button class="btn" (click)="onEditSliderNameClick($event)"><i class="far fa-edit"></i></button><br />
-<div class="btn-icon-add">
-    <button class="btn btn-success" (click)="onAddSlideClick(currentSliderData2['key'])">Add Slide</button>
-</div>
-  <div #slidesWrapper class="d-flex flex-wrap">
-  <div draggable=true (click)="onSlideClickEdit($event, slide, currentSliderData2['key'])" *ngFor="let slide of currentSlides | async;"
-  [attr.data-slider-key]="currentSliderData2['key']" data-id={{slide.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + slide.imageUrl + ')'"> 
+  <div *ngIf="currentSliderData2">
+    
+    <span>current slider  : </span><span contenteditable="false" id="slider_title_field" (focusout)="validateSliderTitle($event, currentSliderData2['key'])" (keypress)="validateSliderTitle($event, currentSliderData2['key'])" class="">{{currentSliderData2['name']}}</span> <button class="btn" (click)="onEditSliderNameClick($event)"><i class="far fa-edit"></i></button>
+    <button class="btn btn-danger" (click)="onDeleteSliderClick(currentSliderData2['key'])" >Delete slider</button>
+    <br />
+    <div class="btn-icon-add">
+        <button class="btn btn-success" (click)="onAddSlideClick(currentSliderData2['key'])">Add Slide</button>
+    </div>
+    <div #slidesWrapper class="d-flex flex-wrap">
+    <div draggable=true (click)="onSlideClickEdit($event, slide, currentSliderData2['key'])" *ngFor="let slide of currentSlides | async;"
+    [attr.data-slider-key]="currentSliderData2['key']" data-id={{slide.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + slide.imageUrl + ')'"> 
 
-    <button class="btn btn-danger btn-delete" (click)="onDeleteClick($event,currentSliderData2['key'] ,slide.key)" id={{slide.key}}>X</button>
-                                    <div class="spacer"></div>
-                                    <div class="item-title">
-                                      <span> {{slide.title.text[langService.currentLanguage]}}</span>
-                                    </div> 
-   
+      <button class="btn btn-danger btn-delete" (click)="onDeleteClick($event,currentSliderData2['key'] ,slide.key)" id={{slide.key}}>X</button>
+                                      <div class="spacer"></div>
+                                      <div class="item-title">
+                                        <span> {{slide.title.text[langService.currentLanguage]}}</span>
+                                      </div> 
+    
+    </div>
   </div>
-</div>
-</div>
+  </div>
 
 </app-admin-collapse>
 
