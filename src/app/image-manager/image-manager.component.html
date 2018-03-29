@@ -62,10 +62,10 @@
   <div class="image-details">
     <ng-container *ngIf="selectedItem">
       <p class="image-info">
-        {{selectedItem.fileName}} <br>
-      <b>Width :</b>{{selectedItem.width}} <br>
-      <b>Height :</b> {{selectedItem.height}}<br>
-      <b>Uploaded : </b>{{selectedItem.date}}
+        {{selectedItem['fileName']}} <br>
+      <b>Width :</b>{{selectedItem['width']}} <br>
+      <b>Height :</b> {{selectedItem['height']}}<br>
+      <b>Uploaded : </b>{{selectedItem['date']}}
     </p>
     </ng-container>
   

@@ -68,32 +68,7 @@
     &.admin-collapse-group{
 
         $paddingSize : 5px;
-        
-        // @include media-breakpoint-between(xs, sm) {
-        //     // padding : $paddingSize / 2;
-        //     & .admin-collapse-group-title{
-        //         margin-left : (-$paddingSize + 20);
-        //     }
-        // }        
-        // @include media-breakpoint-between(sm, md) {
-        //     // padding : $paddingSize;
-        //     & .admin-collapse-group-title{
-        //         margin-left : (-$paddingSize + 20);
-        //     }
-        // }
-        // @include media-breakpoint-between(md, lg) {   
-        //     // padding : $paddingSize * 2;
-        //     & .admin-collapse-group-title{
-        //         margin-left : (-$paddingSize * 2) + 20;
-        //     }            
-        // }       
-        // @include media-breakpoint-between(lg, xl) {   
-        //     // padding : $paddingSize * 3;
-        //     & .admin-collapse-group-title{
-        //         margin-left : (-$paddingSize * 3) + 20;
-        //     }               
-        // }           
-        // @include save-to-site;
+
         position: relative;
         border-radius : $border-radius;
 

@@ -15,7 +15,7 @@
 <div class="dropdown">
 <button class="btn dropdown-toggle" data-toggle="dropdown" data-target="#addSliderMenu">Choose Slider</button>
 <div class="dropdown-menu">
-  <div *ngFor="let slider of slidersDBData | async;" (click)="onChooseSlider(slider.key)">{{slider.name}}</div>
+  <div *ngFor="let slider of slidersDBData | async; let id = index;" (click)="onChooseSlider(slider['key'], id)">{{slider['name']}}</div>
   <div class="btn-icon-add"><button class="btn btn-success btn-sm" (click)="onAddSliderClick($event)">New Slider</button></div>
 </div>
 </div>
@@ -23,87 +23,33 @@
 <app-admin-collapse name="slider_content" label="slider content">
 
 <div *ngIf="currentSliderData2">
-  <span>current slider  : </span><span contenteditable="false" id="slider_title_field" (focusout)="validateSliderTitle($event, currentSliderData2.key)" (keypress)="validateSliderTitle($event, currentSliderData2.key)" class="">{{currentSliderData2.name}}</span> <button class="btn" (click)="onEditSliderNameClick($event)"><i class="far fa-edit"></i></button><br />
+  <span>current slider  : </span><span contenteditable="false" id="slider_title_field" (focusout)="validateSliderTitle($event, currentSliderData2['key'])" (keypress)="validateSliderTitle($event, currentSliderData2['key'])" class="">{{currentSliderData2['name']}}</span> <button class="btn" (click)="onEditSliderNameClick($event)"><i class="far fa-edit"></i></button><br />
 <div class="btn-icon-add">
-    <button class="btn btn-success" (click)="onAddSlideClick(currentSliderData2.key)">Add Slide</button>
+    <button class="btn btn-success" (click)="onAddSlideClick(currentSliderData2['key'])">Add Slide</button>
 </div>
   <div #slidesWrapper class="d-flex flex-wrap">
-  <div draggable=true (click)="onSlideClickEdit($event, slide, currentSliderData2.key)" *ngFor="let slide of currentSlides | async;"
-  [attr.data-slider-key]="currentSliderData2.key" data-id={{slide.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + slide.imageUrl + ')'"> 
+  <div draggable=true (click)="onSlideClickEdit($event, slide, currentSliderData2['key'])" *ngFor="let slide of currentSlides | async;"
+  [attr.data-slider-key]="currentSliderData2['key']" data-id={{slide.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + slide.imageUrl + ')'"> 
 
-    <button class="btn btn-danger btn-delete" (click)="onDeleteClick($event,currentSliderData2.key ,slide.key)" id={{slide.key}}>X</button>
+    <button class="btn btn-danger btn-delete" (click)="onDeleteClick($event,currentSliderData2['key'] ,slide.key)" id={{slide.key}}>X</button>
                                     <div class="spacer"></div>
                                     <div class="item-title">
                                       <span> {{slide.title.text[langService.currentLanguage]}}</span>
                                     </div> 
-      <!--
-                            <div id="items-wrapper" class="items-wrapper">
-                            
-                              <div draggable=true (click)="onClickEdit($event,item.key)" *ngFor="let item of galleryDBData | async" (keypress)="onKeyPress($event)"
-                                data-id={ {item.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + item.imageUrl + ')'">
-                                <button class="btn btn-danger btn-delete" (click)="onClick($event,item.key)" id={ {item.key}}>X</button>
-                                <div class="spacer"></div>
-                                <div class="item-title">
-                                  
-                                </div>
-                              </div>
-                            
-                            </div>
-                          -->      
+   
   </div>
 </div>
 </div>
 
 </app-admin-collapse>
 
-<!-- <ng-container *ngFor="let slider of slidersArray ; let id = index;">
-
-    <app-admin-collapse #sliderCollapse collapsed={{false}} name="{{slider.name}}_collapse" label="{{slider.name}}">
-      <button class="btn btn-success" (click)="onAddSlideClick(slider.key)" >Add Slide</button>
-
-
-            <div #sliderWrapper id="items-wrapper" class="items-wrapper">
-
-
-             
-              <div  *ngFor="let slideObj of slider.slides">
-                  <div draggable="true" (click)="onSlideClickEdit($event, slideObj, slider.key)" [attr.data-slider-key]="slider.key" data-id={{slideObj.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + slideObj.imageUrl + ')'">
-                    <div>{{slideObj.title.text[langService.currentLanguage]}}</div>
-
-                  </div>
-            </div>
-            </div>
 
 
 
-  </app-admin-collapse>
-</ng-container> -->
-
-<!--
-<app-admin-collapse name="galleryItemsCollpase" label="Gallery Items">
-            <button class="btn btn-success" (click)="addGalleryItem($event)"> <i class="fas fa-plus"></i> Add Slide </button>
-            <div id="items-wrapper" class="items-wrapper">
-             
-                <div draggable=true (click)="onClickEdit($event,item.key)" *ngFor="let item of galleryDBData | async"
-                (keypress)="onKeyPress($event)"
-                data-id= {{item.key}} class="gallery-item" [style.background-image]="'url(assets/img/uploads/' + item.imageUrl + ')'">
-                  <button class="btn btn-danger btn-delete" (click)="onClick($event,item.key)" id= {{item.key}}>X</button>
-                  <div class="spacer"></div>
-                  <div  class="item-title"><span> {{item.title.text.fr}}</span></div>
-              </div>
-
-            </div>
-
-            <div class="save-to-site">
-                <button class="btn btn-primary" (click)="saveToSite($event)">Save To Site</button>
-            </div>
-</app-admin-collapse>
--->
   </div>
 </div>
 
 
-      <!-- <a href="images/image-1.jpg" data-lightbox="image-1" data-title="My caption">Image #1</a> -->
 <ng-container *ngIf="bDisplayEditDialog">
 
   <ng-container *ngTemplateOutlet="editGalleryItemTemplate"></ng-container>
@@ -133,19 +79,11 @@
         <p>Edit Gallery Item</p>
       </div>  
       
-      <app-admin-multilang-input name="Title : " (EmitValues)="onEditItemTitleEmitValues($event)" [values]="tempEditTitleTextData.text"></app-admin-multilang-input>
-      <!-- <form id="edit-form" action="" method="POST" (keypress)="onKeyPress($event)">
-        <label for="item-title-fr">Titre (fr): 
-        <input type="text" value={{editItemData.title_fr}} id="item-title-fr">
-        </label>
-        <label for="item-title-en">Titre (en):
-          <input type="text" value={{editItemData.title_en}} id="item-title-en">
-        </label>
-        <input type="hidden" value={{editItemData.key}} id="item-key" >
-      </form> -->
+      <app-admin-multilang-input name="Title : " (EmitValues)="onEditItemTitleEmitValues($event)" [values]="tempEditTitleTextData['text']"></app-admin-multilang-input>
+
       <div class="edit-item-image-container d-flex flex-column">
         <button type="button" class="btn btn-warning" (click)="openUploadsDialog($event)">Select Image</button>
-        <img class="edit-dialog-image" src="assets/img/uploads/{{editItemData.imageUrl}}">
+        <img class="edit-dialog-image" src="assets/img/uploads/{{editItemData['imageUrl']}}">
       </div>
         <div>
           <button type="button" class="btn btn-success" (click)="confirmEdit($event)">Save</button> 

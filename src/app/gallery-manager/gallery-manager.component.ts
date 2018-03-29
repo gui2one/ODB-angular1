@@ -36,6 +36,7 @@ export class GalleryManagerComponent implements OnInit{
 
   currentSliderData : object;
   currentSliderData2  : Observable<any[]>;
+  currentSliderID  : number;
   currentSlides : Observable<any[]>;
 
 
@@ -79,12 +80,6 @@ export class GalleryManagerComponent implements OnInit{
 
   editItemData : Object;
 
-  // galleryItemData: object = {
-  //   key: "",
-  //   title: "title",
-  //   width: 400,
-  //   height: 500
-  // };
 
   message: boolean = false;
   constructor(
@@ -92,10 +87,9 @@ export class GalleryManagerComponent implements OnInit{
     private db: AngularFireDatabase, 
     private dataService : OdbAdminDataService,
     private modalService : BsModalService,
-    private langService : LanguagesService,
+    public langService : LanguagesService,
     private saveState : SaveStateService,
-    // private comfirmModal : ConfirmModalComponent
-    // private vcRef: ViewContainerRef
+
   ) 
   { 
 
@@ -119,6 +113,7 @@ export class GalleryManagerComponent implements OnInit{
   }
   
   reloadSlidersData(){
+    console.log("reloading slider data_____________");
     
     this.slidersArray = [];
     this.slidersDBData = this.dataService.loadSlidersFromDB();
@@ -143,8 +138,8 @@ export class GalleryManagerComponent implements OnInit{
     this.slidersDBData.forEach((item) => {
     
       item.forEach(( item2 , id)=>{
-        if(id === 0){    
-          this.onChooseSlider(item2["key"])
+        if (id === this.currentSliderID){    
+          this.onChooseSlider(item2["key"], this.currentSliderID)
         }        
       })
     })    
@@ -255,10 +250,20 @@ export class GalleryManagerComponent implements OnInit{
     // }, 500);
   }
 
-  onChooseSlider(sliderKey : string){
+  onChooseSlider(sliderKey : string, id : number){
     console.log(sliderKey);
     let loadedVal : Array<any> = this.dataService.loadSliderDataFromDB(sliderKey)
     console.log(loadedVal[0]);
+    
+    if (id === undefined){
+      this.currentSliderID = 0;
+      console.log('just initialized currentSlide ID');
+      
+    }else{
+      this.currentSliderID = id;
+      
+    }
+    console.log("this.currentSliderID --->", this.currentSliderID);
     loadedVal[0].then((snapshot)=>{
       this.currentSliderData2 = snapshot.toJSON()
     });
@@ -407,6 +412,9 @@ export class GalleryManagerComponent implements OnInit{
     let data = {};
 
     // this.dataService.updateGalleryItemData(this.editCandidateKey, this.editItemData);
+
+    console.log("selected slider -->", this.currentSliderData2);
+    
     this.dataService.updateSliderSlideData(this.editItemData["sliderKey"], this.editItemData["key"],this.editItemData)
     this.bDisplayEditDialog = false;
 

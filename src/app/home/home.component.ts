@@ -31,6 +31,10 @@ export class HomeComponent implements OnInit , AfterViewInit{
   galleryData : JSON;
   homeTextData : object;
   homeFullData : object;
+  slidersData : object;
+
+  clientsSlider : object;
+  homeSlider : object;
   sliderItems : Array<any> = [];
 
   serviceBoxes: any;
@@ -67,6 +71,8 @@ export class HomeComponent implements OnInit , AfterViewInit{
     this.loadHomeTextItemsData();
     this.loadServiceBoxesData();
     this.loadFullHomeData();
+
+    this.loadSlidersData();
 
     // this.adminLoggedIn = this.authService.checkLoggedIn();
   }
@@ -108,7 +114,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
       dataType: "json", /// IMPORTNANT !!!!
       success: (data) => {
         for(let key in data){
-          console.log(data[key]);
+          // console.log(data[key]);
           textData[data[key].tagName] = data[key].text
         }
 
@@ -117,7 +123,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
         ///sets empty values to default language
         for(let key in this.homeTextData){
           let curData = this.homeTextData[key]
-          console.log(curData)
+          // console.log(curData)
         }
       }
 
@@ -161,6 +167,48 @@ export class HomeComponent implements OnInit , AfterViewInit{
 
       }
     });
+  }
+
+  loadSlidersData(){
+    $.ajax({
+      method: "GET",
+      url: "assets/data/slidersData.json",
+      dataType: "json", /// IMPORTNANT !!!!
+      success: (data) => {
+
+        this.slidersData = data;
+        console.log("__________________________");
+        
+        console.log(this.slidersData);
+        
+        for(let key in this.slidersData){
+          let curSlider = this.slidersData[key]
+          if(curSlider.name === 'clients_slider'){
+            // console.log(curSlider.slides);
+            let tempArray = []
+            for(let slide in curSlider.slides){
+              let curSlide = curSlider.slides[slide];
+              curSlide.imageUrl = curSlide.imageUrl.replace("_thumbnail", "");
+              tempArray.push(curSlide);
+            }
+            
+            curSlider.slides = tempArray.sort( (a : any, b :any)=>{ return a.displayID - b.displayID})
+            this.clientsSlider = curSlider;
+          } else if (curSlider.name === 'home_slider'){
+            let tempArray = []
+            for (let slide in curSlider.slides) {
+              let curSlide = curSlider.slides[slide];
+              curSlide.imageUrl = curSlide.imageUrl.replace("_thumbnail","");
+              tempArray.push(curSlide);
+              
+            }
+            curSlider.slides = tempArray.sort((a: any, b: any) => { return a.displayID - b.displayID })
+            this.homeSlider = curSlider;              
+          }
+          console.log(curSlider);
+        }        
+      }
+    })
   }
 
   loadServiceBoxesData(){

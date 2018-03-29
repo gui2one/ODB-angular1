@@ -45,7 +45,7 @@
           <app-parallax-background imgUrl="assets/img/oeufs_1.jpg" height="100%" parallaxRatio=0.6></app-parallax-background>
         </app-spacer>
 
-        <app-clients [title]="homeTextData['clients_part__title'][siteLangService.currentLanguage]"></app-clients>
+        <app-clients *ngIf="slidersData" [title]="homeTextData['clients_part__title'][siteLangService.currentLanguage]" [sliderItems]="clientsSlider['slides']"></app-clients>
         <div id="contact_part" class="">
 
           <div class="row no-gutters ">
@@ -90,7 +90,7 @@
       <div id="gallery_part">
         <div class="slider-container">
           <div class="slider-wrapper">
-          <app-slider id="homeSlider" sliderHeight="75vh" [items]=sliderItems [bBackgroundContain]=false [bDisplayNavigation]=true autoPlay=true autoPlayDelay=6 [bIsDraggable]=false></app-slider>
+          <app-slider *ngIf="homeSlider" id="homeSlider" sliderHeight="75vh" [items]="homeSlider['slides']" [bBackgroundContain]=false [bDisplayNavigation]=true autoPlay=true autoPlayDelay=6 [bIsDraggable]=false></app-slider>
           </div>
         </div>
       </div>

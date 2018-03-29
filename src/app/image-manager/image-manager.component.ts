@@ -25,13 +25,16 @@ import {OdbAdminDataService} from "../providers/odb-admin-data.service"
 export class ImageManagerComponent implements OnInit, AfterViewInit {
   @HostListener('dragover', ['$event']) onDragOver(event){
     event.preventDefault();
+    // console.log("drag over !!!!!!");
+    jQuery(this.holder).addClass("hover");
   }
 
   @HostListener('drop', ['$event']) onDrop(event) {
     event.preventDefault();
     event.stopPropagation();
     let files = event.dataTransfer.files;
-    //this.uploadFile(null,files);
+    this.uploadFile(null,files);
+    jQuery(this.holder).removeClass("hover");
   }  
   
   @Input() bShowHeader : boolean = true;
@@ -100,9 +103,9 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
         jQuery(this.holder).removeClass("hover");
       });
       this.holder.addEventListener("dragover", (event) => {
+        console.log("dragover");
         event.preventDefault();
         event.stopPropagation();
-        // console.log("dragover");
         jQuery(this.holder).addClass("hover");
       });
 
@@ -152,7 +155,7 @@ export class ImageManagerComponent implements OnInit, AfterViewInit {
   uploadFile(event = null, files = null) {
     
     let formData: any;
-    // console.log(files);
+    console.log(files);
 
     
     

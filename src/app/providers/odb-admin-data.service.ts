@@ -578,6 +578,10 @@ export class OdbAdminDataService {
     this.getSiteDataToJSON();
     this.getHomeTextDataAsJSON();
     this.saveFullHomeDataToJSON();
+
+      // console.log("save all");
+      
+    this.saveFirebaseDataToJSON('slidersData.json', "/sliders");
   }
 
   saveFullHomeDataToJSON(){

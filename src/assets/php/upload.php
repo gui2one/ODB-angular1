@@ -40,7 +40,7 @@
             
 
             
-            $allowed = array("jpg","jpeg","gif");
+            $allowed = array("jpg","jpeg","gif","png");
             
             if( in_array(strtolower($info['extension']),$allowed)){
 

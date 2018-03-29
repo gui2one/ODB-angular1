@@ -16,7 +16,7 @@
   <div #slidesContainer class="slides-container" draggable>
     <div *ngFor="let item of items; let i = index" [attr.data-index]="i" class="d-inline-block">
       <div [ngClass]="bBackgroundContain ? 'contain' : '' " class="slide-image-container" [ngStyle]="{                                      
-                                      'background-image':'url('+item.url+')',
+                                      'background-image':'url(assets/img/uploads/'+item.imageUrl+')',
                                       'width':containerWidth+'px',
                                       'left': (i * containerWidth) +'px'
                                       }">

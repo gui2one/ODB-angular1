@@ -8,9 +8,12 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ClientsComponent implements OnInit {
 
   @Input() title : string;
+  @Input() sliderItems : Array<object> = [];
+  
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }
