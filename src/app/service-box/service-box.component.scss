@@ -213,8 +213,8 @@ $padding : 20px;
     -ms-transition:all 0.5s;
     transition-timing-function : cubic-bezier(0.2,1.5,0.5,1.0);    
     -ms-transition-timing-function : cubic-bezier(0.2,1.5,0.5,1.0);    
-    transition-delay:0.2s;     
-    -ms-transition-delay:0.2s;     
+    // transition-delay:0.1s;     
+    // -ms-transition-delay:0.1s;     
     opacity : 0;
     transform : translateY(50%) rotateZ(0deg);    
   }  
@@ -252,7 +252,7 @@ $padding : 20px;
   }   
   .content-dark{
     opacity : 0.0;
-    transform : translateX(0%) rotateZ(0deg);
+    transform : translateX(10%) rotateZ(0deg);
   }
   .content-light{
     opacity : 1.0;

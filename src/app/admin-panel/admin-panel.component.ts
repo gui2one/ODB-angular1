@@ -30,7 +30,7 @@ import { CKEditorComponent } from 'ngx-ckeditor';
 import { viewParentEl } from '@angular/core/src/view/util';
 import { AdminTextItemComponent } from '../admin-text-item/admin-text-item.component';
 import { SaveStateService } from '../providers/save-state.service';
-
+import { sortable } from 'jquery-ui/ui/widgets/sortable';
 
 
 @Component({

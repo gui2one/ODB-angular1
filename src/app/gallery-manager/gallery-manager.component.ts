@@ -13,7 +13,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import * as $ from 'jquery';
-import {sortable, draggable} from 'jquery-ui/ui/widgets/sortable';
+import {sortable} from 'jquery-ui/ui/widgets/sortable';
 // import { ElementRef } from '@angular/core/src/linker/element_ref';
 import { LanguagesService } from '../providers/languages.service';
 import { SaveStateService } from '../providers/save-state.service';
