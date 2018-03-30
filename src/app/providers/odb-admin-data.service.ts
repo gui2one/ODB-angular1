@@ -120,13 +120,13 @@ export class OdbAdminDataService {
             dataType: 'json',
             processData: false,
             success: (phpResponse) => {
-              // console.log(phpResponse);
+              console.log(phpResponse);
               if(phpResponse.type === "success"){
                 this.broadcaster.broadcast("successNotification", phpResponse.message)
 
                 if(downloadFile){
                   let ev = new CustomEvent("backupFileSavedEvent", { detail: phpResponse.message  });
-                  window.dispatchEvent(ev)
+                  window.dispatchEvent(ev);
                 }
                 // window.dispatchEvent( new Event("backupFileSavedEvent", {bubbles:true}))
 

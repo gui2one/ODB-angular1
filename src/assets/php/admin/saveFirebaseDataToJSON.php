@@ -25,8 +25,6 @@
     require_once("../Message.php");
     $docRoot = $_SERVER["DOCUMENT_ROOT"];
 
-    // $subFloder = "/test";
-    // print_r("Save Gallery Data to JSON ___ PHP script\n");
     
     $jsonString = stripslashes($_POST["jsonString"]);
     $fileName = stripslashes($_POST["fileName"]);
@@ -43,10 +41,6 @@
     }else{
          $msg = new Message("success",$fileName);
     }
-
-    
-
-   
 
     print_r(json_encode($msg));
 
