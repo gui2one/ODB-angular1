@@ -165,7 +165,7 @@ export class AdminMultilangInputComponent implements OnInit {
   }
 
   closeTextEditor(event, content) {
-    console.log(event);
+    // console.log(event);
     
     this.bEditorOpened = false;
     this.editorValue = content;
@@ -195,7 +195,7 @@ export class AdminMultilangInputComponent implements OnInit {
     event.target.setAttribute("checked", "false");
     
     this.bShowAllLang = event.target.checked;
-    console.log(this.bShowAllLang);
+    // console.log(this.bShowAllLang);
 
     this.ShowAllLangChangeEvent.emit( this.bShowAllLang);
     

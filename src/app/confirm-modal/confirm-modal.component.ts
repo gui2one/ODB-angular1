@@ -86,7 +86,7 @@ export class ConfirmModalComponent implements OnInit {
         this.declineBtnText = this.defaultDeclineText;
       }
       
-    console.log(this.modalBox)
+    // console.log(this.modalBox)
         $(this.wrapper).css({ 
           visibility: "visible",
           opacity: 1.0

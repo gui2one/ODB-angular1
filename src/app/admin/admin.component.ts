@@ -59,9 +59,9 @@ export class AdminComponent implements OnInit {
     height:500
   };
 
-  ngOnChanges(change){
-    console.log(change);
-  }
+  // ngOnChanges(change){
+  //   // console.log(change);
+  // }
 
   // ngOnDestroy(event){
   //   alert(event);
@@ -98,9 +98,9 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  notify(event){
-    console.log(event);
-  }
+  // notify(event){
+  //   // console.log(event);
+  // }
 
   onCollapse(event){
     if (event) {

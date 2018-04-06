@@ -73,11 +73,51 @@ export class HomeComponent implements OnInit , AfterViewInit{
     this.loadFullHomeData();
 
     this.loadSlidersData();
-
+    
     // this.adminLoggedIn = this.authService.checkLoggedIn();
   }
 
 
+
+  ngAfterViewInit() {
+
+    this.resizeGoogleMap();
+    
+
+
+  
+    
+  }
+
+  initHome(){
+    this.myScrollTo($("#enter-button-wrapper"), $('#about_part'));
+    $('#site-wrapper').animate({
+      opacity: 1.0
+    }, 400)
+  }
+  myScrollTo(button, anchor) {
+    let root = this;
+    // console.log(button);
+    
+    button.click(function () {
+      // console.log("ggfgfgdfgdfg");
+      
+      $('html, body').animate({
+        scrollTop: anchor.offset().top - 60
+      }, 1000);
+
+      // root.pauseVideo();
+      // $("#navbar a").each(function () {
+
+      //   $(this).removeClass("active")
+      // })
+      // button.addClass("active");
+
+    }.bind(root));
+
+    return false;
+
+  }
   loadSiteData(){
       $.ajax({
         method: "GET",
@@ -101,6 +141,9 @@ export class HomeComponent implements OnInit , AfterViewInit{
         this.homeFullData = data;
         console.log("fullHomeData -->: ");          
         console.log(this.homeFullData);          
+
+        this.initHome();
+         
       }
     });
   }
@@ -229,15 +272,6 @@ export class HomeComponent implements OnInit , AfterViewInit{
   }
 
 
-  ngAfterViewInit(){
-
-    this.resizeGoogleMap();
-
-    $('#site-wrapper').animate( {
-      opacity : 1.0
-    }, 400)
-    // console.log($("#site-wrapper"));
-  }
 
   ngAfterViewChecked(){
     this.resizeGoogleMap();

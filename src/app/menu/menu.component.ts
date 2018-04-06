@@ -99,8 +99,8 @@ export class MenuComponent implements OnInit {
 
   onFlagClick(event){
     event.preventDefault();
-    console.log(event.currentTarget);
-    console.log(event.currentTarget.id);
+    // console.log(event.currentTarget);
+    // console.log(event.currentTarget.id);
 
     this.siteLangService.currentLanguage = this.siteLangService.languages[ parseInt(event.currentTarget.id)]
   }

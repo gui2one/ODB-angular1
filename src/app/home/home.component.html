@@ -3,6 +3,17 @@
 
   <ng-container *ngIf="(bSiteIsOnline || adminLoggedIn) && homeTextData">
         <ng-container *ngIf="!bSiteIsOnline"><div id="site_offline">Site Offline</div></ng-container> 
+
+        <div id="enter-button-wrapper">
+          <div class="arrow-wrapper">
+            <div class="point"></div>
+            <div class="point"></div>
+            <div class="point"></div>
+            <div class="point arrow">
+              <i class="fas fa-angle-down"></i>
+            </div>
+          </div>
+        </div>
         <app-header 
           [title]="homeTextData['header__title'][siteLangService.currentLanguage]" 
           [subTitle]="homeTextData['header__subtitle'][siteLangService.currentLanguage]" 

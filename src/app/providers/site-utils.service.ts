@@ -12,7 +12,7 @@ export class SiteUtilsService {
 
   displayScreenInfos(){
     window.addEventListener("resize", this.onResize.bind(this))
-    console.log("displayScreenInfos Function triggered");
+    // console.log("displayScreenInfos Function triggered");
     
     this.window = $(window);
     let divElement = document.createElement("div");
@@ -35,7 +35,7 @@ export class SiteUtilsService {
 
   onResize(e){
     this.updateDivData();
-    console.log("resize from infos div")
+    // console.log("resize from infos div")
   }
 
   updateDivData(){

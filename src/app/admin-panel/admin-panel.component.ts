@@ -171,8 +171,8 @@ export class AdminPanelComponent implements OnInit {
     // console.log("------------------ Full INIT ------------------------")
     
     window.addEventListener("backupFileSavedEvent", (e) => {
-      console.log("event occured");
-      console.log(e['detail']);
+      // console.log("event occured");
+      // console.log(e['detail']);
       this.onDataBaseSaved(e['detail']);
 
     })  
@@ -188,15 +188,15 @@ export class AdminPanelComponent implements OnInit {
       // this.dbData = this.getGalleryData();
 
       this.homeTextData = this.dataService.loadHomeTextFromDB()
-      console.log(this.homeTextItemsContainer)
+      // console.log(this.homeTextItemsContainer)
       $(this.homeTextItemsContainer.nativeElement).sortable({
         axis: 'y',
         placeholder: "sortable-highlight",
         start : function(event){
-          console.log(event);
+          // console.log(event);
           
         }, stop : function(event){
-          console.log(event.target.children);
+          // console.log(event.target.children);
 
           for (let i = 0; i < event.target.children.length; i++){
             let curItem = event.target.children[i];
@@ -209,23 +209,12 @@ export class AdminPanelComponent implements OnInit {
             
           }
 
-    //           event.target.querySelectorAll(".gallery-item").forEach((galleryItem, id2) => {
-    //             let sliderKey = galleryItem.getAttribute("data-slider-key");
-    //             let slideKey = galleryItem.getAttribute("id");
-    //             // console.log(sliderKey, id2);
-    //             // console.log(galleryItem);
-    //             this.db.database.ref("/sliders/" + sliderKey + "/slides/").child(slideKey).update({ displayID: id2 })
-    //           })
           
         }.bind(this)
       })
 
 
-      this.homeTextData.forEach((item)=>{
-        console.log(item);        
-      })
       let presentationPromise = this.dataService.loadPresentationTextFromDB().then((snapshot) => {
-        // console.log(snapshot.val())
         this.presentationText = snapshot.val();
       })
 
@@ -234,11 +223,11 @@ export class AdminPanelComponent implements OnInit {
 
         if (data.val() === null) {
 
-          console.log("no site-data");
+          // console.log("no site-data");
 
           let data = this.emptySiteData;
           let siteData = this.db.database.ref("/").child('site-data').set(data).then((snapshot) => {
-            console.log("initiated site-data")
+            // console.log("initiated site-data")
             this.db.database.ref("/").child('site-data').on("value", (snapshot) => {
 
               // console.log(snapshot)
@@ -257,7 +246,7 @@ export class AdminPanelComponent implements OnInit {
       });
 
 
-    // }
+
 
    
 
@@ -291,12 +280,12 @@ export class AdminPanelComponent implements OnInit {
     let prom2 = this.dataService.loadHomeDataFromDB();
     prom2.then((data) => {
       if (data.val() === null) {
-        console.log("no home-data");
+        // console.log("no home-data");
         let data = this.emptyHomeData;
         let homeData = this.db.database.ref("/").child('home-data')
           .set(data)
           .then((snapshot) => {
-            console.log("initiated home-data")
+            // console.log("initiated home-data")
           });
       }
 
@@ -385,7 +374,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   saveServiceBoxesToSite(event){
-    console.log("saveServiceBoxesToSite function fired");
+    // console.log("saveServiceBoxesToSite function fired");
     this.dataService.getServiceBoxesDataAsJSON();
   }
 
@@ -424,7 +413,7 @@ export class AdminPanelComponent implements OnInit {
     } else if (type === "error") {
       this.errorLogDiv.css({ backgroundColor: 'red' });
     } else {
-      console.log("bad infos type ( \"success\" or \"error\" )");
+      // console.log("bad infos type ( \"success\" or \"error\" )");
       return 0;
     }
 
@@ -507,24 +496,7 @@ export class AdminPanelComponent implements OnInit {
     }
   }
 
-  // onHomeTextFocusOut(tagName, values, key){
 
-  //   console.log("old function ____________________")
-  //   // for (let item in values) {
-  //   //   let textValue = values[item];
-  //   //   let converted = textValue.replace(/\n/g, "")
-  //   //   values[item] = converted;
-  //   // }
-    
-
-  //   // let curTextItem = this.homeTextItems.filter((item, id)=>{
-  //   //   return item.dbKey === key
-  //   // })[0]
-
-
-  //   // this.dataService.updateHomeTextItem(curTextItem.textType, curTextItem.tagName, values, key);
-    
-  // }
 
   collaspeAllHomeTextItems(){
     this.homeTextItems.forEach( (item, id)=>{
@@ -549,7 +521,7 @@ export class AdminPanelComponent implements OnInit {
 
   onHomeTextItemDeleteClick(event, itemKey){
     event.stopPropagation();
-    console.log(event.target);
+    // console.log(event.target);
     
     this.testModal.show(" confirm Detlete text item !","yes", "no", this.deleteHomeTextItem.bind(this), itemKey)
   }
@@ -583,7 +555,7 @@ export class AdminPanelComponent implements OnInit {
       let curLang = this.langService.languages[lang]
       let langInput = parentBox.children[2].querySelector(".multilang-wrapper div div div");
       // console.log(parentBox.children[2])
-      console.log(langInput)
+      // console.log(langInput)
       text[curLang] = langInput.innerHTML
     }      
     // console.log(parentBox.children[0].getAttribute("data-value"));
@@ -603,7 +575,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   onDataBaseSaved(fileName){
-    console.log("try and download the file named :", fileName);
+    // console.log("try and download the file named :", fileName);
     this.dataService.downloadDataBasBackup(fileName)
   }
 
@@ -611,15 +583,19 @@ export class AdminPanelComponent implements OnInit {
     event.preventDefault();
     let file = event.target.files[0];
     event.target.value = "";
-    console.log(file);
+    // console.log(file);
     let reader = new FileReader();
     reader.onload = (e)=>{
-      console.log(reader.result);
+      // console.log(reader.result);
 
       this.dataService.overwriteDatabase(reader.result);
     }
     reader.readAsText(file);
 
+  }
+
+  onOverwriteDataBaseInputChange(event){
+    this.testModal.show('Confirm overwiting data base ?! really  really ????','yes really !','', this.overwriteDatabase.bind(this), event, this)
   }
 
   onOverwriteDatabaseClick(event){
@@ -631,34 +607,10 @@ export class AdminPanelComponent implements OnInit {
      
     
   }
-  overwriteDataBaseModalDecide(event){
-    console.log(event);
-  }
 
 
-  testModalCallback(){
-    console.log('my funck!!!!! BETTER ....  STRONGER')
-    console.log(this);
-  }
-
-  testModalCallback2(arg1 : string, arg2 : string) {
-
-    console.log('22222222222222')
-    console.log(arg2);
-    console.log(this);
-  }
 
 
-  testModalDecide(event :boolean){
-    console.log("decide ....")
-    console.log(event)
-
-  }
-
-  testModalDecide2(event : boolean){
-    console.log("decide 2 ....")
-    console.log(event)
-  }
 
   addHomeTextItem(event){
 

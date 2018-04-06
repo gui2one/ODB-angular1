@@ -119,22 +119,16 @@
     left : 100%;
     transform: translateX(-100%);
 }
-.arrow {    
-    
+.arrow {        
     height: 80px;
-    z-index: 100;
+    z-index: 10;
     cursor: pointer;
-    // backface-visibility: hidden;
-    // -webkit-backface-visibility: hidden;
-    /* visibility: hidden; */
 }
 
 .arrow-prev{
 
     transform: scaleX(-1);
 
-    // backface-visibility: hidden;
-    // -webkit-backface-visibility: hidden;
 }
 
 

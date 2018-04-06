@@ -19,10 +19,10 @@ export class AuthService implements OnInit{
   }
 
   checkLoggedIn(){
-    this.afAuth.authState.forEach((item)=>{
-      console.log(item);
+    // this.afAuth.authState.forEach((item)=>{
+    //   console.log(item);
       
-    });
+    // });
     
     // return this.afAuth.authState["email"] !== undefined;
     return this.afAuth.authState
@@ -47,8 +47,8 @@ export class AuthService implements OnInit{
   logOut(){
     localStorage.removeItem("ODB_connected");
     localStorage.removeItem("ODB_user");
-    console.log("logOut called from auth.service");
-    console.log(localStorage.getItem("ODB_connected"));
+    // console.log("logOut called from auth.service");
+    // console.log(localStorage.getItem("ODB_connected"));
     // console.log(localStorage.getItem("ODB_connected"));
     this.loggedIn = false;
     return firebase.auth().signOut();

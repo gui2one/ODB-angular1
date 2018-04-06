@@ -54,7 +54,7 @@ export class OdbAdminDataService {
 
 
   deleteBreakLines(data : any){
-    console.log(typeof data);
+    // console.log(typeof data);
     if(typeof data === "object"){
       
       for (let item in data) {
@@ -71,12 +71,12 @@ export class OdbAdminDataService {
   }
 
   convertTabsToSpaces(data: any) {
-    console.log(typeof data);
+    // console.log(typeof data);
     if (typeof data === "object") {
 
       for (let item in data) {
         let textValue = data[item];
-        console.log(textValue);
+        // console.log(textValue);
         let converted = textValue.replace(/\t/g, "")
         data[item] = converted;
       }
@@ -94,7 +94,7 @@ export class OdbAdminDataService {
       // console.log("not ordered by child ", orderByChild);
       promise = this.db.database.ref("/").child(dataPath).once("value")
     }else{
-      console.log("order by child ", orderByChild);
+      // console.log("order by child ", orderByChild);
       
       promise = this.db.database.ref("/").child(dataPath).orderByChild(orderByChild).once("value")
       // console.log(promise);
@@ -120,7 +120,7 @@ export class OdbAdminDataService {
             dataType: 'json',
             processData: false,
             success: (phpResponse) => {
-              console.log(phpResponse);
+              // console.log(phpResponse);
               if(phpResponse.type === "success"){
                 this.broadcaster.broadcast("successNotification", phpResponse.message)
 
@@ -136,7 +136,7 @@ export class OdbAdminDataService {
               // console.log('data successfully saved');
             },
             error: (data) => {
-              console.log(data);
+              // console.log(data);
               // console.log('data successfully saved');
             },
 
@@ -206,7 +206,7 @@ export class OdbAdminDataService {
         // console.log('data successfully saved');
       },
       error: (data) => {
-        console.log(data);
+        // console.log(data);
         // console.log('data successfully saved');
       },      
 
@@ -230,7 +230,7 @@ export class OdbAdminDataService {
 
     event.preventDefault();
     this.db.database.ref("/").child('gallery').once("value", (snapshot)=>{
-      console.log(snapshot.numChildren());     
+      // console.log(snapshot.numChildren());     
       let key = this.db.database.ref("/").child('gallery').push().key;
 
       let updates: object = {};
@@ -282,7 +282,7 @@ export class OdbAdminDataService {
     update["key"] = ref.key;
     ref.update(update);
 
-    console.log(ref);
+    // console.log(ref);
   }
 
   deleteSlider(sliderKey){
@@ -291,7 +291,7 @@ export class OdbAdminDataService {
   addSlideToSlider(sliderKey : string){
     event.preventDefault();
     this.db.database.ref("/").child('sliders/'+sliderKey).once("value", (snapshot) => {
-      console.log(snapshot.numChildren());
+      // console.log(snapshot.numChildren());
       let key = this.db.database.ref("/").child('sliders/' + sliderKey).push().key;
 
       let updates: object = {};
@@ -306,7 +306,7 @@ export class OdbAdminDataService {
     })
   }
   deleteSliderSlide(sliderKey : string , slideKey : string){
-      console.log(sliderKey, slideKey);
+      // console.log(sliderKey, slideKey);
 
       this.db.database.ref("/sliders/").child(sliderKey).child("slides").child(slideKey).remove()
       
@@ -317,8 +317,8 @@ export class OdbAdminDataService {
   }
   updateSliderSlideData(sliderKey, slideKey, slideData){
 
-    console.log("updating :", sliderKey);
-    console.log("with :", slideData);
+    // console.log("updating :", sliderKey);
+    // console.log("with :", slideData);
     
     this.db.database.ref("/sliders/"+sliderKey+"/slides/"+slideKey+"").update(slideData);
   }
@@ -344,14 +344,14 @@ export class OdbAdminDataService {
 
   updateServiceBoxesItemData(id:number, title:object, text:object, icon: any = undefined){
 
-    console.log("-------------------updateServiceBoxesItemData-------------------")
+    // console.log("-------------------updateServiceBoxesItemData-------------------")
     let newData = {
       title: title,
       icon: icon,
       text: text
     }
 
-    console.log(newData); 
+    // console.log(newData); 
     let child = this.db.database.ref().child("home-data/serviceBoxes/"+id.toString());
     // console.log(child);
 
@@ -394,12 +394,12 @@ export class OdbAdminDataService {
       contentType: false,
       processData: false,
       success: (data) => {
-        console.log(data);
+        // console.log(data);
         this.broadcaster.broadcast('successNotification', 'Boxes Data Saved Boxes Data Saved Boxes Data Saved');
       },
       error: (data) => {
         // console.log(data);
-        console.log('error saving data');
+        this.broadcaster.broadcast('errorNotification', 'Error Saving Boxes Data');
       },
 
     })
@@ -407,9 +407,9 @@ export class OdbAdminDataService {
 
   overwriteDatabase(jsonData){
 
-    console.log("function activated for now")
-    console.log(jsonData);
-    console.log(JSON.parse(jsonData));
+    // console.log("function activated for now")
+    // console.log(jsonData);
+    // console.log(JSON.parse(jsonData));
     this.db.database.ref("/").set(JSON.parse(jsonData)).then(()=>{
       this.getGalleryDataAsJSON();
       this.getServiceBoxesDataAsJSON();
@@ -438,7 +438,7 @@ export class OdbAdminDataService {
 
     let prom = this.db.database.ref("/home-data/home-text").once('value').then((snapshot)=>{
       let key = this.db.database.ref("/home-data/home-text").push().key
-      console.log(key);
+      // console.log(key);
       obj.key = key;
       obj.displayID = snapshot.numChildren()
       let updates: object = {};
@@ -517,12 +517,13 @@ export class OdbAdminDataService {
       contentType: false,
       processData: false,
       success: (data) => {
-        console.log(data);
+        // console.log(data);
         this.broadcaster.broadcast('successNotification', 'Home Text Data saved');
       },
       error: (data) => {
         // console.log(data);
-        console.log('error saving Home data');
+        // console.log('error saving Home data');
+        this.broadcaster.broadcast('errorNotification', 'error saving Home data');
       },
 
     })
@@ -548,7 +549,7 @@ export class OdbAdminDataService {
       return returnStr
     }
 
-    console.log(padZeros(4,12));
+    // console.log(padZeros(4,12));
     
     let data = this.db.database.ref("/").once("value", (snapshot)=>{
       let jsonData = JSON.stringify(snapshot.val());
@@ -563,7 +564,7 @@ export class OdbAdminDataService {
         padZeros(2,date.getHours()) +"h_"+
         padZeros(2,date.getMinutes()) +"m_"+
         padZeros(2,date.getSeconds())+"s.json"
-      console.log(backupFileName)
+      // console.log(backupFileName)
 
       this.saveFirebaseDataToJSON("backup/"+backupFileName,"/", undefined, true);
       

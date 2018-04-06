@@ -32,7 +32,7 @@ export class AdminLanguageBarComponent implements OnInit {
     // this.broadcaster.broadcast("changeLanguage", this.langService.languages[0]);
     this.langService.currentLanguage = this.langService.languages[0];    
 
-    console.log("____admin-language init_____");
+    // console.log("____admin-language init_____");
     
   }
 

@@ -1,11 +1,11 @@
 <app-confirm-modal #testModal [display]=false></app-confirm-modal>
-<app-confirm-modal #overwriteDatabaseModal (onDecide)="overwriteDataBaseModalDecide($event)" [display]=false></app-confirm-modal>
+<!-- <app-confirm-modal #overwriteDatabaseModal (onDecide)="overwriteDataBaseModalDecide($event)" [display]=false></app-confirm-modal> -->
 
 
 <div id="main-wrapper" class="mr-auto p-sm-1 p-md-2 p-xl-4">
 
 
-  <h2>Admin Panel ?</h2>
+  <h2>Admin Panel</h2>
   
 
 <app-admin-collapse collapsed="false" name="siteDataCollapse" label="Site Data">
@@ -42,7 +42,7 @@
 
                         <div #serviceBoxes class="row m-0" *ngIf="homeDbData">
                         
-                          <div *ngFor="let item of homeDbData.serviceBoxes; let id=index;" class="box-data-container col-sm-6  col-xl-3 " id={{id}}>
+                          <div *ngFor="let item of homeDbData['serviceBoxes']; let id=index;" class="box-data-container col-sm-6  col-xl-3 " id={{id}}>
                             <app-admin-multilang-input #serviceBoxesTitleMultiInput inputType="text" id="{{id}}" [attr.data-value]="item.title[langService.currentLanguage]"
                               [values]="item.title" (focusout)="onFocusOut($event)" name="Title">
                             </app-admin-multilang-input>
@@ -95,7 +95,7 @@
                           <div class="btn btn-primary" (click)="onOverwriteDatabaseClick($event)">Charger une Sauvegarde
                             <i class="fas fa-download"></i>
                           </div>
-                          <input class="" type="file" name="load-backup-file" id="backupFile" [value]="" (change)="overwriteDatabaseModal.show('Confirm overwiting data base ?! really  really ????','yes really !','', overwriteDatabase.bind(this),$event,this)">
+                          <input class="" type="file" name="load-backup-file" id="backupFile" [value]="" (change)="onOverwriteDataBaseInputChange($event)">
                           <!--<input class="" type="file" name="load-backup-file" id="backupFile" (change)="onOverwriteDatabaseClick($event)">-->
                         </label>
                       </form>
@@ -121,7 +121,7 @@
   <div class="text-item-container" [attr.data-display-id]="item.displayID" [attr.data-item-key]="item.key" *ngFor="let item of homeTextData | async; let id = index;">
 
     <div class="delete-home-text-button align-self-end ml-auto" (click)="onHomeTextItemDeleteClick($event, item.key)">X</div>
-    <app-admin-text-item #homeTextItem [attr.data-currentlanguage]="currentLanguage"  [bCollapsed]="true" dbKey="{{item.key}}" textType="{{item.type}}" tagName="{{item.tagName}}" [textValues]="item.text" name="item_{{id}}" (EmitValues)="onHomeTextItemEmitValues($event,item.displayID)" ></app-admin-text-item>
+    <app-admin-text-item #homeTextItem [attr.data-currentlanguage]="langService.currentLanguage"  [bCollapsed]="true" dbKey="{{item.key}}" textType="{{item.type}}" tagName="{{item.tagName}}" [textValues]="item.text" name="item_{{id}}" (EmitValues)="onHomeTextItemEmitValues($event,item.displayID)" ></app-admin-text-item>
   
   </div>
 </div>

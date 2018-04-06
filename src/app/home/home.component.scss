@@ -54,6 +54,80 @@
 }
 
 
+#enter-button-wrapper{
+    $pointSize : 10px;
+    $color : white;
+
+    z-index: 10;
+  position : absolute;
+  left : 50%;
+  bottom : 0%;
+  transform : translateX(-50%);
+
+  width : 90px;
+  height : 150px;
+  cursor : pointer;
+  
+  & .arrow-wrapper{
+    position : relative;
+    // border : 1px solid red;
+    width : 50px;
+    margin : 0 auto;
+  }
+  & .point{
+    cursor : pointer;
+    // border : 1px solid red;
+    opacity : 0.0;
+    width : $pointSize;
+    height : $pointSize;
+    background : $color;
+    border-radius : 50%;
+    margin : 10px;
+    margin : 0 auto;
+    margin-top : 10px;
+    animation : pointMove 2s infinite;
+
+    &:nth-child(2){
+      animation-delay : 0.1s;
+    }
+    &:nth-child(3){
+      animation-delay : 0.2s;
+    }  
+    &:nth-child(4){
+      animation-delay : 0.3s;
+    }   
+  }
+
+  & .arrow{
+
+    background : unset;
+    color : $color;
+    font-size : 5em;  
+    // margin : unset;
+    // text-align : center;
+    & svg{
+      position : absolute;
+      top : -200%;
+      left : 50%;
+      transform : translateX(-50%);    
+      // display : block;
+      // margin : 0 auto;
+    }
+  }
+  @keyframes pointMove{
+    0%,100% {
+      transform : translateY(-50px);
+      opacity : 0.0;
+    }
+    30%{
+      transform : translateY(0px);
+      opacity : 1.0;
+    }
+
+  }
+}
+
+
 div{
     transition : all 0.5s;
 }

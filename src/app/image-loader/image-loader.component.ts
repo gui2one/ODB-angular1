@@ -36,7 +36,7 @@ export class ImageLoaderComponent implements OnInit {
   }
 
   load(url) {
-    console.log("URL :: " + url)
+    // console.log("URL :: " + url)
     let root = this;
     var xmlHTTP = new XMLHttpRequest();
     xmlHTTP.open('GET', url, true);
@@ -44,15 +44,15 @@ export class ImageLoaderComponent implements OnInit {
     xmlHTTP.onload = function(e) {
       //console.log(e)
       var blob = new Blob([e.srcElement.response]);
-      console.log("this.response :: " + e.srcElement.response)
+      // console.log("this.response :: " + e.srcElement.response)
       root.imgProto.src = window.URL.createObjectURL(blob);
-      console.log(this.imgProto);
+      // console.log(this.imgProto);
       $('#image-loader-wrapper')[0].appendChild(this.imgProto);
     }.bind(root);
     xmlHTTP.onprogress = function (e) {
       root.imgProto.completedPercentage = (e.loaded / e.total) * 100;
 
-      console.log(root.imgProto.completedPercentage);
+      // console.log(root.imgProto.completedPercentage);
     }.bind(root);
     xmlHTTP.onloadstart = function () {
       root.imgProto.completedPercentage = 0;
