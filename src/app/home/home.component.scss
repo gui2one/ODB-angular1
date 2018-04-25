@@ -38,7 +38,7 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
-        z-index: 1;
+        z-index: 10;
         // background-blend-mode: multiply;
         // background-color: #4b4b4b;  
 
@@ -200,9 +200,10 @@ $font2 : "Roboto";
 #site-wrapper{
 
     // overflow-x: hidden;
-    // overflow-y : scroll;
+    overflow-y : auto;
     opacity : 0.0;
     transition : all 1s ; // opacity initialized in script
+    margin-bottom : 250px;
 }
     
 #about_part{

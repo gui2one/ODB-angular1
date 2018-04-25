@@ -14,6 +14,7 @@
             </div>
           </div>
         </div>
+        <div id="header_anchor"></div>
         <app-header 
           [title]="homeTextData['header__title'][siteLangService.currentLanguage]" 
           [subTitle]="homeTextData['header__subtitle'][siteLangService.currentLanguage]" 
@@ -110,10 +111,13 @@
         <app-header-title name="title_contact" [text]="homeTextData['contact_form_part__title'][siteLangService.currentLanguage]"></app-header-title>
         <app-contact-form [text]="homeTextData['contact_form_part__text'][siteLangService.currentLanguage]"></app-contact-form>
       </div>
-        <app-footer></app-footer>
-
+        
+      <app-footer></app-footer>
   </ng-container> <!-- end if online -->
+
+ 
   </div>
+
   <ng-container *ngIf="!bSiteIsOnline && !adminLoggedIn">
     <div id="modifs-en-cours" class="text-center">
 

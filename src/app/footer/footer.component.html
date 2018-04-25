@@ -1,11 +1,24 @@
-<div id="footer_spacer">
-    <div id="footer" class="d-flex flex-column">
-        <div class="row footer-menu">
-            
+<div id="footer_wrapper" class="w-100 d-flex flex-column">
+        <div class="empty-flex-content"></div>
+        <div class="footer-menu">
+            <ul>
+                <li> 
+                    <a id="footer_menu_top" routerLink="/" class="navbar-brand nav-link" href="#" [innerHTML]="'Haut de Page'"></a>
+                </li>
+                <li>
+                    <a id="footer_menu_accueil" routerLink="/" class="navbar-brand nav-link" href="#" [innerHTML]="'Accueil'"></a>
+                </li>
+                <li>
+                    <a id="footer_menu_contact" routerLink="/" class="navbar-brand nav-link" href="#" [innerHTML]="'Contact'"></a>
+                </li>
+                <li>
+                    <a id="footer_menu_gallery" routerLink="/" class="navbar-brand nav-link" href="#" [innerHTML]="'Photos'"></a>
+                </li>
+            </ul>
         </div>
         <div class="copyright">
-            &copy; L'Oeuf du Breil 2018
+            <span>&copy; L'Oeuf du Breil 2018</span>
         </div>
-    </div>
+  
     
 </div>
