@@ -155,6 +155,11 @@ div{
 #contact_part{
     min-height: 500px;
 }
+#contact_part_2{
+    background-color: $darkColor;
+    color : $lightColor;
+    padding-bottom: 20px;
+}
 
 .presentation-text{
     max-width : 800px;
@@ -236,7 +241,7 @@ div{
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-.cards-container{
+.cards-container, .container{
     max-width: 1600px;
 }
 
@@ -259,10 +264,11 @@ div{
     color:$secondaryColor;
     display:flex;
     justify-content: center;
+    align-items : center;
     flex-direction: column;
     width: 100%;
     padding-left: 20px;
-
+    height : 100%;
     p{
         margin-top : auto;
         margin-bottom : auto;

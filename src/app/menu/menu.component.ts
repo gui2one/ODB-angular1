@@ -32,7 +32,7 @@ export class MenuComponent implements OnInit {
 
     this.myScrollTo($("#headerButton"), $("#header_part"));
     this.myScrollTo($("#homeButton"), $("#about_part"));
-    this.myScrollTo($("#contactButton"), $("#contact_part"));
+    this.myScrollTo($("#contactButton"), $("#contact_part_2"));
     this.myScrollTo($("#galleryButton"),$("#gallery_part"));
     document.onscroll = function (event) {
       let triggerHeight = 100;

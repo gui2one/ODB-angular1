@@ -62,8 +62,23 @@
         
         
         <div id="contact_part_2" class="">
-          <app-header-title class="dark-bg" name="title_ou" [text]="homeTextData['contact_part__title'][siteLangService.currentLanguage]"></app-header-title>
-          <app-google-map></app-google-map>
+          <div class="container">
+              <app-header-title class="dark-bg" name="title_ou" [text]="homeTextData['contact_part__title'][siteLangService.currentLanguage]"></app-header-title>
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <div class="address" [innerHTML]="homeTextData['contact_part__address'][siteLangService.currentLanguage]"> 
+                  </div>
+                </div>
+              <div class="col-md-8">
+
+              <app-google-map></app-google-map>
+              </div>
+
+
+            
+          </div>
+
+        </div>
           <!-- <div class="row no-gutters ">
             <div class="col-md-3 col-lg-6 no-gutters d-none d-md-block">
               
