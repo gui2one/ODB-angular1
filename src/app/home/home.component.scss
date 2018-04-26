@@ -168,19 +168,10 @@ div{
     border-left : 10px solid $lightColor;
     color : $lightColor;
 }
+
+
 .row{
     height:100%;
-}
-
-
-// html, body{
-// 	width: 100%;
-//     height: 100%;
-//     overflow-x: hidden;
-// }
-
-
-.row{
     display:flex;
     // align-items: center;
     flex-grow: 1;
@@ -211,10 +202,6 @@ div{
     // max-width: 1170px;
 }
 
-
-
-
-    
 #about_part{
     position:relative;
     width:100%;
@@ -293,20 +280,6 @@ div{
 
 }
 
-// img {
-//     -webkit-user-select: none;
-//     -khtml-user-select: none;
-//     -moz-user-select: none;
-//     -o-user-select: none;
-//     user-select: none;
-// }
-
-// .card-map{
-//     @extend .card-dark;
-//     // height:inherit;
-//     // width: 100%;
-//     padding:0px;
-// }
 
 .map-div{
     height: auto;    
