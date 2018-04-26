@@ -1,5 +1,5 @@
 <!-- <div id="scroller"> -->
-  <div id="site-wrapper">
+  <div id="site-wrapper" class="">
 
   <ng-container *ngIf="(bSiteIsOnline || adminLoggedIn) && homeTextData">
         <ng-container *ngIf="!bSiteIsOnline"><div id="site_offline">Site Offline</div></ng-container> 
@@ -29,15 +29,15 @@
 
         <app-spacer height="100vh">
   
-          <app-parallax-background imgUrl="assets/img/batiment_pour_spacer.jpg" height="100%" parallaxRatio=0.9></app-parallax-background>
+          <app-parallax-background imgUrl="assets/img/batiment_pour_spacer.jpg" height="100%" parallaxRatio=0.9 overlayColor="orange"></app-parallax-background>
         </app-spacer>
         <div id="about_part" class="">
-          <!--<app-parallax-spacer imgUrl="assets/img/oeufs_2.jpg" height="100%" parallaxRatio="0.5"></app-parallax-spacer>-->
+          <div class="container cards-container">
           <app-header-title name="title_qui" text="{{homeTextData['about_part__title'][siteLangService.currentLanguage]}}"></app-header-title>
 
           <div *ngIf="homeFullData" class="presentation-text" [innerHTML]="homeFullData['presentationText'].text[siteLangService.currentLanguage]" ></div>
           
-          <div class="container cards-container">
+          <div class="">
             <div class="row no-gutters">
                   <ng-container *ngFor="let item of serviceBoxes">
                       
@@ -51,16 +51,20 @@
 
           </div>
         </div>
+        </div>
 
         <app-spacer height="50vh">
         
-          <app-parallax-background imgUrl="assets/img/oeufs_1.jpg" height="100%" parallaxRatio=0.6></app-parallax-background>
+          <app-parallax-background imgUrl="assets/img/oeufs_1.jpg" height="100%" parallaxRatio=0.6 overlayColor="black" overlayOpacity=0.8></app-parallax-background>
         </app-spacer>
 
         <app-clients *ngIf="slidersData" [title]="homeTextData['clients_part__title'][siteLangService.currentLanguage]" [sliderItems]="clientsSlider['slides']"></app-clients>
-        <div id="contact_part" class="">
-
-          <div class="row no-gutters ">
+        
+        
+        <div id="contact_part_2" class="">
+          <app-header-title class="dark-bg" name="title_ou" [text]="homeTextData['contact_part__title'][siteLangService.currentLanguage]"></app-header-title>
+          <app-google-map></app-google-map>
+          <!-- <div class="row no-gutters ">
             <div class="col-md-3 col-lg-6 no-gutters d-none d-md-block">
               
             </div>
@@ -87,14 +91,14 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
 
 
               <app-spacer height="50vh">
               
-                <app-parallax-background imgUrl="assets/img/oeufs_2.jpg" height="100%" parallaxRatio=0.6></app-parallax-background>
+                <app-parallax-background imgUrl="assets/img/oeufs_2.jpg" height="100%" parallaxRatio=0.6 overlayColor="black"></app-parallax-background>
               </app-spacer>
         
 

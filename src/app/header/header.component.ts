@@ -66,6 +66,9 @@ export class HeaderComponent implements OnInit {
     
           let sourceRatio = 1280.0 / 720.0;
           let width = $("#video")[0].offsetWidth;
+
+          // console.log("width -->",width);
+          
           let height = $("#video")[0].offsetHeight;     
           let windowWidth = window.innerWidth;
           let windowHeight = window.innerHeight;

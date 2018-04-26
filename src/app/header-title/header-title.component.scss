@@ -2,10 +2,12 @@
 @import url('https://fonts.googleapis.com/css?family=Lobster|Roboto|Raleway:400,800');
 @import "./node_modules/compass-mixins/lib/compass/css3";
 
-$primaryColor : #333;
+@import "../../assets/sass/_variables.scss";
+
+$primaryColor : $darkColor;
 $primaryFontColor : white;
 
-$secondaryColor :  orange;
+$secondaryColor :  $lightColor;
 $secondaryFontColor: #111;
 
 $font1 : "Raleway", sans-serif;

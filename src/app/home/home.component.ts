@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit , AfterViewInit{
   ngOnInit() {
 
 
-    console.log(this.siteLangService.currentLanguage);
+    //console.log(this.siteLangService.currentLanguage);
     // this.siteUtils.displayScreenInfos();
 
     let sub = this.fireAuth.authState.subscribe(user => {
@@ -74,6 +74,8 @@ export class HomeComponent implements OnInit , AfterViewInit{
 
     this.loadSlidersData();
     
+    
+    
     // this.adminLoggedIn = this.authService.checkLoggedIn();
   }
 
@@ -83,7 +85,8 @@ export class HomeComponent implements OnInit , AfterViewInit{
 
     this.resizeGoogleMap();
     
-
+    // $(window).trigger("resize");
+    
 
   
     
@@ -94,6 +97,8 @@ export class HomeComponent implements OnInit , AfterViewInit{
     $('#site-wrapper').animate({
       opacity: 1.0
     }, 400)
+    $(window).trigger("resize");
+
   }
   myScrollTo(button, anchor) {
     let root = this;
@@ -274,7 +279,8 @@ export class HomeComponent implements OnInit , AfterViewInit{
 
 
   ngAfterViewChecked(){
-    this.resizeGoogleMap();
+    // this.resizeGoogleMap();
+    // window.dispatchEvent(new Event("resize"));
   }
   getData(){
     // return this.db.list('/gallery').valueChanges();

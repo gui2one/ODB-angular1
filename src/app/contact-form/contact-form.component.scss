@@ -1,3 +1,5 @@
+@import "../../assets/sass/_variables.scss";
+
 #wrapper{
     margin-bottom: 30px;
     border-radius : 0px;
@@ -5,12 +7,12 @@
 }
 
 hr{
-    border-color:hsl(39, 100%, 40%);    ;
+    border-color:$lightColor;
 }
 .box {    
 
     position : relative;
-    border : 2px solid rgba(orange, 0.05);
+    border : 2px solid rgba($lightColor, 0.05);
     width:100%;
     height : auto;
     margin : 5px;
@@ -18,13 +20,13 @@ hr{
 input, textarea{
     display:block;
     width:100%;
-    border : 2px solid rgba(orange, 0.05);
+    border : 2px solid rgba($lightColor, 0.05);
     background-color: #333;
     max-width: 300px;
-    color : rgba(orange,1.0);
+    color : rgba($lightColor,1.0);
 
     &::placeholder {
-     color : rgba(orange, 0.5);
+     color : rgba($lightColor, 0.5);
     }
     
     margin-top: 5px;
@@ -36,12 +38,12 @@ textarea{
 }
 form button{
     // width:100%;    
-    background-color : orange;
+    background-color : $lightColor;
     font-weight : bold;
 }
 
 .adresse{
-    color : orange;    
+    color : $lightColor;    
 }
 
 .warning{

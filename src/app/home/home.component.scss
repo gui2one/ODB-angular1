@@ -1,6 +1,25 @@
 @import url('https://fonts.googleapis.com/css?family=Lobster|Roboto|Open+Sans');
 // @import "./node_modules/compass-mixins/lib/compass/css3";
+@import "../../assets/sass/_variables.scss";
 
+
+$primaryColor : white;
+$primaryFontColor : white;
+
+$secondaryColor :  $lightColor;
+$secondaryFontColor: #111;
+
+$font1 : "Open Sans";
+$font2 : "Roboto";
+
+#site-wrapper{
+
+    // overflow-x: hidden;
+    // overflow-y : auto;
+    opacity : 0.0;
+    // transition : all 1s ; // opacity initialized in script
+    margin-bottom : 250px;
+}
 
 
 @supports (-webkit-overflow-scrolling: touch) {
@@ -141,21 +160,13 @@ div{
     max-width : 800px;
     margin : 0 auto;
     padding-left : 20px;
-    border-left : 10px solid orange;
-    color : orange;
+    border-left : 10px solid $lightColor;
+    color : $lightColor;
 }
 .row{
     height:100%;
 }
 
-$primaryColor : #333;
-$primaryFontColor : white;
-
-$secondaryColor :  orange;
-$secondaryFontColor: #111;
-
-$font1 : "Open Sans";
-$font2 : "Roboto";
 
 // html, body{
 // 	width: 100%;
@@ -197,14 +208,7 @@ $font2 : "Roboto";
 
 
 
-#site-wrapper{
 
-    // overflow-x: hidden;
-    overflow-y : auto;
-    opacity : 0.0;
-    transition : all 1s ; // opacity initialized in script
-    margin-bottom : 250px;
-}
     
 #about_part{
     position:relative;
@@ -223,12 +227,12 @@ $font2 : "Roboto";
 }
 
 #gallery_part{
-    background-color: white;
+    background-color: $darkColor;
 }
 
 #contact_form_part{
     position : relative;
-    background: #333;
+    background: $darkColor;
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
@@ -238,7 +242,7 @@ $font2 : "Roboto";
 
 .service-box-container{
 
-    background-color: white;
+    background-color: $primaryColor;
     color : $primaryColor;
     // font-family : $font1;
     font-size: 1.0em;
@@ -312,7 +316,9 @@ agm-map{
 .slider-container{
     padding-top: 50px;
     padding-bottom : 50px;
-    background: inherit;
+    // background: inherit;
+    max-width : 1600px;
+    margin : 0 auto;
 }
 .slider-wrapper{
     box-shadow: 0px 2px 2px rgba(0,0,0,0.5);

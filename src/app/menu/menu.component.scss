@@ -1,9 +1,12 @@
 // @import url('https://fonts.googleapis.com/css?family=Lobster|Roboto|Open+Sans');
 @import url('https://fonts.googleapis.com/css?family=Lobster|Roboto|Raleway:400,800');
-$primaryColor : #333;
+
+@import "../../assets/sass/_variables.scss";
+
+$primaryColor : $darkColor;
 $primaryFontColor : white;
 
-$secondaryColor : #EDB713;
+$secondaryColor : $lightColor;
 $secondaryFontColor: #111;
 
 $font1 : "Open Sans";

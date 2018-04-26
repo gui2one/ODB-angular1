@@ -14,6 +14,9 @@ export class ParallaxBackgroundComponent implements OnInit {
   @Input() height: number = 200;
   @Input() parallaxRatio: number = 0.5;
 
+  @Input() overlayColor : any = "orange";
+  @Input() overlayOpacity : number = 0.5;
+
   wrapper: HTMLElement;
   parent : HTMLElement;
   movingBg: HTMLElement;
@@ -52,7 +55,13 @@ export class ParallaxBackgroundComponent implements OnInit {
   ngAfterViewChecked(){
     let computedHeight = this.elHeight * (1 / this.parallaxRatio);
     $(this.movingBg).css({ height : computedHeight + "px" });
-    $(this.overlay).css({ height : computedHeight + "px" });
+    
+    $(this.overlay).css(
+      { 
+        height : computedHeight + "px",
+        backgroundColor : this.overlayColor,
+        opacity : this.overlayOpacity 
+      });
   }
 
   onScroll(event) {
