@@ -11,15 +11,14 @@ import * as $ from "jquery"
   styleUrls: ['./contact-form.component.scss']
 })
 
-// @NgModule({
-//     // imports: [CommonModule, ContactFormComponentRoutingModule],
-//     // declarations: [ContactFormComponent]
-// })
+
 export class ContactFormComponent implements OnInit {
 
   @ViewChild("captchaInput") captchaInput : ElementRef;
   infosInterval : number;
   captchaImgPath : string;
+  captchaCode : string;
+
   constructor(private element : ElementRef) { 
   }
 
@@ -28,9 +27,6 @@ export class ContactFormComponent implements OnInit {
     // $(this.element.nativeElement.querySelector("#messageSuccess")).css({ opacity: 1.0 })
     // $(this.element.nativeElement.querySelector("#messageSuccess")).text("SUCCESS")
     this.loadCaptcha();
-    
-
-
   }
 
   loadCaptcha(){
@@ -39,9 +35,12 @@ export class ContactFormComponent implements OnInit {
       url:"assets/php/simple-php-captcha/myCaptcha.php",
       contentType: false,
       processData: false,
-      success : (event)=>{
-        console.log(event)
-        this.captchaImgPath = event
+      success : (response)=>{
+        let data = JSON.parse(response)
+        // console.log(data.image_src)
+        this.captchaImgPath = data.image_src
+        // console.log( this.captchaImgPath );
+        this.captchaCode = data.code
       }, error : (err)=>{
         console.log(err)
       }
@@ -50,27 +49,31 @@ export class ContactFormComponent implements OnInit {
   }
 
   verifCaptcha(){
-    let formData = new FormData();
-    formData.append("typed_code", this.captchaInput.nativeElement.value);
-    $.ajax( {
-      method : "POST",
-      data : formData,
-      url:"assets/php/simple-php-captcha/myVerifCaptcha.php",
-      processData: false,
-      contentType: false,
-      dataType : "text",
 
-      success : (response)=>{
-        if(response === "good code"){
-          this.submitContactForm(undefined);
-        }
-        console.log("",response)
+    if (this.captchaCode === this.captchaInput.nativeElement.value){
+      this.submitContactForm(undefined);
+    }
+    // let formData = new FormData();
+    // formData.append("typed_code", this.captchaInput.nativeElement.value);
+    // $.ajax( {
+    //   method : "POST",
+    //   data : formData,
+    //   url:"assets/php/simple-php-captcha/myVerifCaptcha.php",
+    //   processData: false,
+    //   contentType: false,
+    //   dataType : "text",
+
+    //   success : (response)=>{
+    //     if(response === "good code"){
+    //       this.submitContactForm(undefined);
+    //     }
+    //     console.log("",response)
         
-      }, error : (err)=>{
-        console.log(err)
-      }
+    //   }, error : (err)=>{
+    //     console.log(err)
+    //   }
       
-    });
+    // });
   }
   resetFields(){
     // console.log(this.element.nativeElement.querySelector("input[name='firstName']").value);
@@ -78,12 +81,9 @@ export class ContactFormComponent implements OnInit {
     this.element.nativeElement.querySelector("input[name='lastName']").value = "";
     this.element.nativeElement.querySelector("input[name='email']").value = "";
     this.element.nativeElement.querySelector("input[name='company']").value = "";
-    this.element.nativeElement.querySelector("textarea[name='message']").value = "";
-    
+    this.element.nativeElement.querySelector("textarea[name='message']").value = "";    
     this.element.nativeElement.querySelector("button[type='submit']").disabled = true;
 
-
-  
   }
   submitContactForm(event){
 
@@ -112,7 +112,7 @@ export class ContactFormComponent implements OnInit {
             
           })
           infos.text("ERROR")          
-          infos.text("ERROR")          
+          // infos.text("ERROR")          
           // console.log(msg.message);
         }else if(msg.type === "success"){
           infos.removeClass("message-error");
