@@ -8,7 +8,16 @@ print (ROOT_DIR)
 
 ROOT_DIR = os.path.join(ROOT_DIR, 'dist', 'test')
 
-ftp = FTP("net4.cyberdev.fr")
+# sourceFiles = os.walk(ROOT_DIR)
+
+sourceFiles = []
+sourceDirs = []
+for (dirpath, dirnames, filenames) in os.walk(ROOT_DIR):
+    for path in dirpath:
+        print (path)
+
+# ftp = FTP("net4.cyberdev.fr")
+ftp = FTP("127.0.0.1")
 username = raw_input('user name : ')
 
 print(username)
@@ -16,7 +25,7 @@ password = getpass.getpass()
 print(password)
 
 ftp.login(user=username, passwd=password)
-# ftp.login(user="pi", passwd='gui2one')
+
 
 ftp.cwd("/httpdocs/test")
 
@@ -38,9 +47,11 @@ def grab_file(file_name, local_path):
     except(ValueError):
         print("no file with this name")
 
+def putFiles():
     
+    pass
 
-print (ROOT_DIR)
+# print (ROOT_DIR)
 for f_name in files:
     print (f_name)
     # grab_file(f_name, os.path.join(ROOT_DIR,"assets","data"))
