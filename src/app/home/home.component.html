@@ -63,7 +63,7 @@
         
         <div id="contact_part_2" class="">
           <div class="container">
-              <app-header-title class="dark-bg" name="title_ou" [text]="homeTextData['contact_part__title'][siteLangService.currentLanguage]"></app-header-title>
+              <app-header-title class="" name="title_ou" [text]="homeTextData['contact_part__title'][siteLangService.currentLanguage]"></app-header-title>
             <div class="row no-gutters">
               <div class="col-md-4">
                 <div class="address" [innerHTML]="homeTextData['contact_part__address'][siteLangService.currentLanguage]"> 
@@ -79,34 +79,7 @@
           </div>
 
         </div>
-          <!-- <div class="row no-gutters ">
-            <div class="col-md-3 col-lg-6 no-gutters d-none d-md-block">
-              
-            </div>
 
-            <div class="col-md-9 col-lg-6 no-gutters dark-bg">
-            
-              <app-header-title name="title_ou" [text]="homeTextData['contact_part__title'][siteLangService.currentLanguage]"></app-header-title>
-              <div class="">
-                
-                <div class="row no-gutters">
-                  <div class="address" [innerHTML]="homeTextData['contact_part__address'][siteLangService.currentLanguage]">
-                     
-                    
-                  </div>
-                </div>
-                <div class="row no-gutters">
-                  
-                    <div class="map-div">
-                    <agm-map [latitude]="48.225762" [longitude]="-1.707568" [zoom]=17>
-                      <agm-marker [latitude]="48.225762" [longitude]="-1.707568" [label]="{text:'Oeuf du Breil'}" ></agm-marker>
-                    </agm-map>
-                    </div>
-                  
-                </div>
-              </div>
-            </div>
-          </div> -->
         </div>
 
 
@@ -126,9 +99,11 @@
         </div>
       </div>
 
-      <div id="contact_form_part">
+      <div id="contact_form_part" >
+        <div class="container">
         <app-header-title name="title_contact" [text]="homeTextData['contact_form_part__title'][siteLangService.currentLanguage]"></app-header-title>
         <app-contact-form [text]="homeTextData['contact_form_part__text'][siteLangService.currentLanguage]"></app-contact-form>
+      </div>
       </div>
         
       <app-footer></app-footer>

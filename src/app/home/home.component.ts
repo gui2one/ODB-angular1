@@ -149,6 +149,9 @@ export class HomeComponent implements OnInit , AfterViewInit{
 
         this.initHome();
          
+      },
+      error: (data ) => {
+        console.log("error");        
       }
     });
   }

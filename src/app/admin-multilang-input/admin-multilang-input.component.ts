@@ -45,7 +45,7 @@ export class AdminMultilangInputComponent implements OnInit {
     toolbar: [
       {
         name: 'basicstyles',
-        items: ['Bold', 'Italic', 'Source','ShowBlocks',"Link"]
+        items: ['Bold', 'Italic', 'Source','ShowBlocks','Link']
       }
     ],
     tabSpaces : 4,
@@ -165,13 +165,14 @@ export class AdminMultilangInputComponent implements OnInit {
   }
 
   closeTextEditor(event, content) {
-    // console.log(event);
     
+    let changedValue = content.replace(/["]/g,"'");
     this.bEditorOpened = false;
     this.editorValue = content;
     this.CKEditorClose.emit(content);
-    this.values[this.currentLanguage]=content;
+    this.values[this.currentLanguage] = changedValue
     this.emitValues();
+    console.log(changedValue);
   }
   
   
