@@ -140,7 +140,7 @@ let Routes : Routes = [
   ],
   providers: [
     // { provide: APP_BASE_HREF, useValue: '/test/' },
-   { provide: LocationStrategy, useClass: HashLocationStrategy },
+  //  { provide: LocationStrategy, useClass: HashLocationStrategy },
   //  AuthService
   SiteUtilsService,
   SiteLanguagesService
