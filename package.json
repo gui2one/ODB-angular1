@@ -12,13 +12,13 @@
     "e2e": "ng e2e",
     "ngc": "ngc -p tsconfig.json && cp app/* compiled",
     "build": "ng build --prod",
-    "minify": "uglifyjs dist/main.*.bundle.js --screw-ie8 --compress --mangle --output dist/main.*.bundle.min.js",
+
     "gui2one_sync": ".\\gui2one_sync.bat",
     "gui2one_sync-ODB-cyberdev": ".\\gui2one_sync_ODB_cyberdev.bat",
-    "build_prod": "npm run build && npm run minify",
+
     "build-dev": "ng build && npm run gui2one_sync",
-    "build-test-dev": "ng build --watch --base-href /test/ --deploy-url /test/ --output-path ./dist/test",
-    "build-test-prod": "ng build --prod --aot --build-optimizer --base-href /test/ --deploy-url /test/ --output-path ./dist/test",
+    "build-test-dev": "ng build --watch --base-href /preview/ --deploy-url /preview/ --output-path ./dist/preview",
+    "build-test-prod": "ng build --prod --aot --build-optimizer --base-href /preview/ --deploy-url /preview/ --output-path ./dist/preview",
     "build-no-test-dev": "ng build --watch --base-href / --deploy-url / --output-path ./dist",
     "prestart": "ng build --prod  && ngc",
     "start": "ts-node src/server.ts"

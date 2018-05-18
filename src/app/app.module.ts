@@ -56,9 +56,12 @@ import{SiteUtilsService} from './providers/site-utils.service'
 import { SiteLanguagesService } from './providers/site-languages.service';
 import { ClientsComponent } from './clients/clients.component';
 import { GoogleMapComponent } from './google-map/google-map.component';
+
+
 const ngStaticSiteGeneratorModuleOptions: ModuleOptions = {
   openExternalLinksInNewTab: false // Automatically add target="_blank" to external links. Default false.
 };
+
 
 enableProdMode();
 
@@ -87,6 +90,8 @@ let Routes : Routes = [
   {
     path: "admin",
     loadChildren: './admin/admin.module#AdminModule',
+    // loadChildren: () => __adminModule,
+    
     data: { title: "L'Oeuf du Breil" }
   },
   {

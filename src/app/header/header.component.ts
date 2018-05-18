@@ -101,11 +101,14 @@ export class HeaderComponent implements OnInit {
           
 
           if(window.scrollY +200 >  windowHeight){
-            this.video.pause();
+            // this.video.pause();
             
           } else if( window.scrollY < 100 && !this.userPaused){
 
+
+              
             this.video.play();
+
             // this.isPlaying = !this.video.paused
           }
 
