@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import * as $ from 'jquery'
 // import { clearInterval } from 'timers';
 @Component({
@@ -11,6 +11,8 @@ export class HeaderComponent implements OnInit {
   
   backgroundImage = 'assets/img/loeuf_dubreil_FINAL_02.mp4';
   
+  @ViewChild("playBtn") playBtnRef : ElementRef;
+  playBtn : HTMLElement;
 
   @Input() title : string;
   @Input() subTitle : string;
@@ -33,8 +35,10 @@ export class HeaderComponent implements OnInit {
 
     this.isPlaying = !this.video.paused;
 
-    $(document.body).trigger('scroll')
+    // $(document.body).trigger('scroll')
     this.checkInterval = setInterval(this.checkState.bind(this), 500);
+
+
   }
 
   checkState(){
@@ -57,7 +61,11 @@ export class HeaderComponent implements OnInit {
         display : "none"
       })
     }
+    this.playBtn = this.playBtnRef.nativeElement;
 
+    let ev = new Event("click", { 'bubbles': true, 'cancelable': true })
+
+    this.playBtn.dispatchEvent(ev);
 
   }
   ngAfterViewChecked(){

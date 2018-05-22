@@ -11,13 +11,13 @@
       </div>
       
       <div *ngIf="!isPlaying">
-        <div class="video-controls" (click)="onClickPlay($event)">
+        <div #playBtn class="video-controls" (click)="onClickPlay($event)">
           <i id="playButton" class="fas fa-play-circle" ></i>
         </div>
 
       </div>
       <div *ngIf="isPlaying">
-        <div class="video-pause" (click)="onClickPause($event)">
+        <div #pauseBtn class="video-pause" (click)="onClickPause($event)">
           <i id="pauseButton" class="fas fa-pause-circle"></i>
         </div>
 
