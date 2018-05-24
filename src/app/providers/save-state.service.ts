@@ -54,7 +54,8 @@ export class SaveStateService {
       if( this.dataSets.length > 0){
 
         let dataSet = this.dataSets[i];
-
+        console.log(dataSet);
+        
         let comp = saveSet["caller"]
         let viewChildren = comp[saveSet['viewChildren']];
         let params = saveSet['params'];
@@ -65,8 +66,10 @@ export class SaveStateService {
 
             try {              
               item[params[j]] = this.dataSets[i][id][j]
-            } catch (error) {
+              // console.log(item[params[j]]);
               
+            } catch (error) {
+              // console.log(error)
             }
 
 

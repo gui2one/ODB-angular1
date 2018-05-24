@@ -95,8 +95,6 @@ export class AdminPanelComponent implements OnInit {
     public saveStateService : SaveStateService
     
 
-
-    // private resolver: ComponentFactoryResolver
   ) { }
 
   emptySiteData : object = {
@@ -104,18 +102,7 @@ export class AdminPanelComponent implements OnInit {
   };
 
 
-  // emptyTextObject: object = 
-  //   {
-  //     type : "textarea",
-  //     text : ( () =>{
-  //       let obj = {};
-  //       for(let lang in this.langService.languages){
-  //         let curLang = this.langService.languages[lang];
-  //         obj[curLang] = "text_"+curLang;
-  //       } 
-  //       return obj
-  //     })()
-  //   }
+
 
 
   
@@ -193,7 +180,7 @@ export class AdminPanelComponent implements OnInit {
         axis: 'y',
         placeholder: "sortable-highlight",
         start : function(event){
-          // console.log(event);
+          console.log(event);
           
         }, stop : function(event){
           // console.log(event.target.children);
