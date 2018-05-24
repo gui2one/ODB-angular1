@@ -66,7 +66,9 @@ export class HeaderComponent implements OnInit {
     let ev = new Event("click", { 'bubbles': true, 'cancelable': true })
 
     this.playBtn.dispatchEvent(ev);
-
+    this.video.play().then(() =>{
+      console.log("hey !!!!")
+    })
   }
   ngAfterViewChecked(){
     if (!this.bVideoHidden){
