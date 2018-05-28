@@ -67,7 +67,7 @@ export class HeaderComponent implements OnInit {
 
     this.playBtn.dispatchEvent(ev);
     this.video.play().then(() =>{
-      console.log("hey !!!!")
+      // console.log("hey !!!!")
     })
   }
   ngAfterViewChecked(){
@@ -111,7 +111,9 @@ export class HeaderComponent implements OnInit {
           
 
           if(window.scrollY +200 >  windowHeight){
-            // this.video.pause();
+            this.video.pause();
+            // console.log("sdfsdfsdf!!!!!");
+            
             
           } else if( window.scrollY < 100 && !this.userPaused){
 
